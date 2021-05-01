@@ -7,13 +7,15 @@
  * @FilePath: \react-umi\src\layouts\index.tsx
  */
 import React from 'react';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import Header from './component/Header';
 import styles from './index.css';
 
 const BasicLayout: React.FC = props => {
   console.log(props);
   return (
-    <div className={styles.normal}>
-      <h1 className={styles.title}>Welcome to xinwangblog</h1>
+    <div className={styles.layouts}>
+      <Header />
       {props.children}
     </div>
   );
