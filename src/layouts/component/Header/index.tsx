@@ -9,7 +9,7 @@ const Header: React.FC = props => {
     <div className={styles.header}>
       <div className={styles['header-left']}>
         <span className={styles['header-left-text']}>
-          <a className={styles.logo} href="http://www.xinwangblog.cn/">
+          <a className={styles.logo} href="http://49.234.210.170/">
             XINWANGBLOG
           </a>{' '}
         </span>
