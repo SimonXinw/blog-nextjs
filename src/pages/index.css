@@ -7,18 +7,27 @@
 }
 .content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 h1 {
   text-align: center;
-  margin-bottom: 24px;
 }
-ul {
-  width: 200px;
-  margin: auto;
+.author {
+  text-align: center;
+}
+.row {
+  margin: 3px 0;
+}
+.row a {
+  color: #666;
+}
+.row a:hover {
+  text-decoration: underline;
 }
 /* bottom */
-p {
+.page-bottom {
   position: absolute;
   bottom: 12px;
   left: 50%;
@@ -28,7 +37,7 @@ p {
   color: #666;
   transform: translate(-50%);
 }
-p a {
+.page-bottom a {
   color: #666;
 }
 
