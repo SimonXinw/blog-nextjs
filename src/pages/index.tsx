@@ -25,6 +25,7 @@ const BlogUrls = {
   xwFuli: 'http://49.234.210.170/js/复利计算.html',
   xwGundong: 'http://49.234.210.170/js/滚动.html',
   xwVideo: 'http://49.234.210.170/js/video.html',
+  xwHengpin: 'http://49.234.210.170/js/横屏video.html',
 };
 
 export default function() {
@@ -141,6 +142,11 @@ export default function() {
         <p className={styles.row}>
           <a target="_blank" href={BlogUrls.xwVideo} rel="noreferrer">
             video
+          </a>
+        </p>
+        <p className={styles.row}>
+          <a target="_blank" href={BlogUrls.xwHengpin} rel="noreferrer">
+            横屏video
           </a>
         </p>
       </div>
