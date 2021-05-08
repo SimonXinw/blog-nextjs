@@ -2,20 +2,18 @@
   flex: 1;
   width: 100%;
 }
-.title {
-  padding-bottom: 66px;
-}
+
 .content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-h1 {
-  text-align: center;
-}
+
 .author {
-  text-align: center;
+  font-size: 13px;
+  margin-top: 36px;
+  margin-bottom: 16px;
 }
 .row {
   margin: 3px 0;
