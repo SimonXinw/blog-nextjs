@@ -9,13 +9,28 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import Header from './component/Header';
+import Footer from './component/Footer';
 import './index.css';
+
+const mainStyle: any = {
+  flex: 1,
+  overflowY: 'auto',
+};
+const pageStyle: any = {
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+};
 
 const BasicLayout: React.FC = props => {
   return (
-    <div className="page">
+    <div className="page" style={pageStyle}>
       <Header />
-      {props.children}
+      <div className="main" style={mainStyle}>
+        {props.children}
+      </div>
+
+      <Footer />
     </div>
   );
 };

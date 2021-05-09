@@ -82,7 +82,10 @@ body,
 #root {
   height: 100%;
 }
-
+html{
+  font-size: 100px;
+}
 body {
   margin: 0;
+  font-size: 12px;
 }
