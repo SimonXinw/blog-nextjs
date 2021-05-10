@@ -19,8 +19,12 @@
   margin: 3px 0;
 }
 .row a {
+  margin-right: 3px;
   font-size: 16px;
   color: #666;
+}
+.row span {
+  font-size: 16px;
 }
 .row a:hover {
   text-decoration: underline;
