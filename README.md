@@ -1,17 +1,26 @@
-# react-umi
+# 介绍
 
-react umijs 框架写的一些可以联手的demo
+本项目是 react umijs 框架
+
+内容为一些可以练手学习的 js html css demo
+
 
 ### 开发
 
 ```bash
-npm i 
+#克隆仓库
+git clone [http:xxxxx - 本项目http链接]
 
+#安装依赖
+npm install 
+
+#启动服务
 npm run start
 ```
 ### 构建
 
 ```bash
+#开发好了可以构建
 npm run build
 ```
 ### 测试
