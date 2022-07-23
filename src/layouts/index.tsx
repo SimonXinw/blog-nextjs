@@ -10,13 +10,14 @@ import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import Header from './component/Header';
 import styles from './index.css';
-
 const BasicLayout: React.FC = props => {
   console.log(props);
   return (
-    <div className={styles.layouts}>
-      <Header />
-      {props.children}
+    <div className={styles.layout}>
+      <div className={styles['layout-header']}>
+        <Header />
+      </div>
+      <div className={styles['layout-content']}>{props.children}</div>
     </div>
   );
 };

@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-04-29 14:34:24
- * @LastEditTime: 2021-04-30 19:07:48
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \react-umi\.umirc.ts
- */
 import { IConfig } from 'umi-types';
 
 // ref: https://umijs.org/config/
@@ -15,12 +7,12 @@ const config: IConfig = {
     {
       path: '/',
       component: '../layouts/index',
-      routes: [
-        { path: '/', component: '../pages/index' },
-        { path: '/user', component: '../pages/user' },
-      ],
+      routes: [{ path: '/', component: '../pages/index' }],
     },
   ],
+  cssLoaderOptions: {
+    localIdentName: '[local]',
+  },
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     [

@@ -12,7 +12,7 @@ import styles from './index.css';
 export default function() {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>欢迎，来到辛望的轮子贮藏间</h1>
+      <h1 className={styles.title}>欢迎!辛望的轮子贮藏间</h1>
       <div className={styles.content}>
         <ul>
           <li>
@@ -21,12 +21,20 @@ export default function() {
             </a>
           </li>
           <li>
-            <a target="_blank" href="http://www.xinwangblog.cn/js/缓冲运动碰壁.html" rel="noreferrer">
+            <a
+              target="_blank"
+              href="http://www.xinwangblog.cn/js/缓冲运动碰壁.html"
+              rel="noreferrer"
+            >
               缓冲运动碰壁
             </a>
           </li>
           <li>
-            <a target="_blank" href="http://www.xinwangblog.cn/js/回到首页，触底.html" rel="noreferrer">
+            <a
+              target="_blank"
+              href="http://www.xinwangblog.cn/js/回到首页，触底.html"
+              rel="noreferrer"
+            >
               回到首页，触底
             </a>
           </li>
@@ -41,12 +49,20 @@ export default function() {
             </a>
           </li>
           <li>
-            <a target="_blank" href="http://www.xinwangblog.cn/js/拖动元素四边距.html" rel="noreferrer">
+            <a
+              target="_blank"
+              href="http://www.xinwangblog.cn/js/拖动元素四边距.html"
+              rel="noreferrer"
+            >
               拖动元素四边距
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://blog.csdn.net/qq_42877027/article/details/104959320" rel="noreferrer">
+            <a
+              target="_blank"
+              href="https://blog.csdn.net/qq_42877027/article/details/104959320"
+              rel="noreferrer"
+            >
               面向对象封装原生ajax
             </a>
           </li>
@@ -61,22 +77,38 @@ export default function() {
             </a>
           </li>
           <li>
-            <a target="_blank" href="http://www.xinwangblog.cn/js/Magnifier/放大镜.html" rel="noreferrer">
+            <a
+              target="_blank"
+              href="http://www.xinwangblog.cn/js/Magnifier/放大镜.html"
+              rel="noreferrer"
+            >
               京东放大镜效果
             </a>
           </li>
           <li>
-            <a target="_blank" href="https://blog.csdn.net/qq_42877027/article/details/104959936" rel="noreferrer">
+            <a
+              target="_blank"
+              href="https://blog.csdn.net/qq_42877027/article/details/104959936"
+              rel="noreferrer"
+            >
               node.js开启http服务
             </a>
           </li>
           <li>
-            <a target="_blank" href="http://www.xinwangblog.cn/js/购物车/todolist/todo.html" rel="noreferrer">
+            <a
+              target="_blank"
+              href="http://www.xinwangblog.cn/js/购物车/todolist/todo.html"
+              rel="noreferrer"
+            >
               todolist
             </a>
           </li>
           <li>
-            <a target="_blank" href="http://www.xinwangblog.cn/js/懒加载瀑布流/图片懒加载.html" rel="noreferrer">
+            <a
+              target="_blank"
+              href="http://www.xinwangblog.cn/js/懒加载瀑布流/图片懒加载.html"
+              rel="noreferrer"
+            >
               懒加载
             </a>
           </li>
@@ -91,7 +123,11 @@ export default function() {
             </a>
           </li>
           <li>
-            <a target="_blank" href="http://www.xinwangblog.cn/js/懒加载瀑布流/瀑布流.html" rel="noreferrer">
+            <a
+              target="_blank"
+              href="http://www.xinwangblog.cn/js/懒加载瀑布流/瀑布流.html"
+              rel="noreferrer"
+            >
               瀑布流
             </a>
           </li>
