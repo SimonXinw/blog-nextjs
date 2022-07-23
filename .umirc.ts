@@ -10,9 +10,7 @@ const config: IConfig = {
       routes: [{ path: '/', component: '../pages/index' }],
     },
   ],
-  cssLoaderOptions: {
-    localIdentName: '[local]',
-  },
+  sass: {},
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     [

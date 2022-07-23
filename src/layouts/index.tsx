@@ -1,23 +1,35 @@
 /*
  * @Author: your name
  * @Date: 2021-04-29 14:34:24
- * @LastEditTime: 2021-04-30 19:10:31
+ * @LastEditTime: 2021-05-08 17:57:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-umi\src\layouts\index.tsx
  */
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
 import Header from './component/Header';
-import styles from './index.css';
+import Footer from './component/Footer';
+import './index.css';
+
+const mainStyle: any = {
+  flex: 1,
+  overflowY: 'auto',
+};
+const pageStyle: any = {
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
 const BasicLayout: React.FC = props => {
-  console.log(props);
   return (
-    <div className={styles.layout}>
-      <div className={styles['layout-header']}>
-        <Header />
+    <div className="page" style={pageStyle}>
+      <Header />
+      <div className="main" style={mainStyle}>
+        {props.children}
       </div>
-      <div className={styles['layout-content']}>{props.children}</div>
+
+      <Footer />
     </div>
   );
 };

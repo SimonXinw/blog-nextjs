@@ -33,7 +33,7 @@ option {
 }
 html,
 body {
-  font-family: "微软雅黑", Arail, Tabhoma;
+  font-family: '微软雅黑', Arail, Tabhoma;
   font-size: 100%;
   text-align: left;
   width: 100%;
@@ -41,7 +41,8 @@ body {
   color: #333;
 }
 ul,
-ol {
+ol,
+li {
   list-style: none;
 }
 img {
@@ -53,7 +54,7 @@ textarea,
 button {
   outline: 0;
   -webkit-appearance: none;
-  font-family: "微软雅黑", Arail, Tabhoma;
+  font-family: '微软雅黑', Arail, Tabhoma;
 }
 textarea {
   resize: none;
@@ -76,10 +77,15 @@ a {
 
 /* =================== */
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
-
+html{
+  font-size: 100px;
+}
 body {
   margin: 0;
+  font-size: 12px;
 }
