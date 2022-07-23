@@ -1,6 +1,10 @@
 # 介绍
 
-本项目是 react umijs 框架
+技术栈：react umijs  https://umijs.org/docs/tutorials/getting-started
+node: 16.x.x
+版本工具: nvs https://zhuanlan.zhihu.com/p/63403762
+
+
 
 内容为一些可以练手学习的 js html css demo
 
@@ -28,6 +32,7 @@ npm run build
 ```bash
 npm i serve -g
 
+# 这里使用了 nvs 之后，全局模块就会出问题，看上面的 nvs 文章修复
 serve ./dist
 ```
 
