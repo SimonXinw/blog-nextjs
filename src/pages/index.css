@@ -16,15 +16,15 @@
   margin-bottom: 16px;
 }
 .row {
-  margin: 3px 0;
+  margin: 2px 0;
 }
 .row a {
   margin-right: 3px;
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
 }
 .row span {
-  font-size: 16px;
+  font-size: 14px;
 }
 .row a:hover {
   text-decoration: underline;
