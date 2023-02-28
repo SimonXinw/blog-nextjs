@@ -1,169 +1,38 @@
-# 介绍
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-技术栈：react umijs  https://umijs.org/docs/tutorials/getting-started
-node: 16.x.x
-版本工具: nvs https://zhuanlan.zhihu.com/p/63403762
+## Getting Started
 
-
-
-内容为一些可以练手学习的 js html css demo
-
-
-### 开发
+First, run the development server:
 
 ```bash
-#克隆仓库
-git clone [http:xxxxx - 本项目http链接]
-
-#安装依赖
-npm install 
-
-#启动服务
-npm run start
-```
-### 构建
-
-```bash
-#开发好了可以构建
-npm run build
-```
-### 测试
-
-```bash
-npm i serve -g
-
-# 这里使用了 nvs 之后，全局模块就会出问题，看上面的 nvs 文章修复
-serve ./dist
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-# 服务器上线
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 1.登录服务器
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-1. 直接去浏览器页面登录
-2. 通过本地电脑的终端来登录
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-```javascript
-$ ssh root@ip地址
-```
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-3. 通过软件登录(window)
-   MobaXterm
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## 2.配置 Node.js 环境
+## Learn More
 
-1. 选择安装目录：cd /usr/local
-2. 下载 NodeJs linux 包：wget https://npm.taobao.org/mirrors/node/v14.16.1/node-v14.16.1-linux-x64.tar.xz
-   a. NodeJs 淘宝镜像地址：链接
-   b. 更换版本的话，后续步骤中请都注意文件名修改问题
-3. 解压：xz -d node-v14.16.1-linux-x64.tar.xz
-4. 解压：tar -xvf node-v14.16.1-linux-x64.tar
-5. 删除无用的 tar 文件：rm -rf node-v14.16.1-linux-x64.tar
-6. 修改文件名字：mv node-v14.16.1-linux-x64 node
-7. 配置环境变量，使 node 、npm、npx 命令在服务器中全局可用
-   a. 编辑 /etc/profile 文件。使用命令 vim /etc/profile，
-   b. 按下键盘的 [i]
-   c. 按下方向键 [Down] 移动到最后一行，复制 export PATH=\$PATH:/usr/local/node/bin
-   d. 按下键盘的 [Esc]
-   e. 输入键盘的 :wq (英文字符)
-   f. 按下[Enter]
-   g. 使配置生效：source /etc/profile
-   h. 在任意目录下校验 node -v 是否可用
+To learn more about Next.js, take a look at the following resources:
 
-## 3.安装数据库
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### 1.MongoDB
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-安装链接(可以翻译中文): https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/
+## Deploy on Vercel
 
-常用命令
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-```bash
-# 启动服务，一次就好
-$ service mongod start
-
-# 停止服务
-$ service mongod stop
-
-# 查看服务状态
-$ service mongod status
-
-# 重启服务，在修改了一些 mongodb 的配置文件之后，需要重启服务
-$ service mongod restart
-```
-
-本地电脑通过 Robo 3T 来连接服务器的 MongoDB
-
-产生上面这个错误的问题是，服务器上的 MongoDB 有限制, 只允许服务器本地去连接。
-解决这个问题，需要去修改服务器上 MongoDB 的配置文件，
-文件是 /etc/mongod.conf
-
-1. 将 bindIp: 127.0.0.1 修改为 bindIp: 0.0.0.0
-2. 修改了配置文件，需要重启 MongoDB 服务
-
-```
-$ service mongod restart
-```
-
-3. 再通过本地 Robo 3T 试一试即可。
-
-## 4.上线
-
-将本地 Node 项目上传到服务器的某个目录下
-
-1. 将 Node 项目中的 node_modules 文件夹先给删除掉。（不然上传过程将非常缓慢）
-2. 下载一个远程传送文件的 ftp 工具。推荐使用 FileZilla
-3. 在服务器的根目录下创建一个 projects 文件夹
-4. 将项目上传至服务器的 /projects 目录下
-5. 进入到服务器上的项目目录下，去安装依赖项（之前 node_modules 是删除了的）
-   a. 可以先对 npm 做一个换源操作，让安装依赖时更快一些。
-6. 启动项目，通过 node xxx.js 去启动即可
-7. 访问项目，通过服务器公网 ip 地址加对应的端口号就好
-   本地访问：http://localhost:3000
-   上线访问：http://xxip:3000
-
-## 5.使用 PM2 来守护进程
-
-PM2 是 node 进程管理工具，可以利用他来简化很多 node 应用管理的繁琐任务，如性能监控、自动重启、负载均衡等。而且使用非常简单。
-
-目前使用 node server.js 在服务器启动服务之后，不能随意去做其他的操作。
-
-### 1.在服务器上全局安装
-
-```
-npm install pm2 -g
-```
-
-### 2.就可以使用 pm2 start 命令去替换 node 命令
-
-```
-node server.js    =>    pm2 start server.js
-```
-
-### 3. pm2 常用命令
-
-```
-# 启动
-$ pm2 start app_name
-
-# 停止
-$ pm2 stop app_name|app_id
-
-# 重启
-$ pm2 restart app_name|app_id
-
-# 删除
-$ pm2 delete app_name|app_id
-
-# 查看
-$ pm2 list
-
-# 查看日志（输出）
-$ pm2 logs app_name|app_id
-```
-
-## 6.问题汇总
-
-1. 思考，连接数据库时使用的是 localhost:27017 或者 127.0.0.1:27017 这个在上线之后需要修改么？
-
-不需要修改。原因是这个是后端的 js 文件，指的就是服务器上的 MongoDB
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
