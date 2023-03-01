@@ -1,12 +1,14 @@
+import { AjaxOptionTs } from '@/types/utils';
+
 // 生成范围随机整数
 function randomInt(min: number, max: number) {
   return Math.round(Math.random() * (max - min)) + min;
 }
 
 // 随机十六进制颜色值 #e3e3e3
-function randomColor() {
-  var str = "0123456789abcdef"; //0-15
-  var col = "#";
+export function randomColor() {
+  var str = '0123456789abcdef'; //0-15
+  var col = '#';
   for (var i = 0; i < 6; i++) {
     var num = Math.floor(Math.random() * 16);
     col += str[num];
@@ -15,7 +17,7 @@ function randomColor() {
 }
 
 // 缓冲运动
-function bufferMove(dom, target, callback) {
+export function bufferMove(dom: HTMLElement | any, target: any, callback: any) {
   dom.timer = null;
   clearInterval(dom.timer);
   dom.timer = setInterval(function () {
@@ -24,9 +26,9 @@ function bufferMove(dom, target, callback) {
     speedx = speedx > 0 ? Math.ceil(speedx) : Math.floor(speedx); //取整，避免数据丢失
     // 剩余运动量 <= 每次的运动量
     if (Math.abs(target.left - dom.offsetLeft) <= Math.abs(speedx)) {
-      dom.style.left = target.left + "px"; //设置终点
+      dom.style.left = target.left + 'px'; //设置终点
     } else {
-      dom.style.left = dom.offsetLeft + speedx + "px";
+      dom.style.left = dom.offsetLeft + speedx + 'px';
     }
 
     // y轴运动
@@ -34,33 +36,33 @@ function bufferMove(dom, target, callback) {
     speedy = speedy > 0 ? Math.ceil(speedy) : Math.floor(speedy); //取整，避免数据丢失
     // 剩余运动量 <= 每次的运动量
     if (Math.abs(target.top - dom.offsetTop) <= Math.abs(speedy)) {
-      dom.style.top = target.top + "px"; //设置终点
+      dom.style.top = target.top + 'px'; //设置终点
       clearInterval(dom.timer); //运动结束
       callback(); //执行回调函数
     } else {
-      dom.style.top = dom.offsetTop + speedy + "px";
+      dom.style.top = dom.offsetTop + speedy + 'px';
     }
   }, 20);
 }
 
 // 设置cookie函数
-function setCookie(key, val, day) {
+function setCookie(key: string, val: string, day: number) {
   if (day) {
     var d = new Date();
     d.setDate(d.getDate() + day);
-    document.cookie = key + "=" + escape(val) + "; expires=" + d;
+    document.cookie = key + '=' + escape(val) + '; expires=' + d;
   } else {
-    document.cookie = key + "=" + escape(val);
+    document.cookie = key + '=' + escape(val);
   }
 }
 // setCookie('username','xwnb',3);
 
 // 获取cookie
-function getCookie(key) {
-  var arr = document.cookie.split("; ");
+export function getCookie(key: string) {
+  var arr = document.cookie.split('; ');
   for (var i = 0, len = arr.length; i < len; i++) {
-    var arr2 = arr[i].split("="); // ["user1","xiaoming"]
-    if (arr2[0] == key) {
+    var arr2 = arr[i].split('='); // ["user1","xiaoming"]
+    if (arr2[0] === key) {
       return unescape(arr2[1]);
     }
   }
@@ -69,37 +71,30 @@ function getCookie(key) {
 // console.log( getCookie('user2') );
 
 // 删除cookie
-function removeCookie(key) {
-  setCookie(key, "123", -3);
+function removeCookie(key: string) {
+  setCookie(key, '123', -3);
 }
 
 // ajax请求
-function ajax(option) {
+function ajax(option: AjaxOptionTs) {
   // 1.创建XMLHttpRequest对象(数据交互对象)
-  if (window.XMLHttpRequest) {
-    var xhr = new XMLHttpRequest();
-  } else {
-    var xhr = ActiveXObject("Microsoft.XMLHTTP"); //ie 5 6
-  }
+  var xhr: XMLHttpRequest = new XMLHttpRequest();
+
   // data -> 'a=123&b=456'
-  if (option.type == "get" || option.type == "GET") {
+  if (option.type == 'get' || option.type == 'GET') {
     // 2.打开与服务器的链接
-    xhr.open(
-      option.type,
-      option.url + "?" + option.data + "&_=" + new Date().getTime(),
-      true
-    ); //解决缓存
+    xhr.open(option.type, option.url + '?' + option.data + '&_=' + new Date().getTime(), true); //解决缓存
     // 3.发送请求
     xhr.send(null); //get请求
-  } else if (option.type == "post" || option.type == "POST") {
+  } else if (option.type == 'post' || option.type == 'POST') {
     // 2.打开与服务器的链接
     xhr.open(option.type, option.url, true); //解决缓存
     // 模拟表单form的post方式提交数据，在send之前设置
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // 3.发送请求
     xhr.send(option.data); //post请求
   } else {
-    alert("目前只支持get和post请求方式!");
+    alert('目前只支持get和post请求方式!');
   }
 
   // 4.等待服务的响应
@@ -132,7 +127,7 @@ function ajax(option) {
 // });
 
 // 求元素的到body的 左 上 距离
-function offset(obj) {
+function offset(obj: any) {
   var l = 0;
   var t = 0;
   var bdl = obj.clientLeft; //目标元素的左边框宽度
@@ -148,15 +143,14 @@ function offset(obj) {
 
 // 图片懒加载
 // var allImgs = document.querySelectorAll('img');
-function loadImg(dom) {
+function loadImg(dom: any) {
   var scrollT = document.documentElement.scrollTop || document.body.scrollTop;
-  var windowH =
-    document.documentElement.clientHeight || document.body.clientHeight;
+  var windowH = document.documentElement.clientHeight || document.body.clientHeight;
 
   for (var i = 0, len = dom.length; i < len; i++) {
     if (offset(dom[i]).top <= scrollT + windowH - 100) {
       //图片进入可视区
-      dom[i].src = dom[i].getAttribute("data-src"); //设置图片src
+      dom[i].src = dom[i].getAttribute('data-src'); //设置图片src
     }
   }
 }
@@ -166,5 +160,3 @@ function loadImg(dom) {
 //     //  持续执行
 //     // loadImg(allImgs);
 // }
-
-export { randomColor };
