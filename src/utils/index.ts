@@ -1,4 +1,4 @@
-import { AjaxOptionTs } from '@/types/utils';
+import { AjaxOptionTs } from './type';
 
 // 生成范围随机整数
 function randomInt(min: number, max: number) {

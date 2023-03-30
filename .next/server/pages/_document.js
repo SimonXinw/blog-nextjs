@@ -4,7 +4,7 @@ exports.id = 660;
 exports.ids = [660];
 exports.modules = {
 
-/***/ 81:
+/***/ 203:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -20,7 +20,7 @@ var _react = _interopRequireWildcard(__webpack_require__(689));
 var _constants = __webpack_require__(724);
 var _getPageFiles = __webpack_require__(140);
 var _htmlescape = __webpack_require__(716);
-var _isError = _interopRequireDefault(__webpack_require__(676));
+var _isError = _interopRequireDefault(__webpack_require__(987));
 var _htmlContext = __webpack_require__(743);
 class Document extends _react.default.Component {
     /**
@@ -78,6 +78,7 @@ function _interopRequireWildcard(obj) {
     }
     return newObj;
 }
+/** Set of pages that have triggered a large data warning on production mode. */ const largePageDataWarnings = new Set();
 function getDocumentFiles(buildManifest, pathname, inAmpMode) {
     const sharedFiles = (0, _getPageFiles).getPageFiles(buildManifest, "/_app");
     const pageFiles =  true && inAmpMode ? [] : (0, _getPageFiles).getPageFiles(buildManifest, pathname);
@@ -253,15 +254,15 @@ function getHeadHTMLProps(props) {
 function getAmpPath(ampPath, asPath) {
     return ampPath || `${asPath}${asPath.includes("?") ? "&" : "?"}amp=1`;
 }
-function getFontLoaderLinks(fontLoaderManifest, dangerousAsPath, assetPrefix = "") {
-    if (!fontLoaderManifest) {
+function getNextFontLinkTags(nextFontManifest, dangerousAsPath, assetPrefix = "") {
+    if (!nextFontManifest) {
         return {
             preconnect: null,
             preload: null
         };
     }
-    const appFontsEntry = fontLoaderManifest.pages["/_app"];
-    const pageFontsEntry = fontLoaderManifest.pages[dangerousAsPath];
+    const appFontsEntry = nextFontManifest.pages["/_app"];
+    const pageFontsEntry = nextFontManifest.pages[dangerousAsPath];
     const preloadedFontFiles = [
         ...appFontsEntry ?? [],
         ...pageFontsEntry ?? []
@@ -270,7 +271,7 @@ function getFontLoaderLinks(fontLoaderManifest, dangerousAsPath, assetPrefix = "
     const preconnectToSelf = !!(preloadedFontFiles.length === 0 && (appFontsEntry || pageFontsEntry));
     return {
         preconnect: preconnectToSelf ? /*#__PURE__*/ _react.default.createElement("link", {
-            "data-next-font": fontLoaderManifest.pagesUsingSizeAdjust ? "size-adjust" : "",
+            "data-next-font": nextFontManifest.pagesUsingSizeAdjust ? "size-adjust" : "",
             rel: "preconnect",
             href: "/",
             crossOrigin: "anonymous"
@@ -433,7 +434,7 @@ class Head extends _react.default.Component {
         }).filter(Boolean);
     }
     render() {
-        const { styles , ampPath , inAmpMode , hybridAmp , canonicalBase , __NEXT_DATA__ , dangerousAsPath , headTags , unstable_runtimeJS , unstable_JsPreload , disableOptimizedLoading , optimizeCss , optimizeFonts , assetPrefix , fontLoaderManifest  } = this.context;
+        const { styles , ampPath , inAmpMode , hybridAmp , canonicalBase , __NEXT_DATA__ , dangerousAsPath , headTags , unstable_runtimeJS , unstable_JsPreload , disableOptimizedLoading , optimizeCss , optimizeFonts , assetPrefix , nextFontManifest  } = this.context;
         const disableRuntimeJS = unstable_runtimeJS === false;
         const disableJsPreload = unstable_JsPreload === false || !disableOptimizedLoading;
         this.context.docComponentsRendered.Head = true;
@@ -494,7 +495,7 @@ class Head extends _react.default.Component {
             return child;
         });
         const files = getDocumentFiles(this.context.buildManifest, this.context.__NEXT_DATA__.page,  true && inAmpMode);
-        const fontLoaderLinks = getFontLoaderLinks(fontLoaderManifest, dangerousAsPath, assetPrefix);
+        const nextFontLinkTags = getNextFontLinkTags(nextFontManifest, dangerousAsPath, assetPrefix);
         return /*#__PURE__*/ _react.default.createElement("head", Object.assign({}, getHeadHTMLProps(this.props)), this.context.isDevelopment && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("style", {
             "data-next-hide-fouc": true,
             "data-ampdevmode":  true && inAmpMode ? "true" : undefined,
@@ -513,7 +514,7 @@ class Head extends _react.default.Component {
             content: _react.default.Children.count(head || []).toString()
         }), children, optimizeFonts && /*#__PURE__*/ _react.default.createElement("meta", {
             name: "next-font-preconnect"
-        }), fontLoaderLinks.preconnect, fontLoaderLinks.preload,  true && inAmpMode && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("meta", {
+        }), nextFontLinkTags.preconnect, nextFontLinkTags.preload,  true && inAmpMode && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("meta", {
             name: "viewport",
             content: "width=device-width,minimum-scale=1,initial-scale=1"
         }), !hasCanonicalRel && /*#__PURE__*/ _react.default.createElement("link", {
@@ -614,9 +615,15 @@ class NextScript extends _react.default.Component {
         const { __NEXT_DATA__ , largePageDataBytes  } = context;
         try {
             const data = JSON.stringify(__NEXT_DATA__);
+            if (largePageDataWarnings.has(__NEXT_DATA__.page)) {
+                return (0, _htmlescape).htmlEscapeJsonString(data);
+            }
             const bytes =  false ? 0 : Buffer.from(data).byteLength;
-            const prettyBytes = (__webpack_require__(955)/* ["default"] */ .Z);
+            const prettyBytes = (__webpack_require__(856)/* ["default"] */ .Z);
             if (largePageDataBytes && bytes > largePageDataBytes) {
+                if (true) {
+                    largePageDataWarnings.add(__NEXT_DATA__.page);
+                }
                 console.warn(`Warning: data for page "${__NEXT_DATA__.page}"${__NEXT_DATA__.page === context.dangerousAsPath ? "" : ` (path "${context.dangerousAsPath}")`} is ${prettyBytes(bytes)} which exceeds the threshold of ${prettyBytes(largePageDataBytes)}, this amount of data can reduce performance.\nSee more info here: https://nextjs.org/docs/messages/large-page-data`);
             }
             return (0, _htmlescape).htmlEscapeJsonString(data);
@@ -702,7 +709,7 @@ Document[_constants.NEXT_BUILTIN_DOCUMENT] = InternalFunctionDocument; //# sourc
 
 /***/ }),
 
-/***/ 284:
+/***/ 91:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -712,7 +719,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_document__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(859);
+/* harmony import */ var next_document__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(366);
 
 
 function Document() {
@@ -733,7 +740,7 @@ function Document() {
 
 /***/ }),
 
-/***/ 676:
+/***/ 987:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -759,7 +766,7 @@ function getProperError(err) {
 
 /***/ }),
 
-/***/ 955:
+/***/ 856:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -832,10 +839,10 @@ Formats the given number using `Number#toLocaleString`.
 
 /***/ }),
 
-/***/ 859:
+/***/ 366:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports = __webpack_require__(81)
+module.exports = __webpack_require__(203)
 
 
 /***/ }),
@@ -911,7 +918,7 @@ module.exports = require("react/jsx-runtime");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = (__webpack_exec__(284));
+var __webpack_exports__ = (__webpack_exec__(91));
 module.exports = __webpack_exports__;
 
 })();
