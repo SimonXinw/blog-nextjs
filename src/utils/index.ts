@@ -8,11 +8,15 @@ function randomInt(min: number, max: number) {
 // 随机十六进制颜色值 #e3e3e3
 export function randomColor() {
   var str = '0123456789abcdef'; //0-15
+
   var col = '#';
+
   for (var i = 0; i < 6; i++) {
     var num = Math.floor(Math.random() * 16);
+
     col += str[num];
   }
+
   return col;
 }
 
@@ -83,7 +87,11 @@ function ajax(option: AjaxOptionTs) {
   // data -> 'a=123&b=456'
   if (option.type == 'get' || option.type == 'GET') {
     // 2.打开与服务器的链接
-    xhr.open(option.type, option.url + '?' + option.data + '&_=' + new Date().getTime(), true); //解决缓存
+    xhr.open(
+      option.type,
+      option.url + '?' + option.data + '&_=' + new Date().getTime(),
+      true
+    ); //解决缓存
     // 3.发送请求
     xhr.send(null); //get请求
   } else if (option.type == 'post' || option.type == 'POST') {
@@ -145,7 +153,8 @@ function offset(obj: any) {
 // var allImgs = document.querySelectorAll('img');
 function loadImg(dom: any) {
   var scrollT = document.documentElement.scrollTop || document.body.scrollTop;
-  var windowH = document.documentElement.clientHeight || document.body.clientHeight;
+  var windowH =
+    document.documentElement.clientHeight || document.body.clientHeight;
 
   for (var i = 0, len = dom.length; i < len; i++) {
     if (offset(dom[i]).top <= scrollT + windowH - 100) {

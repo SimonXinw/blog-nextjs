@@ -1,0 +1,77 @@
+.container {
+  min-height: 100vh;
+}
+/* 护眼 - 豆沙绿 */
+.theme-green {
+  background-color: rgb(199, 237, 204);
+}
+/* 护眼 - 极光灰 */
+
+.theme-gray {
+  background-color: RGB(234, 234, 239);
+}
+
+.header {
+  height: 60px;
+}
+
+.title {
+  text-align: center;
+}
+
+.author {
+  margin: 12px 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.demo-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  margin-bottom: 8px;
+}
+
+.link a {
+  color: #666;
+  text-decoration: none;
+}
+
+.row a:hover {
+  color: #333;
+  text-decoration: underline;
+}
+/* bottom */
+.govNum {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  font-size: 12px;
+  height: 12px;
+  line-height: 12px;
+  color: #666;
+  margin-left: -50px;
+}
+.govNum a {
+  color: #666;
+}
+
+/* 二维码 */
+.ewm {
+  position: absolute;
+  right: 0;
+  width: 66px;
+  height: 66px;
+  bottom: 66px;
+}
+.ewm img {
+  width: 66px;
+  height: 66px;
+}
