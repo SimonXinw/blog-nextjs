@@ -20,7 +20,7 @@
 }
 
 .author {
-  margin: 12px 0;
+  margin: 10px 0;
 }
 
 .content {
@@ -36,15 +36,16 @@
 }
 
 .link {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .link a {
   color: #666;
   text-decoration: none;
+  font-size: 14px;
 }
 
-.row a:hover {
+.link a:hover {
   color: #333;
   text-decoration: underline;
 }
@@ -67,11 +68,11 @@
 .ewm {
   position: absolute;
   right: 0;
-  width: 66px;
-  height: 66px;
+  width: 100px;
+  height: 100px;
   bottom: 66px;
 }
 .ewm img {
-  width: 66px;
-  height: 66px;
+  width: 100%;
+  height: 100%;
 }
