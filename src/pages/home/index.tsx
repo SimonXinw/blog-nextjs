@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { FireFilled } from "@ant-design/icons";
 import styles from "./Home.module.css";
-import { randomColor } from "@/utils";
+import { randomColor, linearMotion } from "@/utils";
 
 const BlogUrlList = [
   {
@@ -116,6 +116,15 @@ export default function Home() {
     setInterval(() => {
       setAutorColor(randomColor());
     }, 800);
+
+    console.log(">>>>>>>>>>>", document);
+
+    linearMotion({
+      speedX: 3,
+      speedY: 3,
+      ms: 20,
+      className: "." + styles.ewm,
+    });
   }, []);
 
   // =============== dom ==================

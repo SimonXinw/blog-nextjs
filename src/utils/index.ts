@@ -1,4 +1,4 @@
-import { AjaxOptionTs } from './type';
+import { AjaxOptionTs, AutoReboundTs } from "./type";
 
 // 生成范围随机整数
 function randomInt(min: number, max: number) {
@@ -7,9 +7,9 @@ function randomInt(min: number, max: number) {
 
 // 随机十六进制颜色值 #e3e3e3
 export function randomColor() {
-  var str = '0123456789abcdef'; //0-15
+  var str = "0123456789abcdef"; //0-15
 
-  var col = '#';
+  var col = "#";
 
   for (var i = 0; i < 6; i++) {
     var num = Math.floor(Math.random() * 16);
@@ -30,9 +30,9 @@ export function bufferMove(dom: HTMLElement | any, target: any, callback: any) {
     speedx = speedx > 0 ? Math.ceil(speedx) : Math.floor(speedx); //取整，避免数据丢失
     // 剩余运动量 <= 每次的运动量
     if (Math.abs(target.left - dom.offsetLeft) <= Math.abs(speedx)) {
-      dom.style.left = target.left + 'px'; //设置终点
+      dom.style.left = target.left + "px"; //设置终点
     } else {
-      dom.style.left = dom.offsetLeft + speedx + 'px';
+      dom.style.left = dom.offsetLeft + speedx + "px";
     }
 
     // y轴运动
@@ -40,11 +40,11 @@ export function bufferMove(dom: HTMLElement | any, target: any, callback: any) {
     speedy = speedy > 0 ? Math.ceil(speedy) : Math.floor(speedy); //取整，避免数据丢失
     // 剩余运动量 <= 每次的运动量
     if (Math.abs(target.top - dom.offsetTop) <= Math.abs(speedy)) {
-      dom.style.top = target.top + 'px'; //设置终点
+      dom.style.top = target.top + "px"; //设置终点
       clearInterval(dom.timer); //运动结束
       callback(); //执行回调函数
     } else {
-      dom.style.top = dom.offsetTop + speedy + 'px';
+      dom.style.top = dom.offsetTop + speedy + "px";
     }
   }, 20);
 }
@@ -54,18 +54,18 @@ function setCookie(key: string, val: string, day: number) {
   if (day) {
     var d = new Date();
     d.setDate(d.getDate() + day);
-    document.cookie = key + '=' + escape(val) + '; expires=' + d;
+    document.cookie = key + "=" + escape(val) + "; expires=" + d;
   } else {
-    document.cookie = key + '=' + escape(val);
+    document.cookie = key + "=" + escape(val);
   }
 }
 // setCookie('username','xwnb',3);
 
 // 获取cookie
 export function getCookie(key: string) {
-  var arr = document.cookie.split('; ');
+  var arr = document.cookie.split("; ");
   for (var i = 0, len = arr.length; i < len; i++) {
-    var arr2 = arr[i].split('='); // ["user1","xiaoming"]
+    var arr2 = arr[i].split("="); // ["user1","xiaoming"]
     if (arr2[0] === key) {
       return unescape(arr2[1]);
     }
@@ -76,7 +76,7 @@ export function getCookie(key: string) {
 
 // 删除cookie
 function removeCookie(key: string) {
-  setCookie(key, '123', -3);
+  setCookie(key, "123", -3);
 }
 
 // ajax请求
@@ -85,24 +85,24 @@ function ajax(option: AjaxOptionTs) {
   var xhr: XMLHttpRequest = new XMLHttpRequest();
 
   // data -> 'a=123&b=456'
-  if (option.type == 'get' || option.type == 'GET') {
+  if (option.type == "get" || option.type == "GET") {
     // 2.打开与服务器的链接
     xhr.open(
       option.type,
-      option.url + '?' + option.data + '&_=' + new Date().getTime(),
+      option.url + "?" + option.data + "&_=" + new Date().getTime(),
       true
     ); //解决缓存
     // 3.发送请求
     xhr.send(null); //get请求
-  } else if (option.type == 'post' || option.type == 'POST') {
+  } else if (option.type == "post" || option.type == "POST") {
     // 2.打开与服务器的链接
     xhr.open(option.type, option.url, true); //解决缓存
     // 模拟表单form的post方式提交数据，在send之前设置
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // 3.发送请求
     xhr.send(option.data); //post请求
   } else {
-    alert('目前只支持get和post请求方式!');
+    alert("目前只支持get和post请求方式!");
   }
 
   // 4.等待服务的响应
@@ -159,7 +159,7 @@ function loadImg(dom: any) {
   for (var i = 0, len = dom.length; i < len; i++) {
     if (offset(dom[i]).top <= scrollT + windowH - 100) {
       //图片进入可视区
-      dom[i].src = dom[i].getAttribute('data-src'); //设置图片src
+      dom[i].src = dom[i].getAttribute("data-src"); //设置图片src
     }
   }
 }
@@ -169,3 +169,71 @@ function loadImg(dom: any) {
 //     //  持续执行
 //     // loadImg(allImgs);
 // }
+
+// 生成范围随机整数
+function randomPositiveOrNegative(preNum: number) {
+  let newNum = preNum;
+
+  const isPositive = Math.round(Math.random());
+
+  if (isPositive) return newNum;
+
+  return -newNum;
+}
+
+/**
+ * @线性运动
+ */
+export function linearMotion(config: AutoReboundTs) {
+  // let { speedX = 10, speedY = 10, ms = 1, className = "" } = config;
+
+  let speedX = 10,
+    speedY = 10,
+    ms = 10;
+  // className = "";
+
+  var div = document.querySelector(config?.className) as HTMLElement;
+
+  let timer = null;
+
+  //  时刻判断
+  timer = setInterval(() => {
+    var maxY = document.documentElement.clientHeight - div.offsetHeight;
+
+    var maxX = document.documentElement.clientWidth - div.offsetWidth;
+
+    var x = div.offsetLeft;
+
+    var y = div.offsetTop;
+    // 碰撞 - 左
+    if (x <= 0) {
+      speedX = Math.abs(speedX);
+    }
+
+    // 碰撞 - 右
+    if (x >= maxX) {
+      speedX = -Math.abs(speedX);
+    }
+
+    // 碰撞 - 上
+    if (y <= 0) {
+      div.style.backgroundColor = randomColor();
+
+      speedY = Math.abs(speedY);
+    }
+
+    // 碰撞 - 下
+    if (y >= maxY) {
+      div.style.backgroundColor = randomColor();
+
+      speedY = -Math.abs(speedY);
+    }
+
+    //  赋值 最终应该是多少的距离，位置
+    div.style.left = x + speedX + "px";
+
+    div.style.top = y + speedY + "px";
+  }, ms);
+
+  // END
+}
