@@ -59,13 +59,13 @@ function setCookie(key: string, val: string, day: number) {
     document.cookie = key + '=' + escape(val);
   }
 }
-// setCookie('username','xwnb',3);
+// setCookie('username','xw',3);
 
 // 获取cookie
 export function getCookie(key: string) {
   var arr = document.cookie.split('; ');
   for (var i = 0, len = arr.length; i < len; i++) {
-    var arr2 = arr[i].split('='); // ["user1","xiaoming"]
+    var arr2 = arr[i].split('='); // ["user1","xiao ming"]
     if (arr2[0] === key) {
       return unescape(arr2[1]);
     }
@@ -185,60 +185,35 @@ function randomPositiveOrNegative(preNum: number) {
  * @线性运动
  */
 export function linearMotion(config: AutoReboundTs) {
-  if (!window) return false;
-
-  clearInterval(window.linearMotionTimer);
-
   let { speedX = 1, speedY = 1, ms = 10, className = '' } = config;
 
-  var dom = document.querySelector(className) as HTMLElement;
+  let dom = document.querySelector(className) as HTMLElement;
 
-  // Move in and Move
+  clearInterval(dom.linearMotionTimer);
+
+  // Move in 设置
   dom.onmouseover = null;
 
+  // Move in
   dom.onmouseover = () => {
-    clearInterval(window.linearMotionTimer);
+    clearInterval(dom.linearMotionTimer);
   };
 
+  // Move out 清除
   dom.onmouseout = null;
+
+  // Move out
   dom.onmouseout = () => {
-    window.linearMotionTimer = setInterval(() => {
-      var maxY = document.documentElement.clientHeight - dom.offsetHeight;
-
-      var maxX = document.documentElement.clientWidth - dom.offsetWidth;
-
-      var x = dom.offsetLeft;
-
-      var y = dom.offsetTop;
-
-      // 碰撞 - 左
-      if (x < 0) {
-        speedX = Math.abs(speedX);
-      }
-
-      // 碰撞 - 右
-      if (x > maxX) {
-        speedX = -Math.abs(speedX);
-      }
-
-      // 碰撞 - 上
-      if (y < 0) {
-        speedY = Math.abs(speedY);
-      }
-
-      // 碰撞 - 下
-      if (y > maxY) {
-        speedY = -Math.abs(speedY);
-      }
-
-      //  赋值 最终应该是多少的距离，位置
-      dom.style.left = x + speedX + 'px';
-
-      dom.style.top = y + speedY + 'px';
+    dom.linearMotionTimer = setInterval(() => {
+      handleMotion();
     }, ms);
   };
 
-  window.linearMotionTimer = setInterval(() => {
+  dom.linearMotionTimer = setInterval(() => {
+    handleMotion();
+  }, ms);
+
+  const handleMotion = () => {
     var maxY = document.documentElement.clientHeight - dom.offsetHeight;
 
     var maxX = document.documentElement.clientWidth - dom.offsetWidth;
@@ -271,7 +246,7 @@ export function linearMotion(config: AutoReboundTs) {
     dom.style.left = x + speedX + 'px';
 
     dom.style.top = y + speedY + 'px';
-  }, ms);
+  };
 
   // END
 }
