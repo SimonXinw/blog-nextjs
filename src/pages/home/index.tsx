@@ -137,6 +137,23 @@ export default function Home() {
   // =============== dom ==================
   return (
     <div className={`${styles['container']} ${styles['theme-gray']}`}>
+      {/* 视频 */}
+      <div className={styles['video-wrap']}>
+        <video
+          className={styles['bg-video']}
+          loop
+          muted
+          preload="auto"
+          autoPlay
+        >
+          <source src="http://rsqk3u3i8.hn-bkt.clouddn.com/girl_beach.mp4" />
+          <source
+            src="http://rsqk3u3i8.hn-bkt.clouddn.com/girl_beach.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+
       <div className={styles.header}></div>
       <div className={styles.content}>
         <h1 className={styles.title}>藏轮阁</h1>
