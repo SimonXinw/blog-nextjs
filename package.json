@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -- -p 7777",
-    "build": "next build",
+    "clear": "node clear.js",
+    "build": "node clear.js && next build",
+    "export": "next export",
     "start": "next start -- -p 7777",
     "lint": "next lint"
   },
