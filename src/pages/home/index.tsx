@@ -146,9 +146,9 @@ export default function Home() {
           preload="auto"
           autoPlay
         >
-          <source src="http://qiniu.xinwangblog.cn/girl_beach.mp4" />
+          <source src="/videos/video_bg_girl_beach.mp4" />
           <source
-            src="http://qiniu.xinwangblog.cn/girl_beach.mp4"
+            src="/videos/video_bg_girl_beach.mp4"
             type="video/mp4"
           />
         </video>
