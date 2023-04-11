@@ -136,56 +136,71 @@ export default function Home() {
 
   // =============== dom ==================
   return (
-    <div className={`${styles["container"]} ${styles["theme-gray"]}`}>
-      {/* 视频 */}
-      <div className={styles["video-wrap"]}>
-        <video
-          className={styles["bg-video"]}
-          loop
-          muted
-          preload="auto"
-          autoPlay
-        >
-          <source src="/videos/video_bg_girl_beach.mp4" />
-          <source
-            src="/videos/video_bg_girl_beach.mp4"
-            type="video/mp4"
-          />
-        </video>
-      </div>
-      <div className={styles["page"]}>
-        <div className={styles.header}></div>
-        <div className={styles.content}>
-          <h1 className={styles.title}>藏轮阁</h1>
-          <div className={styles.author} style={autorColorStyle}>
-            辛望 (Simon)
+    <>
+      {/* 会隐藏的配置 */}
+      <Head>
+        <title>辛望的博客</title>
+        <meta
+          name="description"
+          content="一个用 Next.js 编写的用来学习 JavaScript 的博客网站。"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web//static/favicons/favicon-32x32.png"
+        ></link>
+      </Head>
+      {/* Page Start */}
+      <div className={`${styles["container"]} ${styles["theme-gray"]}`}>
+        {/* 视频 */}
+        <div className={styles["video-wrap"]}>
+          <video
+            className={styles["bg-video"]}
+            loop
+            muted
+            preload="auto"
+            autoPlay
+          >
+            <source src="/videos/video_bg_girl_beach.mp4" />
+            <source src="/videos/video_bg_girl_beach.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div className={styles["page"]}>
+          <div className={styles.header}></div>
+          <div className={styles.content}>
+            <h1 className={styles.title}>藏轮阁</h1>
+            <div className={styles.author} style={autorColorStyle}>
+              辛望 (Simon)
+            </div>
+            <div className={styles["demo-list"]}>
+              {BlogUrlList.map((item, index) => {
+                return (
+                  <p className={styles.link} key={index}>
+                    <a target="_blank" href={item.url} rel="noreferrer">
+                      {item.name}
+                    </a>
+                    {item.icon}
+                  </p>
+                );
+              })}
+            </div>
           </div>
-          <div className={styles["demo-list"]}>
-            {BlogUrlList.map((item, index) => {
-              return (
-                <p className={styles.link} key={index}>
-                  <a target="_blank" href={item.url} rel="noreferrer">
-                    {item.name}
-                  </a>
-                  {item.icon}
-                </p>
-              );
-            })}
+          <div className={styles.ewm}>
+            <Image
+              className={styles["ewm-img"]}
+              width={100}
+              height={100}
+              alt="二维码"
+              src="data:image/png;base64,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"
+            />
+          </div>
+          <div className={styles.govNum}>
+            <a href="http://beian.miit.gov.cn">赣ICP备20003496号</a>
           </div>
         </div>
-        <div className={styles.ewm}>
-          <Image
-            className={styles["ewm-img"]}
-            width={100}
-            height={100}
-            alt="二维码"
-            src="data:image/png;base64,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"
-          />
-        </div>
-        <div className={styles.govNum}>
-          <a href="http://beian.miit.gov.cn">赣ICP备20003496号</a>
-        </div>
       </div>
-    </div>
+    </>
   );
 }
