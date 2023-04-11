@@ -13,6 +13,19 @@ pnpm build
 pnpm dev
 ```
 
+## 部署服务器
+这里增加了一个 `ecosystem.config.js` pm2 配置文件，脚本可以在这里跑，服务器上面直接 pm2 start 就行
+
+```bash
+pm2 start --watch
+
+# 保存列表
+pm2 save
+
+# 自动启动
+pm2 startup
+```
+
 Open [http://localhost:7777](http://localhost:7777) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
