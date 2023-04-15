@@ -159,8 +159,8 @@ export default function Home() {
             preload="auto"
             autoPlay
           >
-            <source src="/videos/video_bg_girl_16m.mp4" />
-            <source src="/videos/video_bg_girl_16m.mp4" type="video/mp4" />
+            <source src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4" />
+            <source src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4" />
           </video>
         </div>
         <div className={styles["page"]}>
