@@ -139,6 +139,7 @@ export default function Home() {
       clearInterval(colorTimer);
       clearTimeout(pageTimer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onPageClick = () => {
