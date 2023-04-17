@@ -18,6 +18,11 @@ const VideoBG: React.FC<PropsTs> = (props) => {
         autoPlay
       >
         <source src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4" />
+        <source
+          src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4"
+          type="video/mp4"
+        />
+        您的浏览器不支持 HTML5 video 标签。
       </video>
 
       <video
@@ -28,6 +33,11 @@ const VideoBG: React.FC<PropsTs> = (props) => {
         autoPlay
       >
         <source src="https://cdn.xinwangblog.cn/videos/video_bg_road_forest.mp4" />
+        <source
+          src="https://cdn.xinwangblog.cn/videos/video_bg_road_forest.mp4"
+          type="video/mp4"
+        />
+        您的浏览器不支持 HTML5 video 标签。
       </video>
     </div>
   );
