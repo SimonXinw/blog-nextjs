@@ -2,16 +2,20 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    loader: "akamai",
-    path: "",
-  },
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    return {
-      "/": { page: "/" },
-    };
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'p9-juejin.byteimg.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.xinwangblog.cn',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
