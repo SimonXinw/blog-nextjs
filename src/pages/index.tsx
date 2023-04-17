@@ -5,6 +5,7 @@ import { FireFilled } from '@ant-design/icons';
 import styles from '@/styles/Home.module.css';
 import { randomColor, linearMotion } from '@/utils';
 import RecordNumber from '@/components/RecordNumber';
+import VideoBG from '@/components/VideoBG';
 
 const BlogUrlList = [
   {
@@ -158,8 +159,6 @@ export default function Home() {
           name="description"
           content="一个用 Next.js 编写的用来学习 JavaScript 的博客网站。"
         />
-
-
       </Head>
       {/* Page Start */}
       <div
@@ -167,19 +166,7 @@ export default function Home() {
         onClick={onPageClick}
       >
         {/* 视频 */}
-        <div className={styles['video-wrap']}>
-          <video
-            className={styles['bg-video']}
-            loop
-            muted
-            preload="auto"
-            autoPlay
-          >
-            <source src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4" />
-            <source src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4" />
-            、
-          </video>
-        </div>
+        <VideoBG />
         <div className={styles['page']} style={pageStyle}>
           <div className={styles.header}></div>
           <div className={styles.content}>
