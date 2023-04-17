@@ -131,9 +131,12 @@ export default function Home() {
       className: '.' + styles.ewm,
     });
 
+    // 页面自动展示计时器
     const pageTimer: any = setTimeout(() => {
       onPageClick();
     }, 1000);
+
+    // 判断设备类型
 
     // 卸载时
     return () => {

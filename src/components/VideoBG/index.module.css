@@ -19,3 +19,24 @@
 /* .bg-video {
   width: 100%;
 } */
+
+.bg-video-1 {
+  display: none;
+}
+
+.bg-video-2 {
+  display: none;
+}
+
+/* 文档宽度大于1600px时修改背景色 */
+@media screen and (max-width: 1920px) {
+  .bg-video-1 {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .bg-video-2 {
+    display: block;
+  }
+}
