@@ -1,0 +1,12 @@
+/* 二维码 */
+.ewm {
+  position: absolute;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  bottom: 66px;
+}
+.ewm img {
+  width: 100%;
+  height: 100%;
+}
