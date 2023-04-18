@@ -11,7 +11,7 @@ const VideoBG: React.FC<PropsTs> = (props) => {
   return (
     <div className={`${styles['video-wrap']} ${className}`} {...arg}>
       <video
-        className={styles['bg-video-1']}
+        className={`${styles['bg-video-1']} ${styles['bg-video']} `}
         loop
         muted
         preload="auto"
@@ -26,7 +26,7 @@ const VideoBG: React.FC<PropsTs> = (props) => {
       </video>
 
       <video
-        className={styles['bg-video-2']}
+        className={` ${styles['bg-video-2']} ${styles['bg-video']}  `}
         loop
         muted
         preload="auto"

@@ -134,7 +134,7 @@ export default function Home() {
     // 页面自动展示计时器
     const pageTimer: any = setTimeout(() => {
       onPageClick();
-    }, 1000);
+    }, 0);
 
     // 判断设备类型
 
