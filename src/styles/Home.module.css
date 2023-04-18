@@ -1,7 +1,6 @@
 .container {
   position: relative;
   height: 100%;
-
 }
 /* 护眼 - 豆沙绿 */
 .theme-green {
@@ -59,17 +58,4 @@
 .link a:hover {
   color: #333;
   text-decoration: underline;
-}
-
-/* 二维码 */
-.ewm {
-  position: absolute;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  bottom: 66px;
-}
-.ewm img {
-  width: 100%;
-  height: 100%;
 }

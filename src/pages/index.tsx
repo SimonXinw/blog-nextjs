@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css';
 import { randomColor, linearMotion } from '@/utils';
 import RecordNumber from '@/components/RecordNumber';
 import VideoBG from '@/components/VideoBG';
+import EWM from '@/components/EWM';
 
 const BlogUrlList = [
   {
@@ -107,8 +108,6 @@ const BlogUrlList = [
   },
 ];
 
-let outNum = 1;
-
 export default function Home() {
   const [autorColor, setAutorColor] = useState('red');
   const [pageStyle, setPageStyle] = useState({
@@ -124,19 +123,10 @@ export default function Home() {
       setAutorColor(randomColor());
     }, 800);
 
-    linearMotion({
-      speedX: 1,
-      speedY: 1,
-      ms: 20,
-      className: '.' + styles.ewm,
-    });
-
     // 页面自动展示计时器
     const pageTimer: any = setTimeout(() => {
       onPageClick();
     }, 0);
-
-    // 判断设备类型
 
     // 卸载时
     return () => {
@@ -190,15 +180,11 @@ export default function Home() {
               })}
             </div>
           </div>
-          <div className={styles.ewm}>
-            <Image
-              className={styles['ewm-img']}
-              width={100}
-              height={100}
-              alt="二维码"
-              src="https://cdn.xinwangblog.cn/imgs/ewm.png"
-            />
-          </div>
+          <EWM
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          />
           <RecordNumber />
         </div>
       </div>
