@@ -32,9 +32,9 @@ const VideoBG: React.FC<PropsTs> = (props) => {
         preload="auto"
         autoPlay
       >
-        <source src="https://cdn.xinwangblog.cn/videos/video_bg_road_forest.mp4" />
+        <source src="https://cdn.xinwangblog.cn/videos/video_snow_girl_6m.mp4" />
         <source
-          src="https://cdn.xinwangblog.cn/videos/video_bg_road_forest.mp4"
+          src="https://cdn.xinwangblog.cn/videos/video_snow_girl_6m.mp4"
           type="video/mp4"
         />
         您的浏览器不支持 HTML5 video 标签。
