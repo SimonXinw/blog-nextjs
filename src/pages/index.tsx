@@ -106,6 +106,76 @@ const BlogUrlList = [
     url: 'http://49.234.210.170/js/横屏video.html',
     name: '横屏video',
   },
+  {
+    url: 'http://49.234.210.170/js/滚动.html',
+    name: '滚动',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/video.html',
+    name: 'video',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/横屏video.html',
+    name: '横屏video',
+  },
+  {
+    url: 'http://49.234.210.170/js/滚动.html',
+    name: '滚动',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/video.html',
+    name: 'video',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/横屏video.html',
+    name: '横屏video',
+  },
+  {
+    url: 'http://49.234.210.170/js/滚动.html',
+    name: '滚动',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/video.html',
+    name: 'video',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/横屏video.html',
+    name: '横屏video',
+  },
+  {
+    url: 'http://49.234.210.170/js/滚动.html',
+    name: '滚动',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/video.html',
+    name: 'video',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/横屏video.html',
+    name: '横屏video',
+  },
+  {
+    url: 'http://49.234.210.170/js/滚动.html',
+    name: '滚动',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/video.html',
+    name: 'video',
+  },
+
+  {
+    url: 'http://49.234.210.170/js/横屏video.html',
+    name: '横屏video',
+  },
 ];
 
 export default function Home() {
@@ -158,8 +228,6 @@ export default function Home() {
         className={`${styles['container']} ${styles['theme-gray']}`}
         onClick={onPageClick}
       >
-        {/* 视频 */}
-        <VideoBG />
         <div className={styles['page']} style={pageStyle}>
           <div className={styles.header}></div>
           <div className={styles.content}>
@@ -180,13 +248,17 @@ export default function Home() {
               })}
             </div>
           </div>
-          <EWM
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-          <RecordNumber />
         </div>
+        {/* 视频 */}
+        <VideoBG />
+        {/* 二维码 */}
+        <EWM
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        />
+        {/* 备案号 */}
+        <RecordNumber />
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 .container {
-  position: relative;
   height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 /* 护眼 - 豆沙绿 */
 .theme-green {
@@ -16,13 +17,14 @@
   height: 100%;
   width: 100%;
   opacity: 0;
+  overflow-y: auto;
 
   transition: opacity 1s;
   -webkit-transition: opacity 1s;
 }
 
 .header {
-  height: 60px;
+  height: 30px;
 }
 
 .title {
