@@ -3,14 +3,15 @@ import Image from 'next/image';
 import styles from './index.module.css';
 
 import { randomColor, linearMotion } from '@/utils';
+import { AnyRecord } from 'dns';
 
 interface PropsTs {
   className?: string;
-  onClick: (e: MouseEvent) => void;
+  onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 }
 
 const Ewm: React.FC<PropsTs> = (props) => {
-  const { className, ...arg } = props;
+  const { className, onClick, ...arg } = props;
 
   useEffect(() => {
     linearMotion({
@@ -26,7 +27,7 @@ const Ewm: React.FC<PropsTs> = (props) => {
   }, []);
 
   return (
-    <div className={`${styles.ewm} ${className}`} {...arg}>
+    <div className={`${styles.ewm} ${className}`} {...arg} onClick={onClick}>
       <Image
         className={styles['ewm-img']}
         width={100}
