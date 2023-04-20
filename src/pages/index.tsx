@@ -109,8 +109,6 @@ const BlogUrlList = [
 ];
 
 export default function Home() {
-  let num = 1;
-
   const [autorColor, setAutorColor] = useState("red");
   const [pageStyle, setPageStyle] = useState({
     opacity: 0,
