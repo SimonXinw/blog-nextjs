@@ -10,27 +10,27 @@ import EWM from "@/components/EWM";
 
 const BlogUrlList = [
   {
-    url: "http://49.234.210.170/js/缓冲运动.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/缓冲运动.html",
     name: "缓冲运动",
   },
   {
-    url: "http://49.234.210.170/js/缓冲运动碰壁.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/缓冲运动碰壁.html",
     name: "缓冲运动碰壁",
   },
   {
-    url: "http://49.234.210.170/js/回到首页，触底.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/回到首页，触底.html",
     name: "回到首页，触底",
   },
   {
-    url: "http://49.234.210.170/js/轮播图.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/轮播图.html",
     name: "轮播图",
   },
   {
-    url: "http://49.234.210.170/js/碰撞.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/碰撞.html",
     name: "碰撞",
   },
   {
-    url: "http://49.234.210.170/js/拖动元素四边距.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/拖动元素四边距.html",
     name: "拖动元素四边距",
   },
   {
@@ -38,15 +38,15 @@ const BlogUrlList = [
     name: "ajax",
   },
   {
-    url: "http://49.234.210.170/js/cookies.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/cookies.html",
     name: "cookies",
   },
   {
-    url: "http://49.234.210.170/js/jsonp.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/jsonp.html",
     name: "jsonp",
   },
   {
-    url: "http://49.234.210.170/js/Magnifier/放大镜.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/Magnifier/放大镜.html",
     name: "放大镜",
   },
   {
@@ -54,56 +54,56 @@ const BlogUrlList = [
     name: "node开启Http",
   },
   {
-    url: "http://49.234.210.170/js/购物车/todopst/todo.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/购物车/todopst/todo.html",
     name: "todopst",
   },
   {
-    url: "http://49.234.210.170/js/懒加载瀑布流/图片懒加载.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/懒加载瀑布流/图片懒加载.html",
     name: "图片懒加载",
   },
   {
-    url: "http://49.234.210.170/js/日历.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/日历.html",
     name: "日历",
   },
   {
-    url: "http://49.234.210.170/js/评分效果.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/评分效果.html",
     name: "评分效果",
   },
   {
-    url: "http://49.234.210.170/js/懒加载瀑布流/瀑布流.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/懒加载瀑布流/瀑布流.html",
     name: "瀑布流",
   },
   {
-    url: "http://49.234.210.170/js/mobileApi.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/mobileApi.html",
     name: "mobileApi",
   },
   {
-    url: "http://49.234.210.170/js/排序算法.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/排序算法.html",
     name: "排序算法",
     icon: <FireFilled style={{ color: "#FF4500" }} />,
   },
   {
-    url: "http://49.234.210.170/js/双飞翼布局.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/双飞翼布局.html",
     name: "双飞翼布局",
   },
   {
-    url: "http://49.234.210.170/js/复利计算.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/复利计算.html",
     name: "复利计算",
     icon: <FireFilled style={{ color: "#FF4500" }} />,
   },
 
   {
-    url: "http://49.234.210.170/js/滚动.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/滚动.html",
     name: "滚动",
   },
 
   {
-    url: "http://49.234.210.170/js/video.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/video.html",
     name: "video",
   },
 
   {
-    url: "http://49.234.210.170/js/横屏video.html",
+    url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/横屏video.html",
     name: "横屏video",
   },
 ];
