@@ -2,17 +2,10 @@ import axios from 'axios';
 
 let baseURL = '/api';
 
-// if (process.env.NODE_ENV === 'production') {
-//   baseURL = 'https://xinwangblog.cn';
-// } else {
-//   baseURL = 'http://localhost:7777';
-// }
-
 // 请求拦截器
 axios.interceptors.request.use(
   (config) => {
     console.log(config);
-    config.headers['Accept'] = 'application/vnd.dpexpo.v1+json';
     config.baseURL = baseURL;
     config.timeout = 20000;
     config.withCredentials = true;
@@ -34,7 +27,7 @@ axios.interceptors.response.use(
 );
 
 // axios的get请求
-export function get({ url, params = {} }: any) {
+export function get({ url, params = {} }: { url: string; params: any }) {
   return new Promise((resolve, reject) => {
     axios
       .get(url, {
@@ -51,7 +44,7 @@ export function get({ url, params = {} }: any) {
 }
 
 // axios的post请求
-export function post({ url, data }: any) {
+export function post({ url, data }: { url: string; data: any }) {
   return new Promise((resolve, reject) => {
     axios({
       url,
