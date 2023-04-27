@@ -31,6 +31,7 @@
   display: none;
 }
 
+/* 文档宽度大于1600px时修改背景色 */
 @media screen and (max-width: 1080px) {
   .bg-video-2 {
     display: inline-block;

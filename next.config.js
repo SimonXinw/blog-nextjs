@@ -4,16 +4,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'p9-juejin.byteimg.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.xinwangblog.cn',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "cdn.xinwangblog.cn",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
