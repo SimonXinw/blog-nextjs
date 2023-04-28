@@ -1,0 +1,9 @@
+/*  header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: 52px;
+  margin: 0 20px;
+}
