@@ -8,7 +8,6 @@ const PageHeader: React.FC = () => {
   return (
     <nav className={styles['header']}>
       <Space size={[24, 0]} wrap align="center">
-        <BarChartOutlined style={{ fontSize: '24px' }} />
         <Link href="/admin/craw">
           <BugOutlined style={{ fontSize: '24px' }} />
         </Link>
