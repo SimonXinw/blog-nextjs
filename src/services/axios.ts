@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { notification } from 'antd';
 
 let baseURL = '/api';
 
@@ -19,7 +20,13 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
   (response) => {
-    return response;
+    const { status } = response;
+
+    if (status === 500) {
+      return Promise.reject({});
+    }
+
+    return response.data;
   },
   (error) => {
     return Promise.reject(error);

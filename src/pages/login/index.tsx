@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { PageHeader } from '@/components';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Radio, Checkbox } from 'antd';
+import { Button, Form, Input, Radio, Checkbox, message } from 'antd';
+import Router from 'next/router';
+import * as Service from '@/services';
 import styles from './index.module.css';
 
 const Login: React.FC = () => {
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [loginType, setLoginType] = useState('account');
+  const [submitLoading, setSubmitLoading] = useState(false);
 
+  /**
+   * @验证信息
+   */
   const validateMessages = {
     required: '${label} is required!',
     types: {
@@ -18,35 +26,76 @@ const Login: React.FC = () => {
     },
   };
 
+  /**
+   * @Form 布局
+   */
   const layout = {
     labelCol: { span: 5 },
     wrapperCol: { span: 19 },
   };
 
+  /**
+   * @FormItem 布局
+   */
   const itemLayout = {
     wrapperCol: { span: 0, offset: 5 },
   };
 
-  const onFinish = (values: any) => {
+  /**
+   * @提交
+   */
+  const onSubmit = async (values: any) => {
+    setSubmitLoading(true);
     console.log('Received values of form: ', values);
+
+    try {
+      const params = {
+        ...values,
+      };
+
+      const res: any = await Service.creatUser(params);
+
+      console.log('res >>>>>>>>>', res);
+
+      if (res?.success) {
+        Router.push('/admin');
+
+        messageApi.open({
+          type: 'success',
+          content: '登陆成功!',
+        });
+        setSubmitLoading(false);
+      }
+    } catch (e) {
+      setSubmitLoading(false);
+      console.warn(e);
+    }
+  };
+
+  /**
+   * @表单字段改变
+   */
+  const onFormValuesChange = ({ loginType }: any) => {
+    setLoginType(loginType);
   };
 
   return (
     <div className={styles['login-page']}>
+      {contextHolder}
       <PageHeader></PageHeader>
       <div className={styles['form-wrap']}>
         <Form
           {...layout}
+          initialValues={{ loginType: 'account', remember: true }}
+          style={{ width: 460 }}
           form={form}
-          onValuesChange={() => {}}
           name="normal_login"
           className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          style={{ width: 460 }}
+          onValuesChange={onFormValuesChange}
           validateMessages={validateMessages}
+          onFinish={onSubmit}
         >
-          <Form.Item {...itemLayout}>
+          <Form.Item {...itemLayout} name="loginType">
             <Radio.Group>
               <Radio.Button value="account">账号</Radio.Button>
               <Radio.Button value="iphoneNumber">手机号</Radio.Button>
@@ -62,7 +111,11 @@ const Login: React.FC = () => {
               placeholder="Username"
             />
           </Form.Item>
-          <Form.Item label="密码" name="password">
+          <Form.Item
+            label="密码"
+            name="password"
+            rules={[{ required: true, message: 'Please input your Password!' }]}
+          >
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
@@ -81,14 +134,17 @@ const Login: React.FC = () => {
 
           <Form.Item {...itemLayout}>
             <Button
+              loading={submitLoading}
               type="primary"
               htmlType="submit"
-              className="login-form-button"
               style={{ width: '100%' }}
             >
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or
+            <a style={{ marginLeft: 4, color: '#1677ff' }} href="">
+              register now!
+            </a>
           </Form.Item>
         </Form>
       </div>
