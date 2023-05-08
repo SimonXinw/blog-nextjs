@@ -11,8 +11,9 @@ const PageHeader: React.FC = () => {
         <Link href="/admin/craw">
           <BugOutlined style={{ fontSize: '24px' }} />
         </Link>
-        <Link href="/admin">
-          <UserOutlined style={{ fontSize: '24px' }} />
+        <Link href="/login">
+          <UserOutlined style={{ fontSize: '24px', marginRight: 8 }} />
+          登陆
         </Link>
       </Space>
     </nav>

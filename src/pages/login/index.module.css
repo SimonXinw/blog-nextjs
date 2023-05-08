@@ -1,0 +1,6 @@
+.form-wrap {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 120px;
+}

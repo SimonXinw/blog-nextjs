@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { FireFilled } from '@ant-design/icons';
-import styles from './Home.module.css';
 import { randomColor } from '@/utils';
 import { RecordNumber, PageHeader, EWM, VideoBG } from '@/components';
+import styles from './Home.module.css';
 
 const BlogUrlList = [
   {
