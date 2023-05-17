@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
-import { PageHeader } from '@/components';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Radio, Checkbox, message } from 'antd';
-import Router from 'next/router';
-import * as Service from '@/services';
-import styles from './index.module.css';
+import React, { useState } from "react";
+import { PageHeader } from "@/components";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Radio, Checkbox, message } from "antd";
+import Router from "next/router";
+import { ImageBg } from "@/components";
+import * as Service from "@/services";
+import styles from "./index.module.css";
 
 const Login: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-  const [loginType, setLoginType] = useState('account');
+  const [loginType, setLoginType] = useState("account");
   const [submitLoading, setSubmitLoading] = useState(false);
 
   /**
    * @验证信息
    */
   const validateMessages = {
-    required: '${label} is required!',
+    required: "${label} is required!",
     types: {
-      email: '${label} is not a valid email!',
-      number: '${label} is not a valid number!',
+      email: "${label} is not a valid email!",
+      number: "${label} is not a valid number!",
     },
     number: {
-      range: '${label} must be between ${min} and ${max}',
+      range: "${label} must be between ${min} and ${max}",
     },
   };
 
@@ -46,7 +47,6 @@ const Login: React.FC = () => {
    */
   const onSubmit = async (values: any) => {
     setSubmitLoading(true);
-    console.log('Received values of form: ', values);
 
     try {
       const params = {
@@ -55,14 +55,14 @@ const Login: React.FC = () => {
 
       const res: any = await Service.creatUser(params);
 
-      console.log('res >>>>>>>>>', res);
+      console.log("res >>>>>>>>>", res);
 
       if (res?.success) {
-        Router.push('/admin');
+        Router.push("/admin");
 
         messageApi.open({
-          type: 'success',
-          content: '登陆成功!',
+          type: "success",
+          content: "登陆成功!",
         });
         setSubmitLoading(false);
       }
@@ -80,13 +80,14 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className={styles['login-page']}>
+    <div className={styles["login-page"]}>
+      <ImageBg />
       {contextHolder}
       <PageHeader></PageHeader>
-      <div className={styles['form-wrap']}>
+      <div className={styles["form-wrap"]}>
         <Form
           {...layout}
-          initialValues={{ loginType: 'account', remember: true }}
+          initialValues={{ loginType: "account", remember: true }}
           style={{ width: 460 }}
           form={form}
           name="normal_login"
@@ -104,7 +105,7 @@ const Login: React.FC = () => {
           <Form.Item
             name="username"
             label="用户名"
-            rules={[{ required: true, message: 'Please input your Username!' }]}
+            rules={[{ required: true, message: "Please input your Username!" }]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
@@ -114,7 +115,7 @@ const Login: React.FC = () => {
           <Form.Item
             label="密码"
             name="password"
-            rules={[{ required: true, message: 'Please input your Password!' }]}
+            rules={[{ required: true, message: "Please input your Password!" }]}
           >
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
@@ -137,12 +138,12 @@ const Login: React.FC = () => {
               loading={submitLoading}
               type="primary"
               htmlType="submit"
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             >
               Log in
             </Button>
             Or
-            <a style={{ marginLeft: 4, color: '#1677ff' }} href="">
+            <a style={{ marginLeft: 4, color: "#1677ff" }} href="">
               register now!
             </a>
           </Form.Item>

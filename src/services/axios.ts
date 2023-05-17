@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { notification } from 'antd';
+import axios from "axios";
+import { notification } from "antd";
 
-let baseURL = '/api';
+let baseURL = "/api";
 
 // 请求拦截器
 axios.interceptors.request.use(
   (config) => {
-    console.log(config);
+    // console.log(config);
     config.baseURL = baseURL;
     config.timeout = 20000;
     config.withCredentials = true;
@@ -44,7 +44,7 @@ export function get({ url, params = {} }: { url: string; params: any }) {
         resolve(res.data);
       })
       .catch((err) => {
-        console.log(err, '1');
+        console.log(err, "1");
         reject(err);
       });
   });
@@ -55,7 +55,7 @@ export function post({ url, data }: { url: string; data: any }) {
   return new Promise((resolve, reject) => {
     axios({
       url,
-      method: 'post',
+      method: "post",
       data,
     })
       .then((res) => {
