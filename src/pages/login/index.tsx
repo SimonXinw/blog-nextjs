@@ -12,7 +12,6 @@ const Login: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [loginType, setLoginType] = useState("account");
-  const [submitLoading, setSubmitLoading] = useState(false);
 
   /**
    * @验证信息
@@ -43,35 +42,19 @@ const Login: React.FC = () => {
     wrapperCol: { span: 0, offset: 5 },
   };
 
-  /**
-   * @提交
-   */
-  const onSubmit = async (values: any) => {
-    setSubmitLoading(true);
+  const { loading, run } = useRequest(services.creatUser, {
+    manual: true,
+    onSuccess: (res: any) => {
+      if (!res?.success) return;
 
-    try {
-      const params = {
-        ...values,
-      };
+      Router.push("/admin");
 
-      const res: any = await services.creatUser(params);
-
-      console.log("res >>>>>>>>>", res);
-
-      if (res?.success) {
-        Router.push("/admin");
-
-        messageApi.open({
-          type: "success",
-          content: "登陆成功!",
-        });
-      }
-    } catch (e) {
-      console.warn(e);
-    } finally {
-      setSubmitLoading(false);
-    }
-  };
+      messageApi.open({
+        type: "success",
+        content: "登陆成功!",
+      });
+    },
+  });
 
   /**
    * @表单字段改变
@@ -95,7 +78,7 @@ const Login: React.FC = () => {
           className="login-form"
           onValuesChange={onFormValuesChange}
           validateMessages={validateMessages}
-          onFinish={onSubmit}
+          onFinish={run}
         >
           <Form.Item {...itemLayout} name="loginType">
             <Radio.Group>
@@ -136,7 +119,7 @@ const Login: React.FC = () => {
 
           <Form.Item {...itemLayout}>
             <Button
-              loading={submitLoading}
+              loading={loading}
               type="primary"
               htmlType="submit"
               style={{ width: "100%" }}
