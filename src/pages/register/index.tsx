@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useRequest } from "ahooks";
 import { PageHeader } from "@/components";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Radio, Checkbox, message } from "antd";
+import { Button, Form, Input, Radio, message } from "antd";
 import Router from "next/router";
 import { ImageBg } from "@/components";
 import * as services from "@/services";
 import styles from "./index.module.css";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [loginType, setLoginType] = useState("account");
@@ -42,7 +42,7 @@ const Login: React.FC = () => {
     wrapperCol: { span: 0, offset: 5 },
   };
 
-  const { loading, run } = useRequest(services.login, {
+  const { loading, run } = useRequest(services.register, {
     manual: true,
     onSuccess: (res: any) => {
       if (!res?.success) return;
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
 
       messageApi.open({
         type: "success",
-        content: "登陆成功!",
+        content: "注册成功!",
       });
     },
   });
@@ -107,15 +107,6 @@ const Login: React.FC = () => {
               placeholder="Password"
             />
           </Form.Item>
-          <Form.Item {...itemLayout}>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-          </Form.Item>
 
           <Form.Item {...itemLayout}>
             <Button
@@ -124,12 +115,8 @@ const Login: React.FC = () => {
               htmlType="submit"
               style={{ width: "100%" }}
             >
-              Log in
+              Register
             </Button>
-            Or
-            <a style={{ marginLeft: 4, color: "#1677ff" }} href="/register">
-              register now!
-            </a>
           </Form.Item>
         </Form>
       </div>
@@ -137,4 +124,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;
