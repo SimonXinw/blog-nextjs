@@ -81,7 +81,7 @@ export default function handler(
       );
   }
 
-  const hasUser = !!userJson.list.find(
+  const hasUser = !!userJson.data.find(
     (item: any) => item.password === password && item.username === username
   );
 

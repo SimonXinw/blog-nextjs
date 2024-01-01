@@ -4,6 +4,7 @@ import { PageHeader } from "@/components";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Radio, Checkbox, message } from "antd";
 import Router from "next/router";
+import Link from "next/link";
 import { ImageBg } from "@/components";
 import * as services from "@/services";
 import styles from "./index.module.css";
@@ -45,7 +46,12 @@ const Login: React.FC = () => {
   const { loading, run } = useRequest(services.login, {
     manual: true,
     onSuccess: (res: any) => {
-      if (!res?.success) return;
+      if (!res?.success) {
+        return messageApi.open({
+          type: "error",
+          content: res?.msg,
+        });
+      }
 
       Router.push("/admin");
 
@@ -127,9 +133,9 @@ const Login: React.FC = () => {
               Log in
             </Button>
             Or
-            <a style={{ marginLeft: 4, color: "#1677ff" }} href="/register">
+            <Link style={{ marginLeft: 4, color: "#1677ff" }} href="/register">
               register now!
-            </a>
+            </Link>
           </Form.Item>
         </Form>
       </div>

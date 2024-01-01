@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
-import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user/login";
+import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
 import userJson from "../../../constants/api/user.json";
 import cookie from "cookie";
 
@@ -11,6 +11,7 @@ type CreateResponseType = {
   code?: number;
   success?: boolean;
   data?: any;
+  msg?: string;
 };
 
 /**
@@ -18,12 +19,13 @@ type CreateResponseType = {
  */
 
 const createResponse = (params?: CreateResponseType) => {
-  const { code = 200, data = null, success = true } = params || {};
+  const { code = 200, data = null, success = true, msg } = params || {};
 
   return {
     code: code,
     success,
-    data: data,
+    data,
+    msg,
   };
 };
 
@@ -78,7 +80,7 @@ export default function handler(
       `${TOKEN_KEY_NAME}=${authData.token}; path=/; HttpOnly`
     );
 
-    return res.status(200).json(createResponse({ data: "Token 已经更新" }));
+    return res.status(200).json(createResponse({ msg: "Token 已经更新" }));
   }
 
   const { username, password } = query;
@@ -88,18 +90,18 @@ export default function handler(
     return res
       .status(200)
       .json(
-        createResponse({ success: false, data: "Error: 没有输入账号密码" })
+        createResponse({ success: false, msg: "Error: 没有输入账号密码" })
       );
   }
 
-  const hasUser = !!userJson.list.find(
+  const hasUser = !!userJson.data.find(
     (item: any) => item.password === password && item.username === username
   );
 
   if (!hasUser) {
     return res
       .status(200)
-      .json(createResponse({ success: false, data: "Error: 账号密码错误" }));
+      .json(createResponse({ success: false, msg: "Error: 账号密码错误" }));
   }
 
   // const userJsonProxy: any = userJson;
