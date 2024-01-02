@@ -35,17 +35,17 @@ type GithubIssueItem = {
 
 const columns: ProColumns<GithubIssueItem>[] = [
   {
+    title: "No.",
     dataIndex: "index",
     valueType: "indexBorder",
-    width: 48,
   },
   {
-    dataIndex: "password",
-    width: 120,
-  },
-  {
+    title: "账号",
     dataIndex: "username",
-    width: 120,
+  },
+  {
+    title: "密码",
+    dataIndex: "password",
   },
 
   {
@@ -96,7 +96,7 @@ const ListPage = () => {
       editable={{
         type: "multiple",
       }}
-      columnsState={{
+      columnsState={{f
         persistenceKey: "pro-table-singe-demos",
         persistenceType: "localStorage",
         defaultValue: {

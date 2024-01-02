@@ -1,38 +1,14 @@
 import React from "react";
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
+import type { AppProps } from "next/app";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-import AccountManage from "./my/account";
+import { useRouter } from "next/router";
+import { HeadNavConfig, SideMenuConfig } from "./menuConfig";
 
 const { Header, Content, Sider } = Layout;
 
-const HeadNavConfig: MenuProps["items"] = [
-  {
-    key: "nav1",
-    label: `Home`,
-  },
-];
+const AdminLayout: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const router = useRouter();
 
-const SideMenuConfig: MenuProps["items"] = [
-  {
-    key: `Account`,
-    icon: React.createElement(UserOutlined),
-    label: `Account`,
-
-    children: [
-      {
-        key: 1,
-        label: `Manage`,
-      },
-    ],
-  },
-];
-
-const App: React.FC = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -44,8 +20,9 @@ const App: React.FC = () => {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["2"]}
           items={HeadNavConfig}
+          defaultSelectedKeys={[router.pathname]}
+          onClick={(e) => router.push(e.key)}
         />
       </Header>
       <Layout>
@@ -72,7 +49,7 @@ const App: React.FC = () => {
               background: colorBgContainer,
             }}
           >
-            <AccountManage />
+            <Component {...pageProps} />
           </Content>
         </Layout>
       </Layout>
@@ -80,4 +57,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default AdminLayout;

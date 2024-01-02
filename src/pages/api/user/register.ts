@@ -93,7 +93,7 @@ export default function handler(
 
   const userJsonProxy: any = userJson;
 
-  userJsonProxy.list.push(query); // 假设 userData 是一个数组
+  userJsonProxy.data.push(query); // 假设 userData 是一个数组
 
   // 将 JSON 对象转换为字符串
   const userJsonString = JSON.stringify(userJsonProxy);

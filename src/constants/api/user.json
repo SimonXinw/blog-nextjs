@@ -1,17 +1,1 @@
-{
-    "data": [
-        {
-            "id": 1,
-            "loginType": "account",
-            "username": "123",
-            "password": "123",
-            "remember": "true"
-        },
-        {
-            "id": 2,
-            "loginType": "account",
-            "username": "1",
-            "password": "1"
-        }
-    ]
-}
+{"data":[{"id":1,"loginType":"account","username":"123","password":"123","remember":"true"},{"id":2,"loginType":"account","username":"1","password":"1"},{"loginType":"account","username":"xw","password":"xw"}]}
