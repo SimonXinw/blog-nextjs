@@ -1,1 +1,10 @@
-{"data":[{"id":3,"loginType":"account","username":"xw","password":"xw"}]}
+{
+    "data": [
+        {
+            "id": 3,
+            "loginType": "account",
+            "username": "xw",
+            "password": "xw"
+        }
+    ]
+}
