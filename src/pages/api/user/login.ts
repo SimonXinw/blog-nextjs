@@ -46,7 +46,9 @@ const authMiddleware = (cookieStr: string) => {
 
   try {
     // 验证旧的 refresh token
-    const tokenData = jwt.verify(oldToken, SECRET_KEY, { algorithm: "HS256" });
+    const tokenData = jwt.verify(oldToken, SECRET_KEY, {
+      algorithms: ["HS256"],
+    });
 
     // 假设我们只需要用户 ID 来生成新 token
     const newToken = generateToken(tokenData);
@@ -89,9 +91,7 @@ export default function handler(
   if (!(username && password)) {
     return res
       .status(200)
-      .json(
-        createResponse({ success: false, msg: "Error: 没有输入账号密码" })
-      );
+      .json(createResponse({ success: false, msg: "Error: 没有输入账号密码" }));
   }
 
   const hasUser = !!userJson.data.find(
