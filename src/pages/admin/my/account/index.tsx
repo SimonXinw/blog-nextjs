@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
 import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { TableDropdown } from "@ant-design/pro-components";
@@ -5,7 +6,7 @@ import { Button, Dropdown, Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRef } from "react";
 import userData from "@/constants/api/user.json";
-import { log } from "console";
+
 export const waitTimePromise = async (time: number = 100) => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -58,11 +59,15 @@ const columns: ColumnsType<{}> = [
 ];
 
 const ListPage = () => {
-  const tableListDataSource = userData.data;
+  const [tableDataSource, setTableDataSource]: any = useState([]);
 
-  const actionRef = useRef<ActionType>();
+  useEffect(() => {
+    const dataSource = userData.data;
 
-  return <Table dataSource={tableListDataSource} columns={columns} />;
+    setTableDataSource(dataSource);
+  }, []);
+
+  return <Table dataSource={tableDataSource} columns={columns} />;
 };
 
 export default ListPage;
