@@ -23,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
           />
         </Head>
 
-        <AdminLayout Component={Component} pageProps={pageProps} />
+        <AdminLayout>
+          <Component {...pageProps} />
+        </AdminLayout>
       </>
     );
   }

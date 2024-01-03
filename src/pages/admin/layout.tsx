@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import type { AppProps } from "next/app";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { useRouter } from "next/router";
@@ -6,7 +6,7 @@ import { HeadNavConfig, SideMenuConfig } from "./menuConfig";
 
 const { Header, Content, Sider } = Layout;
 
-const AdminLayout: React.FC<AppProps> = ({ Component, pageProps }) => {
+const AdminLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   const {
@@ -66,7 +66,7 @@ const AdminLayout: React.FC<AppProps> = ({ Component, pageProps }) => {
               background: colorBgContainer,
             }}
           >
-            <Component {...pageProps} />
+            {children}
           </Content>
         </Layout>
       </Layout>
