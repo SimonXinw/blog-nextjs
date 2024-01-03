@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm open-browser && next dev -- -p 7777",
+    "dev": "next dev -- -p 7777",
     "clear": "node clear.js",
     "build": "next build",
     "export": "next export",
-    "start": "pnpm open-browser && next start -- -p 7777",
+    "start": "next start -- -p 7777",
     "lint": "next lint"
   },
   "dependencies": {

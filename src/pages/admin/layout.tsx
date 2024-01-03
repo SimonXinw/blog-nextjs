@@ -6,7 +6,7 @@ import { HeadNavConfig, SideMenuConfig } from "./menuConfig";
 
 const { Header, Content, Sider } = Layout;
 
-const AdminLayout: React.FC<AppProps> = ({ Component, pageProps }) => {
+const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
 
   const {
@@ -49,7 +49,7 @@ const AdminLayout: React.FC<AppProps> = ({ Component, pageProps }) => {
               background: colorBgContainer,
             }}
           >
-            <Component {...pageProps} />
+            {children}
           </Content>
         </Layout>
       </Layout>
