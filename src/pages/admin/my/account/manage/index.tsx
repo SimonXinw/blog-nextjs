@@ -28,7 +28,7 @@ interface GetColumnsParamsType {
 interface ColumnType {
   title: string;
   key: string;
-  dataIndex: string;
+  dataIndex?: string;
   render?: (value: any, record: { id: number }) => React.ReactNode[];
 }
 
