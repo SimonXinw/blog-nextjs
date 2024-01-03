@@ -32,5 +32,9 @@
     "typescript": "5.0.2",
     "umi-request": "^1.4.0",
     "x-crawl": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.6.0",
+    "@types/jsonwebtoken": "^9.0.5"
   }
 }
