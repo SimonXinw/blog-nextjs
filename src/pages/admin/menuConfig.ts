@@ -5,17 +5,16 @@ import { UserOutlined } from "@ant-design/icons";
 
 export const HeadNavConfig: MenuProps["items"] = [
   {
-    key: "nav1",
+    key: "/c",
     label: `Home`,
   },
 ];
 
 export const SideMenuConfig: MenuProps["items"] = [
   {
-    key: `Account`,
+    key: `/admin/my/account/manage`,
     icon: React.createElement(UserOutlined),
     label: `Account`,
-
     children: [
       {
         key: 1,

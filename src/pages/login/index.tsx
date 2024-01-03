@@ -53,7 +53,7 @@ const Login: React.FC = () => {
         });
       }
 
-      Router.push("/admin");
+      Router.push("/admin/my/account/manage");
 
       messageApi.open({
         type: "success",

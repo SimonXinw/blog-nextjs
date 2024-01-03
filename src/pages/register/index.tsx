@@ -47,7 +47,7 @@ const Register: React.FC = () => {
     onSuccess: (res: any) => {
       if (!res?.success) return;
 
-      Router.push("/admin");
+      Router.push("/admin/my/account/manage");
 
       messageApi.open({
         type: "success",

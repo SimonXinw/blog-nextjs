@@ -22,7 +22,6 @@ const AdminLayout: React.FC<AppProps> = ({ Component, pageProps }) => {
     {
       title: "Account",
       key: "Account",
-
       href: "/my/account",
     },
     {
