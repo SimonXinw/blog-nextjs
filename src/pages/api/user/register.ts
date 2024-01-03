@@ -44,7 +44,9 @@ const authMiddleware = (cookieStr: string) => {
 
   try {
     // 验证旧的 refresh token
-    const tokenData = jwt.verify(oldToken, SECRET_KEY, { algorithm: "HS256" });
+    const tokenData = jwt.verify(oldToken, SECRET_KEY, {
+      algorithms: ["HS256"],
+    });
 
     // 假设我们只需要用户 ID 来生成新 token
     const newToken = generateToken(tokenData);
