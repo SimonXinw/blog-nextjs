@@ -6,12 +6,31 @@ import { HeadNavConfig, SideMenuConfig } from "./menuConfig";
 
 const { Header, Content, Sider } = Layout;
 
-const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const AdminLayout: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      key: "Home",
+      href: "/",
+    },
+    {
+      title: "Account",
+      key: "Account",
+
+      href: "/my/account",
+    },
+    {
+      title: "Manage",
+      key: "Manage",
+      href: "/my/account/manage",
+    },
+  ];
 
   return (
     <Layout style={{ height: "100%" }}>
@@ -36,11 +55,10 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           />
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Account</Breadcrumb.Item>
-            <Breadcrumb.Item>Manage</Breadcrumb.Item>
-          </Breadcrumb>
+          <Breadcrumb
+            style={{ margin: "16px 0" }}
+            items={breadcrumbItems}
+          ></Breadcrumb>
           <Content
             style={{
               padding: 24,
@@ -49,7 +67,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               background: colorBgContainer,
             }}
           >
-            {children}
+            <Component {...pageProps} />
           </Content>
         </Layout>
       </Layout>
