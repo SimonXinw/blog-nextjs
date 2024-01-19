@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { EllipsisOutlined, PlusOutlined } from "@ant-design/icons";
-import type { ActionType, ProColumns } from "@ant-design/pro-components";
 import { Button, Dropdown, Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRequest } from "ahooks";
@@ -29,7 +27,10 @@ interface ColumnType {
   title: string;
   key: string;
   dataIndex?: string;
-  render?: (value: any, record: { id: number }) => React.ReactNode[];
+  render?: (
+    value: any,
+    record: { id: number }
+  ) => React.ReactNode | string | undefined | null;
 }
 
 const getColumns = ({ remove }: GetColumnsParamsType): ColumnType[] => {
@@ -49,25 +50,27 @@ const getColumns = ({ remove }: GetColumnsParamsType): ColumnType[] => {
       key: "password",
       dataIndex: "password",
     },
-
     {
       title: "操作",
       key: "option",
-      render: (v, record) => [
-        <a key="editable" onClick={() => {}}>
-          编辑
-        </a>,
-        <a
-          href="javascript:void(0)"
-          key="delete"
-          onClick={() => {
-            remove(record?.id);
-          }}
-        >
-          删除
-        </a>,
-        ,
-      ],
+      render: (v, record) => {
+        return (
+          <Space size="middle">
+            <a href="javascript:void(0)" key="editable" onClick={() => {}}>
+              编辑
+            </a>
+            <a
+              href="javascript:void(0)"
+              key="delete"
+              onClick={() => {
+                remove(record?.id);
+              }}
+            >
+              删除
+            </a>
+          </Space>
+        );
+      },
     },
   ];
 };
