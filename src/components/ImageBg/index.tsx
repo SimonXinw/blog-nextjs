@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./index.module.css";
+import Image from 'next/image';
 
 interface PropsType {
   src?: string;
@@ -9,7 +10,7 @@ interface PropsType {
 
 function ImageBg(props: PropsType) {
   const {
-    src = "https://cdn.xinwangblog.cn/imgs/forest_bg_new.jpeg",
+    src = "/leimu-100kb.jpeg",
     alt = "",
     className = styles["img-bg"],
     ...args
@@ -17,7 +18,8 @@ function ImageBg(props: PropsType) {
 
   return (
     <div className={className}>
-      <img src={src} alt={alt} {...args} />
+      <Image src={src} alt={alt} {...args} width={1920}
+        height={1080} />
     </div>
   );
 }

@@ -3,10 +3,11 @@ import styles from './index.module.css';
 
 interface PropsTs {
   className?: string;
+  src: string;
 }
 
 const VideoBG: React.FC<PropsTs> = (props) => {
-  const { className, ...arg } = props;
+  const { className, src, ...arg } = props;
 
   return (
     <div className={`${styles['video-wrap']} ${className}`} {...arg}>
@@ -17,9 +18,9 @@ const VideoBG: React.FC<PropsTs> = (props) => {
         preload="auto"
         autoPlay
       >
-        <source src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4" />
+        <source src={src} />
         <source
-          src="https://cdn.xinwangblog.cn/videos/video_bg_girl_16m.mp4"
+          src={src}
           type="video/mp4"
         />
         您的浏览器不支持 HTML5 video 标签。
@@ -32,9 +33,9 @@ const VideoBG: React.FC<PropsTs> = (props) => {
         preload="auto"
         autoPlay
       >
-        <source src="https://cdn.xinwangblog.cn/videos/video_snow_girl_6m.mp4" />
+        <source src={src} />
         <source
-          src="https://cdn.xinwangblog.cn/videos/video_snow_girl_6m.mp4"
+          src={src}
           type="video/mp4"
         />
         您的浏览器不支持 HTML5 video 标签。

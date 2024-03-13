@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styles from './index.module.css';
 
-import { randomColor, linearMotion } from '@/utils';
+import { linearMotion } from '@/utils';
 import { AnyRecord } from 'dns';
 
 interface PropsTs {
@@ -22,7 +22,7 @@ const Ewm: React.FC<PropsTs> = (props) => {
     });
 
     // 卸载时
-    return () => {};
+    return () => { };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,7 +33,7 @@ const Ewm: React.FC<PropsTs> = (props) => {
         width={100}
         height={100}
         alt="二维码"
-        src="https://cdn.xinwangblog.cn/imgs/ewm.png"
+        src="/ewm.png"
       />
     </div>
   );

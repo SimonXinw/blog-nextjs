@@ -155,11 +155,10 @@ export default function Home() {
       {/* Page Start */}
       <div
         className={`${styles['container']} ${styles['theme-gray']}`}
-        onClick={onPageClick}
+      // onClick={onPageClick}
       >
         <PageHeader></PageHeader>
         <div className={styles['page']} style={pageStyle}>
-          <div className={styles.header}></div>
           <div className={styles.content}>
             <h1 className={styles.title}>藏轮阁</h1>
             <div className={styles.author} style={autorColorStyle}>
@@ -169,26 +168,29 @@ export default function Home() {
               {BlogUrlList.map((item, index) => {
                 return (
                   <p className={styles.link} key={index}>
-                    <a target="_blank" href={item.url} rel="noreferrer">
-                      {item.name}
-                    </a>
-                    {item.icon}
+                    <span>
+                      <a target="_blank" href={item.url} rel="noreferrer">
+                        {item.name}
+                      </a>
+                      {item.icon}
+                    </span>
                   </p>
                 );
               })}
             </div>
           </div>
+
         </div>
+        {/* 备案号 */}
+        <RecordNumber />
         {/* 视频 */}
-        <VideoBG />
+        <VideoBG src='/videos/forest_move-7mb.mp4' />
         {/* 二维码 */}
         <EWM
           onClick={(e) => {
             e.stopPropagation();
           }}
         />
-        {/* 备案号 */}
-        <RecordNumber />
       </div>
     </>
   );
