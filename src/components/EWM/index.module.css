@@ -2,6 +2,8 @@
 .ewm {
   position: absolute;
   right: 0;
+
+  display: block;
   width: 100px;
   height: 100px;
   bottom: 66px;
@@ -9,4 +11,12 @@
 .ewm img {
   width: 100%;
   height: 100%;
+  opacity: 0.7;
+}
+
+/* 在移动端屏幕尺寸下隐藏组件 */
+@media (max-width: 768px) {
+  .ewm {
+    display: none;
+  }
 }
