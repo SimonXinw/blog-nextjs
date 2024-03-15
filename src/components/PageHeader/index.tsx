@@ -3,13 +3,19 @@ import { BarChartOutlined, UserOutlined, BugOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 import { Logo } from "@/components";
 import styles from "./index.module.css";
+import { useRouter } from 'next/router';
 import Link from "next/link";
 
+
 const PageHeader: React.FC = () => {
+  const router = useRouter();
+
   return (
     <nav className={styles["header"]}>
       <Space size={[24, 0]} wrap align="center">
-        <Logo />
+        <Logo onClick={() => {
+          router.push('/');
+        }} />
       </Space>
       <Space size={[24, 0]} wrap align="center">
         <Link href="/admin/craw">

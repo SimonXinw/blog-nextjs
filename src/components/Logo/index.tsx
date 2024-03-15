@@ -4,6 +4,7 @@ import styles from './index.module.css';
 
 interface PropsType {
   className?: string;
+  onClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 }
 
 function Logo(props: PropsType) {
