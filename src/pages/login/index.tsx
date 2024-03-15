@@ -77,16 +77,17 @@ const Login: React.FC = () => {
       <div className={styles["form-wrap"]}>
         <Form
           {...layout}
+          layout="vertical"
           initialValues={{ loginType: "account", remember: true }}
-          style={{ width: 460 }}
           form={form}
+          style={{ width: '100%' }}
           name="normal_login"
           className="login-form"
           onValuesChange={onFormValuesChange}
           validateMessages={validateMessages}
           onFinish={run}
         >
-          <Form.Item {...itemLayout} name="loginType">
+          <Form.Item name="loginType">
             <Radio.Group>
               <Radio.Button value="account">账号</Radio.Button>
               <Radio.Button value="iphoneNumber">手机号</Radio.Button>
@@ -103,6 +104,7 @@ const Login: React.FC = () => {
             />
           </Form.Item>
           <Form.Item
+
             label="密码"
             name="password"
             rules={[{ required: true, message: "Please input your Password!" }]}
@@ -111,9 +113,10 @@ const Login: React.FC = () => {
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
               placeholder="Password"
+
             />
           </Form.Item>
-          <Form.Item {...itemLayout}>
+          <Form.Item >
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
@@ -123,7 +126,7 @@ const Login: React.FC = () => {
             </a>
           </Form.Item>
 
-          <Form.Item {...itemLayout}>
+          <Form.Item >
             <Button
               loading={loading}
               type="primary"
@@ -132,14 +135,17 @@ const Login: React.FC = () => {
             >
               Log in
             </Button>
-            Or
-            <Link style={{ marginLeft: 4, color: "#1677ff" }} href="/register">
-              register now!
-            </Link>
+            <div>
+              Or
+              <Link style={{ marginLeft: 4, color: "#1677ff" }} href="/register">
+                register now!
+              </Link>
+            </div>
+
           </Form.Item>
         </Form>
       </div>
-    </div>
+    </div >
   );
 };
 

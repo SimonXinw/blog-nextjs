@@ -4,6 +4,7 @@ import { PageHeader } from "@/components";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Radio, message } from "antd";
 import Router from "next/router";
+import Link from "next/link";
 import { ImageBg } from "@/components";
 import * as services from "@/services";
 import styles from "./index.module.css";
@@ -38,10 +39,6 @@ const Register: React.FC = () => {
   /**
    * @FormItem 布局
    */
-  const itemLayout = {
-    wrapperCol: { span: 0, offset: 5 },
-  };
-
   const { loading, run } = useRequest(services.register, {
     manual: true,
     onSuccess: (res: any) => {
@@ -74,13 +71,14 @@ const Register: React.FC = () => {
           initialValues={{ loginType: "account", remember: true }}
           style={{ width: 460 }}
           form={form}
+          layout="vertical"
           name="normal_login"
           className="login-form"
           onValuesChange={onFormValuesChange}
           validateMessages={validateMessages}
           onFinish={run}
         >
-          <Form.Item {...itemLayout} name="loginType">
+          <Form.Item name="loginType">
             <Radio.Group>
               <Radio.Button value="account">账号</Radio.Button>
               <Radio.Button value="iphoneNumber">手机号</Radio.Button>
@@ -108,7 +106,7 @@ const Register: React.FC = () => {
             />
           </Form.Item>
 
-          <Form.Item {...itemLayout}>
+          <Form.Item>
             <Button
               loading={loading}
               type="primary"
@@ -117,6 +115,12 @@ const Register: React.FC = () => {
             >
               Register
             </Button>
+            <div>
+              Or
+              <Link style={{ marginLeft: 4, color: "#1677ff" }} href="/login">
+                Log in now!
+              </Link>
+            </div>
           </Form.Item>
         </Form>
       </div>
