@@ -1,10 +1,5 @@
 import request from "./axios";
 
-export const getCraw = (params: any) => {
-  const url = "/craw";
-  return request({ url, params });
-};
-
 export const register = (params: any) => {
   const url = "/user/register";
   return request({ url, method: "POST", params });
