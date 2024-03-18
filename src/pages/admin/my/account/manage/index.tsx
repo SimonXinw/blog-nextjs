@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Dropdown, Space, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRequest } from "ahooks";
-import * as services from "./services";
+import * as services from "@/services";
 import userData from "@/constants/api/user.json";
 
 export const waitTimePromise = async (time: number = 100) => {
@@ -16,6 +16,7 @@ export const waitTimePromise = async (time: number = 100) => {
 export const waitTime = async (time: number = 100) => {
   await waitTimePromise(time);
 };
+
 
 // 定义getColumns函数的参数类型
 interface GetColumnsParamsType {

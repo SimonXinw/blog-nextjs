@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import type { AppProps } from "next/app";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { useRouter } from "next/router";
-import { HeadNavConfig, SideMenuConfig } from "./menuConfig";
+import { HeadNavConfig, SideMenuConfig } from "@/constants/menuConfig";
 
 const { Header, Content, Sider } = Layout;
 

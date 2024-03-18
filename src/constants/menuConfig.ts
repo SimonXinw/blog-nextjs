@@ -23,3 +23,10 @@ export const SideMenuConfig: MenuProps["items"] = [
     ],
   },
 ];
+
+const MenuConfig = {
+  HeadNavConfig,
+  SideMenuConfig,
+};
+
+export default MenuConfig;
