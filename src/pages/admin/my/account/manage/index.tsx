@@ -56,7 +56,7 @@ const getColumns = ({ remove }: GetColumnsParamsType): ColumnType[] => {
       render: (v, record) => {
         return (
           <Space size="middle">
-            <a href="javascript:void(0)" key="editable" onClick={() => {}}>
+            <a href="javascript:void(0)" key="editable" onClick={() => { }}>
               编辑
             </a>
             <a
@@ -88,7 +88,7 @@ const ListPage = () => {
 
   useEffect(() => {
     setTableDataSource(users);
-  }, [removeRes]);
+  }, [removeRes, users]);
 
   return (
     <Table
