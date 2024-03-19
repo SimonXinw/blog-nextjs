@@ -69,7 +69,6 @@ const Register: React.FC = () => {
         <Form
           {...layout}
           initialValues={{ loginType: "account", remember: true }}
-          style={{ width: 460 }}
           form={form}
           layout="vertical"
           name="normal_login"

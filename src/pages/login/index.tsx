@@ -80,7 +80,6 @@ const Login: React.FC = () => {
           layout="vertical"
           initialValues={{ loginType: "account", remember: true }}
           form={form}
-          style={{ width: '100%' }}
           name="normal_login"
           className="login-form"
           onValuesChange={onFormValuesChange}
