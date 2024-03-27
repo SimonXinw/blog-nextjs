@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { useRouter } from "next/router";
 import { HeadNavConfig, SideMenuConfig } from "@/constants/menuConfig";
+import { ClickParam } from 'antd/lib/menu'
+
 
 const { Header, Content, Sider } = Layout;
 
@@ -40,7 +42,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
           mode="horizontal"
           items={HeadNavConfig}
           defaultSelectedKeys={[router.pathname]}
-          onClick={(e) => router.push(e.key)}
+          onClick={(e: ClickParam) => router.push(e.key)}
         />
       </Header>
       <Layout>
@@ -51,6 +53,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
             defaultOpenKeys={["sub1"]}
             style={{ height: "100%", borderRight: 0 }}
             items={SideMenuConfig}
+            onClick={(e: ClickParam) => router.push(e.key)}
           />
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>

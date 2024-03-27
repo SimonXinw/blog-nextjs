@@ -3,6 +3,10 @@ import { notification } from "antd";
 
 let baseURL = "/api";
 
+const instance = axios.create({
+  baseURL,
+});
+
 // 请求拦截器
 axios.interceptors.request.use(
   (config) => {

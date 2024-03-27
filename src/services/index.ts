@@ -13,3 +13,7 @@ export const login = (params: any) => {
 export const remove = (id: number) => {
   return request("/user/remove", { params: { id } });
 };
+
+export const findList = (id?: number) => {
+  return request("/test/list", { params: { id } });
+};

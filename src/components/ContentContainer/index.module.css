@@ -1,0 +1,14 @@
+.content-container {
+  overflow: hidden;
+  height: 100%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.content-container .title {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}

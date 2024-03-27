@@ -17,8 +17,12 @@ export const SideMenuConfig: MenuProps["items"] = [
     label: `Account`,
     children: [
       {
-        key: 1,
+        key: 'manage',
         label: `Manage`,
+      },
+      {
+        key: 'test',
+        label: `Test`,
       },
     ],
   },
