@@ -68,3 +68,6 @@ git config user.email "你的邮箱@example.com"
 git config --global --unset user.name
 
 git config --global --unset user.email
+
+# 配置代理
+ngrok http http://localhost:7777
