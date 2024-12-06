@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
@@ -42,7 +42,7 @@ const generateToken = (data: any) => {
  */
 const authMiddleware = (cookieStr: string) => {
   const cookies = cookie.parse(cookieStr || "");
-  const oldToken = cookies[TOKEN_KEY_NAME];
+  const oldToken = cookies[TOKEN_KEY_NAME] || "";
 
   try {
     const tokenData = jwt.verify(oldToken, SECRET_KEY, {
@@ -55,8 +55,10 @@ const authMiddleware = (cookieStr: string) => {
   }
 };
 
-export default function POST(req: NextApiRequest) {
-  const { username, password } = req.body || {};
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+
+  const { username, password } = body;
 
   // 校验参数是否完整
   if (!username || !password) {

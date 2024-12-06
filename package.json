@@ -25,6 +25,7 @@
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
+    "maxmind": "^4.3.23",
     "next": "15.0.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
