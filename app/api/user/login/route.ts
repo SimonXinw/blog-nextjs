@@ -1,10 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest } from "next";
+import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import fs from "fs";
-import path from "path";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
-import userJson from "../../../constants/api/user.json";
+import userJson from "@/constants/api/user.json";
 import cookie from "cookie";
 
 type CreateResponseType = {
@@ -65,10 +64,7 @@ const authMiddleware = (cookieStr: string) => {
   }
 };
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
+export default function POST(req: NextApiRequest) {
   // 判空
   if (req.method !== "POST" && req.method !== "post") return;
 
@@ -77,21 +73,25 @@ export default function handler(
   const authData = authMiddleware(headers?.cookie || "");
 
   if (authData.isAccess) {
-    res.setHeader(
+    const response = NextResponse.json(
+      createResponse({ msg: "Token 已经更新" }),
+      { status: 200 }
+    );
+
+    response.headers.set(
       "Set-Cookie",
       `${TOKEN_KEY_NAME}=${authData.token}; path=/; HttpOnly`
     );
-
-    return res.status(200).json(createResponse({ msg: "Token 已经更新" }));
   }
 
   const { username, password } = query;
 
   // Error 没有值
   if (!(username && password)) {
-    return res
-      .status(200)
-      .json(createResponse({ success: false, msg: "Error: 没有输入账号密码" }));
+    return NextResponse.json(
+      createResponse({ success: false, msg: "Error: 没有输入账号密码" }),
+      { status: 200 }
+    );
   }
 
   const hasUser = !!userJson.data.find(
@@ -99,9 +99,10 @@ export default function handler(
   );
 
   if (!hasUser) {
-    return res
-      .status(200)
-      .json(createResponse({ success: false, msg: "Error: 账号密码错误" }));
+    return NextResponse.json(
+      createResponse({ success: false, msg: "Error: 账号密码错误" }),
+      { status: 200 }
+    );
   }
 
   // const userJsonProxy: any = userJson;
@@ -124,11 +125,14 @@ export default function handler(
 
   const token = generateToken(query);
 
-  res.setHeader("Set-Cookie", `${TOKEN_KEY_NAME}=${token}; path=/; HttpOnly`);
-
   const result = createResponse({
     data: "登录成功, token 已经设置 Cookies 里面.",
   });
 
-  res.status(200).json(result);
+  const response = NextResponse.json(result, { status: 200 });
+
+  response.headers.set(
+    "Set-Cookie",
+    `${TOKEN_KEY_NAME}=${token}; path=/; HttpOnly`
+  );
 }
