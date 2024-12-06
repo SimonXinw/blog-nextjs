@@ -50,3 +50,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+# 设置全局用户名
+git config --global user.name "你的名字"
+
+# 设置全局邮箱
+git config --global user.email "你的邮箱@example.com"
+
+# 设置当前仓库的用户名
+git config user.name "你的名字"
+
+# 设置当前仓库的邮箱
+git config user.email "你的邮箱@example.com"
+
+# 删除配置
+git config --global --unset user.name
+
+git config --global --unset user.email
