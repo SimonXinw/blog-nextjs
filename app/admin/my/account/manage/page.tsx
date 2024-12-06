@@ -79,23 +79,29 @@ const getColumns = ({ remove }: GetColumnsParamsType): ColumnType[] => {
 const ListPage = () => {
   const users = userData.data;
 
-  const [tableDataSource, setTableDataSource]: any = useState([]);
+  const [tableDataSource, setTableDataSource]: any = useState(users); // 初始化为 users 数据
 
-  const {
-    loading: removeLoading,
-    data: removeRes,
-    run: remove,
-  } = useRequest(services.remove, { manual: true });
+  const { loading: removeLoading, run: remove } = useRequest(services.remove, {
+    manual: true,
+    onSuccess: (res: any) => {
 
-  useEffect(() => {
-    setTableDataSource(users);
-  }, [removeRes, users]);
+      if (!res?.success) return;
+
+      setTableDataSource((prev: any) =>
+        prev.filter((item: { id: number }) => item.id !== Number(res.data))
+      );
+    },
+  });
+
+  const handleRemove = (id: number) => {
+    remove(id); // 调用 remove API，传入 id
+  };
 
   return (
     <Table
       loading={removeLoading}
       dataSource={tableDataSource}
-      columns={getColumns({ remove })}
+      columns={getColumns({ remove: handleRemove })}
     />
   );
 };

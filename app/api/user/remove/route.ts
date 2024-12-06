@@ -97,7 +97,7 @@ export async function GET(req: NextRequest) {
 
   fs.writeFileSync(filepath, userJsonString);
 
-  return NextResponse.json(createResponse({ success: true, data: null }), {
+  return NextResponse.json(createResponse({ success: true, data: id }), {
     status: 200,
   });
 }
