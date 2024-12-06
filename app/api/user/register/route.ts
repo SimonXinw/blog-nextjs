@@ -55,7 +55,7 @@ const authMiddleware = (cookieStr: string) => {
   }
 };
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const body = await req.json();
 
   const { username, password } = body;
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
   // 添加用户到 JSON 数据
   const newUser = {
     id: userJson.data.length + 1,
-    loginType: "normal", // 默认值为 "normal"，可以根据需要调整
+    loginType: "account", // 默认值为 "normal"，可以根据需要调整
     username,
     password,
   };

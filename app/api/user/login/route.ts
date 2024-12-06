@@ -37,11 +37,10 @@ const generateToken = (data: any) => {
   return token;
 };
 
-const authMiddleware = (cookieStr: string) => {
+const authMiddleware = (cookies: any) => {
   // 解析cookie字符串到一个对象
-  const cookies = cookie.parse(cookieStr || "");
 
-  const oldToken = cookies[TOKEN_KEY_NAME];
+  const oldToken = cookies.get(TOKEN_KEY_NAME);
 
   try {
     // 验证旧的 refresh token
@@ -65,12 +64,9 @@ const authMiddleware = (cookieStr: string) => {
 };
 
 export default function POST(req: NextApiRequest) {
-  // 判空
-  if (req.method !== "POST" && req.method !== "post") return;
+  const { searchParams } = new URL(req.url || "");
 
-  const { query, headers } = req;
-
-  const authData = authMiddleware(headers?.cookie || "");
+  const authData = authMiddleware(req.cookies);
 
   if (authData.isAccess) {
     const response = NextResponse.json(
@@ -84,7 +80,9 @@ export default function POST(req: NextApiRequest) {
     );
   }
 
-  const { username, password } = query;
+  const username = searchParams.get("username");
+
+  const password = searchParams.get("password");
 
   // Error 没有值
   if (!(username && password)) {
@@ -105,25 +103,7 @@ export default function POST(req: NextApiRequest) {
     );
   }
 
-  // const userJsonProxy: any = userJson;
-
-  // userJsonProxy.list.push(query); // 假设 userData 是一个数组
-
-  // // 将 JSON 对象转换为字符串
-  // const userJsonString = JSON.stringify(userJsonProxy);
-
-  // // 写入 JSON 数据到文件
-  // const filepath = path.join(
-  //   process.cwd(),
-  //   "src",
-  //   "constants",
-  //   "api",
-  //   "user.json"
-  // );
-
-  // fs.writeFileSync(filepath, userJsonString);
-
-  const token = generateToken(query);
+  const token = generateToken({ username });
 
   const result = createResponse({
     data: "登录成功, token 已经设置 Cookies 里面.",

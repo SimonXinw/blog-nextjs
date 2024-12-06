@@ -2,7 +2,7 @@ import request from "./axios";
 
 export const register = (params: any) => {
   const url = "/user/register";
-  return request({ url, method: "POST", params });
+  return request({ url, method: "POST", data: params });
 };
 
 export const login = (params: any) => {

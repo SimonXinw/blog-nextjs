@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
-import userJson from "../../../constants/api/user.json";
+import userJson from "@/constants/api/user.json";
 import cookie from "cookie";
 import { filter } from "lodash";
 
@@ -41,7 +41,7 @@ const authMiddleware = (cookieStr: string) => {
   // 解析cookie字符串到一个对象
   const cookies = cookie.parse(cookieStr || "");
 
-  const oldToken = cookies[TOKEN_KEY_NAME];
+  const oldToken = cookies[TOKEN_KEY_NAME] || "";
 
   try {
     // 验证旧的 refresh token
@@ -64,22 +64,17 @@ const authMiddleware = (cookieStr: string) => {
   }
 };
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
-  // 判空
-  if (req.method !== "GET" && req.method !== "get") return;
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url || "");
 
-  const { query } = req;
-
-  const { id } = query;
+  const id = searchParams.get("id");
 
   // Error 没有值
   if (!id) {
-    return res
-      .status(200)
-      .json(createResponse({ success: false, data: "Error: 没有 id" }));
+    return NextResponse.json(
+      createResponse({ success: false, data: "Error: 没有 id" }),
+      { status: 200 }
+    );
   }
 
   const data = filter(userJson.data, function (item: any) {
@@ -102,5 +97,7 @@ export default function handler(
 
   fs.writeFileSync(filepath, userJsonString);
 
-  res.status(200).json(createResponse());
+  return NextResponse.json(createResponse({ success: true, data: null }), {
+    status: 200,
+  });
 }

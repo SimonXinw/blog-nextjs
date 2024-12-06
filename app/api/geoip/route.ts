@@ -3,7 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
 // 定义 GeoIP 数据库路径
-const ipDbPath: string = path.join(process.cwd(), "./geolite2-country.mmdb");
+const ipDbPath: string = path.join(
+  process.cwd(),
+  "app",
+  "api",
+  "geoip",
+  "geolite2-country.mmdb"
+);
 
 // 使用全局变量存储数据库实例
 let ipDbInstance: any;
@@ -32,7 +38,7 @@ function normalizeIP(ip: string | null) {
  * @handleGeoIp
  * 测试接口: https://xxx.com/api/geoip?ip=207.148.80.179
  */
-export async function GET(req: NextRequest) {
+export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const ip = normalizeIP(searchParams.get("ip")) || "127.0.0.1"; // 默认 IP
 

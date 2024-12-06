@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRequest } from "ahooks";
 import { PageHeader } from "@/components";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Radio, message } from "antd";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ImageBg } from "@/components";
 import * as services from "@/services";
@@ -14,7 +14,7 @@ const Register: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [loginType, setLoginType] = useState("account");
-
+  const router = useRouter();
   /**
    * @验证信息
    */
@@ -45,7 +45,7 @@ const Register: React.FC = () => {
     onSuccess: (res: any) => {
       if (!res?.success) return;
 
-      Router.push("/admin/my/account/manage");
+      router.push("/admin/my/account/manage");
 
       messageApi.open({
         type: "success",
@@ -60,6 +60,10 @@ const Register: React.FC = () => {
   const onFormValuesChange = ({ loginType }: any) => {
     setLoginType(loginType);
   };
+
+  useEffect(() => {
+    console.log("loading >>>>>>>>>>>>>>>>", loading);
+  }, [loading]);
 
   return (
     <div className={styles["login-page"]}>
