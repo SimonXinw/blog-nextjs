@@ -68,16 +68,21 @@ const ListPage = () => {
 
   const [tableDataSource, setTableDataSource]: any = useState(users); // 初始化为 users 数据
 
-  const { loading: removeLoading, run: remove } = useRequest(services.remove, {
+  const {
+    loading: removeLoading,
+    data,
+    run: remove,
+  } = useRequest(services.remove, {
     manual: true,
-    onSuccess: (res: any) => {
-      if (!res?.success) return;
-
-      setTableDataSource((prev: any) =>
-        prev.filter((item: { id: number }) => item.id !== Number(res.data))
-      );
-    },
   });
+
+  useEffect(() => {
+    if (!data) return;
+
+    setTableDataSource((prev: any) =>
+      prev.filter((item: { id: number }) => item.id !== Number(data.data))
+    );
+  }, [data]);
 
   const handleRemove = (id: number) => {
     remove(id); // 调用 remove API，传入 id
