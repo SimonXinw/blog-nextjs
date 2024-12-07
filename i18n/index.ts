@@ -1,9 +1,12 @@
+// 定义支持的语言类型
 export type LocaleType = "en" | "zh" | "us";
 
 // i18n 配置
 export const i18n = {
-  defaultLocale: "zh",
-  locales: ["en", "zh", "us"],
+  defaultLocale: "zh" as LocaleType,
+  locales: ["en", "zh", "us"] as LocaleType[],
+
+  // 初始化语言环境
   init(locale: LocaleType) {
     return getDictionary(locale);
   },
@@ -18,7 +21,7 @@ const cachedDictionaries: Record<LocaleType, any> = {} as Record<
 // 记录上次加载的 locale
 let lastLoadedLocale: LocaleType | null = null;
 
-// 我们通过引入字典来确保更好的类型支持
+// 字典加载器
 const dictionaries = {
   en: () => import("./localeJsons/en.json").then((data) => data),
   zh: () => import("./localeJsons/zh.json").then((data) => data),

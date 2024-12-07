@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
-import { i18n } from "./i18n";
+import { i18n, LocaleType } from "./i18n";
 
 /**
  * 从请求中获取最合适的语言环境。
@@ -40,47 +40,49 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  const localeRegex = /^\/([a-zA-Z]{2})(\/.*)?$/;
+
+  const localeMatched = pathname.match(localeRegex);
+
+  const matchedLocale = localeMatched?.[1] || "";
+
+  // 主域名，默认域名
   if (pathname === "/") {
     const response = NextResponse.next();
-
-    // 设置 cookie 为匹配到的语言或默认语言
     response.cookies.set("NEXT_LOCALE", i18n.defaultLocale);
 
     return response;
   }
 
-  // 检查路径名是否以默认语言的前缀开始 (例如 '/zh/')
+  // 检查路径名是否以默认语言的前缀开始
   const isDefaultLocalePath = pathname.startsWith(`/${i18n.defaultLocale}`);
-
-  // 如果是默认语言路径，重写路径为无语言前缀的路径
   if (isDefaultLocalePath) {
     const newPath = pathname.replace(`/${i18n.defaultLocale}`, "");
 
     const response = NextResponse.redirect(new URL(newPath, request.url));
 
-    // 设置 cookie 为默认语言（'zh'）
     response.cookies.set("NEXT_LOCALE", i18n.defaultLocale);
 
     return response;
   }
 
-  // 检查路径名是否缺少语言环境
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
+  // 路径包含有效 locale
+  if (i18n.locales.includes(matchedLocale as LocaleType)) {
+    const response = NextResponse.next();
 
-  // 如果路径名缺少语言环境，尝试从请求头获取语言环境
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
+    response.cookies.set("NEXT_LOCALE", matchedLocale);
 
-    // 如果是默认语言（例如 'zh'），则保持路径并返回带语言前缀的内容
-    if (locale === i18n.defaultLocale) {
-      // 保留原路径但带上默认语言前缀
+    return response;
+  } else {
+    // 不包含，获取请求头 lang
+    const langLocale = getLocale(request) || "zh";
+
+    if (langLocale === i18n.defaultLocale) {
+      // 保留原路径，但返回的内容是带上语言前缀的
       const response = NextResponse.rewrite(
         new URL(`/zh${pathname}`, request.url)
       );
 
-      // 设置 cookie 为默认语言（'zh'）
       response.cookies.set("NEXT_LOCALE", i18n.defaultLocale);
 
       return response;
@@ -89,25 +91,15 @@ export function middleware(request: NextRequest) {
     // 否则，重定向到带有语言前缀的路径
     const response = NextResponse.redirect(
       new URL(
-        `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+        `/${langLocale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
         request.url
       )
     );
 
-    // 设置 cookie 为匹配到的语言
-    response.cookies.set("NEXT_LOCALE", locale);
+    response.cookies.set("NEXT_LOCALE", langLocale);
 
     return response;
   }
-
-  // 如果路径名已经包含语言环境，继续正常处理
-  const locale = getLocale(request) || i18n.defaultLocale;
-  const response = NextResponse.next();
-
-  // 设置 cookie 为匹配到的语言或默认语言
-  response.cookies.set("NEXT_LOCALE", locale);
-
-  return response;
 }
 
 /**

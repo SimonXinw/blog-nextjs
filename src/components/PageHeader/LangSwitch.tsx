@@ -1,18 +1,30 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { GlobalOutlined } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Dropdown, Space } from "antd";
+import { Modal, Button, List } from "antd";
 import Cookies from "js-cookie"; // 引入 js-cookie 库
 
-// 国家语言映射
-const countries = [
-  { name: "美国", code: "en" },
-  { name: "中国", code: "zh" },
+// 国家和语言的映射
+const countriesWithLanguages = [
+  {
+    name: "美国",
+    code: "us",
+    languages: [{ name: "英语", code: "en" }],
+  },
+  {
+    name: "中国",
+    code: "cn",
+    languages: [
+      { name: "中文", code: "zh" },
+      { name: "英语", code: "en" },
+    ],
+  },
+  // 可以继续添加其他国家和语言
 ];
 
 const LanguageSwitcher: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>("zh");
+  const [visible, setVisible] = useState(false); // 控制 Modal 显示
 
   useEffect(() => {
     // 从 Cookie 中获取当前语言，或者使用默认语言 "zh"
@@ -34,7 +46,7 @@ const LanguageSwitcher: React.FC = () => {
 
     // 如果路径有语言前缀，替换它，否则添加新的语言前缀
     let newUrl;
-    
+
     if (match) {
       // 如果有语言前缀，替换它
       newUrl = currentPath.replace(/^\/[a-zA-Z]{2}/, `/${locale}`);
@@ -47,33 +59,85 @@ const LanguageSwitcher: React.FC = () => {
     window.location.href = newUrl;
   };
 
-  // 构建菜单项
-  const items: MenuProps["items"] = countries.map((country) => ({
-    key: country.code,
-    label: (
-      <a
-        onClick={(e) => {
-          e.preventDefault(); // 防止页面跳转
+  // 显示国家语言选择弹窗
+  const showLanguageModal = () => {
+    setVisible(true);
+  };
 
-          setSelectedCountry(country.code);
-
-          setLocaleAndRedirect(country.code);
-        }}
-      >
-        {country.name} ({country.code})
-      </a>
-    ),
-  }));
+  // 关闭弹窗
+  const closeLanguageModal = () => {
+    setVisible(false);
+  };
 
   return (
-    <Dropdown menu={{ items }} trigger={["click"]}>
-      <a onClick={(e) => e.preventDefault()}>
-        <Space>
-          <GlobalOutlined style={{ fontSize: "24px" }} />
-          {countries.find((c) => c.code === selectedCountry)?.name}
-        </Space>
-      </a>
-    </Dropdown>
+    <div>
+      <Button
+        type="text"
+        icon={<GlobalOutlined />}
+        onClick={showLanguageModal}
+        className="flex justify-center items-center text-base pl-0 pr-0 pt-0 pb-0 h-fit"
+      >
+        <span className="mr-1">
+          {
+            countriesWithLanguages.find((c) =>
+              c.languages.some((lang) => lang.code === selectedCountry)
+            )?.name
+          }
+        </span>
+        <span>
+          {
+            countriesWithLanguages.find((c) =>
+              c.languages.some((lang) => lang.code === selectedCountry)
+            )?.code
+          }
+        </span>
+      </Button>
+
+      <Modal
+        title="选择语言"
+        visible={visible}
+        onCancel={closeLanguageModal}
+        footer={null}
+        width={400}
+      >
+        <List
+          dataSource={countriesWithLanguages}
+          renderItem={(country) => (
+            <List.Item key={country.code}>
+              <h3>{country.name}</h3>
+              <div>
+                {country.languages.map((language) => (
+                  <a
+                    key={language.code}
+                    style={{
+                      marginRight: "8px",
+                      color:
+                        selectedCountry === language.code
+                          ? "#1677FF"
+                          : "initial",
+                      cursor:
+                        selectedCountry === language.code
+                          ? "not-allowed"
+                          : "pointer",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (selectedCountry === language.code) return;
+
+                      setSelectedCountry(language.code);
+                      setLocaleAndRedirect(language.code);
+                      closeLanguageModal();
+                    }}
+                  >
+                    {language.name}
+                  </a>
+                ))}
+              </div>
+            </List.Item>
+          )}
+        />
+      </Modal>
+    </div>
   );
 };
 
