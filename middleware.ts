@@ -40,17 +40,23 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  if (pathname === "/") {
+    const response = NextResponse.next();
+
+    // 设置 cookie 为匹配到的语言或默认语言
+    response.cookies.set("NEXT_LOCALE", i18n.defaultLocale);
+
+    return response;
+  }
+
   // 检查路径名是否以默认语言的前缀开始 (例如 '/zh/')
-  const isDefaultLocalePath =
-    pathname.startsWith(`/${i18n.defaultLocale}/`) || pathname === "/";
+  const isDefaultLocalePath = pathname.startsWith(`/${i18n.defaultLocale}`);
 
   // 如果是默认语言路径，重写路径为无语言前缀的路径
   if (isDefaultLocalePath) {
-    // 去除语言前缀 '/zh'
     const newPath = pathname.replace(`/${i18n.defaultLocale}`, "");
 
-    // 使用 rewrite 将请求内部重写为没有语言前缀的路径，但返回该路径的内容
-    const response = NextResponse.rewrite(new URL(newPath, request.url));
+    const response = NextResponse.redirect(new URL(newPath, request.url));
 
     // 设置 cookie 为默认语言（'zh'）
     response.cookies.set("NEXT_LOCALE", i18n.defaultLocale);

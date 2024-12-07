@@ -9,7 +9,7 @@ export default async function Page({
   params: { locale: LocaleType };
 }) {
   // 这里的 params.locale 会直接从动态路由参数获取到
-  const { locale } = params;
+  const { locale } = await params;
 
   // 获取对应语言字典
   const langDict: Record<string, string> = await i18n.init(locale);
