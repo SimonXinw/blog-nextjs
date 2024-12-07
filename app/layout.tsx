@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import PageHeader from "src/components/PageHeader";
+
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -22,7 +24,10 @@ export default function RootLayout({
         name="viewport"
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
       />
-      <body>{children}</body>
+      <body>
+        <PageHeader />
+        {children}
+      </body>
     </html>
   );
 }

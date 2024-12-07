@@ -14,5 +14,9 @@ export default async function Page({
   // 获取对应语言字典
   const langDict: Record<string, string> = await i18n.init(locale);
 
-  return <>{langDict.product}</>;
+  return (
+    <div className="flex justify-center items-center h-screen bg-black text-white">
+      {langDict.product}
+    </div>
+  );
 }

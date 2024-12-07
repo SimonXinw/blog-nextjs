@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import type { Metadata } from "next";
 import { FireFilled } from "@ant-design/icons";
 import { randomColor } from "@/utils";
-import { RecordNumber, PageHeader, EWM, VideoBG } from "@/components";
+import { RecordNumber, EWM, VideoBG } from "@/components";
 import styles from "./Home.module.css";
 
 const BlogUrlList = [
@@ -154,7 +154,6 @@ export default function Home() {
         className={`${styles["container"]} ${styles["theme-gray"]}`}
         // onClick={onPageClick}
       >
-        <PageHeader></PageHeader>
         <div className={styles["page"]} style={pageStyle}>
           <div className={styles.content}>
             <h1 className={styles.title}>藏轮阁</h1>
