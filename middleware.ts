@@ -50,7 +50,12 @@ export function middleware(request: NextRequest) {
     const newPath = pathname.replace(`/${i18n.defaultLocale}`, "");
 
     // 使用 rewrite 将请求内部重写为没有语言前缀的路径，但返回该路径的内容
-    return NextResponse.rewrite(new URL(newPath, request.url));
+    const response = NextResponse.rewrite(new URL(newPath, request.url));
+
+    // 设置 cookie 为默认语言（'zh'）
+    response.cookies.set("NEXT_LOCALE", i18n.defaultLocale);
+
+    return response;
   }
 
   // 检查路径名是否缺少语言环境
@@ -65,20 +70,38 @@ export function middleware(request: NextRequest) {
     // 如果是默认语言（例如 'zh'），则保持路径并返回带语言前缀的内容
     if (locale === i18n.defaultLocale) {
       // 保留原路径但带上默认语言前缀
-      return NextResponse.rewrite(new URL(`/zh${pathname}`, request.url));
+      const response = NextResponse.rewrite(
+        new URL(`/zh${pathname}`, request.url)
+      );
+
+      // 设置 cookie 为默认语言（'zh'）
+      response.cookies.set("NEXT_LOCALE", i18n.defaultLocale);
+
+      return response;
     }
 
     // 否则，重定向到带有语言前缀的路径
-    return NextResponse.redirect(
+    const response = NextResponse.redirect(
       new URL(
         `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
         request.url
       )
     );
+
+    // 设置 cookie 为匹配到的语言
+    response.cookies.set("NEXT_LOCALE", locale);
+
+    return response;
   }
 
   // 如果路径名已经包含语言环境，继续正常处理
-  return NextResponse.next();
+  const locale = getLocale(request) || i18n.defaultLocale;
+  const response = NextResponse.next();
+
+  // 设置 cookie 为匹配到的语言或默认语言
+  response.cookies.set("NEXT_LOCALE", locale);
+
+  return response;
 }
 
 /**
