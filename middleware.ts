@@ -68,21 +68,21 @@ export function middleware(request: NextRequest) {
     return setLocaleCookie(response, i18n.defaultLocale);
   }
 
-  // url 包含有效的 locale
+  // url 包含 locale 且 有效 locale
   if (i18n.locales.includes(matchedLocale as LocaleType)) {
     const response = NextResponse.next();
 
     return setLocaleCookie(response, matchedLocale);
-  } else {
-    // 这里是用来判断  /product 这种根目录格式的重定向的， 没有 有效 locale，判断请求头是否有 有效  locale，
-    const langLocale = getLocale(request) || i18n.defaultLocale;
-
-    const response = handleLocalePathRedirect(request, langLocale, pathname);
-
-    setLocaleCookie(response, langLocale);
-
-    return response;
   }
+
+  // 不包含 locale，处理 /product 这种根目录格式的重定向， 根据请求头 lang 帮助重定向一下
+  const langLocale = getLocale(request) || i18n.defaultLocale;
+
+  const response = handleLocalePathRedirect(request, langLocale, pathname);
+
+  setLocaleCookie(response, langLocale);
+
+  return response;
 }
 
 /**
