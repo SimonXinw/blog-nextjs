@@ -1,6 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Input, Space, Table, Row, Col } from "antd";
+import {
+  Button,
+  Input,
+  Space,
+  Table,
+  Row,
+  Col,
+  Modal,
+  Form,
+  message,
+} from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRequest } from "ahooks";
 import * as services from "@/services";
@@ -8,7 +18,8 @@ import userData from "@/constants/api/user.json";
 
 // 定义getColumns函数的参数类型
 interface GetColumnsParamsType {
-  remove: (id: number) => void; // 假设remove函数接收id为参数，并且没有返回值
+  remove: (id: number) => void;
+  edit: (record: any) => void;
 }
 
 // 定义列配置的类型
@@ -18,11 +29,11 @@ interface ColumnType {
   dataIndex?: string;
   render?: (
     value: any,
-    record: { id: number }
+    record: { id: number; [key: string]: any }
   ) => React.ReactNode | string | undefined | null;
 }
 
-const getColumns = ({ remove }: GetColumnsParamsType): ColumnType[] => {
+const getColumns = ({ remove, edit }: GetColumnsParamsType): ColumnType[] => {
   return [
     {
       title: "No.",
@@ -45,17 +56,21 @@ const getColumns = ({ remove }: GetColumnsParamsType): ColumnType[] => {
       render: (v, record) => {
         return (
           <Space size="middle">
-            <button key="editable" onClick={() => {}}>
+            <Button
+              type="link"
+              key="editable"
+              onClick={() => edit(record)} // 打开编辑弹窗
+            >
               编辑
-            </button>
-            <button
+            </Button>
+            <Button
+              type="link"
+              danger
               key="delete"
-              onClick={() => {
-                remove(record?.id);
-              }}
+              onClick={() => remove(record?.id)} // 删除
             >
               删除
-            </button>
+            </Button>
           </Space>
         );
       },
@@ -70,6 +85,12 @@ const ListPage = () => {
   const [filterUsername, setFilterUsername] = useState<string>(""); // 筛选字段
   const [filteredData, setFilteredData] = useState(users); // 筛选后的数据
 
+  // 编辑弹窗状态
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingRecord, setEditingRecord] = useState<any>(null); // 当前正在编辑的记录
+
+  const [messageApi, contextHolder] = message.useMessage();
+
   const {
     loading: removeLoading,
     data,
@@ -77,6 +98,21 @@ const ListPage = () => {
   } = useRequest(services.remove, {
     manual: true,
   });
+
+  const { loading: updateLoading, run: updateUser } = useRequest(
+    async (updatedRecord) => {
+      // 调用更新接口
+      const response = await fetch("/api/user/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedRecord),
+      });
+      const result = await response.json();
+      if (!result.success) throw new Error(result.data || "更新失败");
+      return result.data;
+    },
+    { manual: true }
+  );
 
   useEffect(() => {
     if (!data) return;
@@ -113,8 +149,34 @@ const ListPage = () => {
     setFilteredData(tableDataSource);
   };
 
+  // 编辑逻辑
+  const handleEdit = (record: any) => {
+    setEditingRecord(record); // 设置当前编辑记录
+    setIsModalOpen(true); // 打开弹窗
+  };
+
+  const onFinish = async (values: any) => {
+    try {
+      const updatedRecord = { ...editingRecord, ...values }; // 合并原有记录和新值
+      await updateUser(updatedRecord); // 调用更新 API
+
+      // 更新表格数据
+      setTableDataSource((prev: any) =>
+        prev.map((item: any) =>
+          item.id === updatedRecord.id ? updatedRecord : item
+        )
+      );
+
+      messageApi.success("更新成功");
+      setIsModalOpen(false); // 关闭弹窗
+    } catch (error: any) {
+      messageApi.error(error.message || "更新失败");
+    }
+  };
+
   return (
     <div>
+      {contextHolder}
       {/* 筛选区域 */}
       <Row gutter={16} style={{ marginBottom: 16 }}>
         <Col span={8}>
@@ -138,9 +200,46 @@ const ListPage = () => {
       <Table
         loading={removeLoading}
         dataSource={filteredData}
-        columns={getColumns({ remove: handleRemove })}
+        columns={getColumns({ remove: handleRemove, edit: handleEdit })}
         rowKey="id" // 防止表格警告
       />
+
+      {/* 编辑弹窗 */}
+      <Modal
+        title="编辑用户"
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
+      >
+        <Form
+          layout="vertical"
+          initialValues={editingRecord}
+          onFinish={onFinish}
+        >
+          <Form.Item
+            name="username"
+            label="账号"
+            rules={[{ required: true, message: "请输入账号" }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            label="密码"
+            rules={[{ required: true, message: "请输入密码" }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          <Form.Item>
+            <Space>
+              <Button type="primary" htmlType="submit" loading={updateLoading}>
+                保存
+              </Button>
+              <Button onClick={() => setIsModalOpen(false)}>取消</Button>
+            </Space>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

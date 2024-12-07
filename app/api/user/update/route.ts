@@ -6,7 +6,7 @@ import path from "path";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
 import userJson from "@/constants/api/user.json";
 import cookie from "cookie";
-import { filter } from "lodash";
+import { find, map } from "lodash";
 
 type CreateResponseType = {
   code?: number;
@@ -17,7 +17,6 @@ type CreateResponseType = {
 /**
  * @格式化返回数据
  */
-
 const createResponse = (params?: CreateResponseType) => {
   const { code = 200, data = null, success = true } = params || {};
 
@@ -38,18 +37,15 @@ const generateToken = (data: any) => {
 };
 
 const authMiddleware = (cookieStr: string) => {
-  // 解析cookie字符串到一个对象
   const cookies = cookie.parse(cookieStr || "");
 
   const oldToken = cookies[TOKEN_KEY_NAME] || "";
 
   try {
-    // 验证旧的 refresh token
     const tokenData = jwt.verify(oldToken, SECRET_KEY, {
       algorithms: ["HS256"],
     });
 
-    // 假设我们只需要用户 ID 来生成新 token
     const newToken = generateToken(tokenData);
 
     return {
@@ -64,40 +60,62 @@ const authMiddleware = (cookieStr: string) => {
   }
 };
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url || "");
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
 
-  const id = searchParams.get("id");
+    const { id, ...updateFields } = body;
 
-  // Error 没有值
-  if (!id) {
+    if (!id) {
+      return NextResponse.json(
+        createResponse({ success: false, data: "Error: 缺少 id 参数" }),
+        { status: 400 }
+      );
+    }
+
+    // 查找目标用户
+    const user = find(userJson.data, { id: Number(id) });
+
+    if (!user) {
+      return NextResponse.json(
+        createResponse({ success: false, data: "Error: 用户未找到" }),
+        { status: 404 }
+      );
+    }
+
+    // 更新用户数据
+    const updatedData = map(userJson.data, (item) => {
+      if (item.id === Number(id)) {
+        return { ...item, ...updateFields }; // 更新目标用户的字段
+      }
+      return item;
+    });
+
+    userJson.data = updatedData;
+
+    // 将 JSON 对象转换为字符串
+    const userJsonString = JSON.stringify(userJson, null, 2);
+
+    // 写入 JSON 数据到文件
+    const filepath = path.join(
+      process.cwd(),
+      "src",
+      "constants",
+      "api",
+      "user.json"
+    );
+
+    fs.writeFileSync(filepath, userJsonString);
+
     return NextResponse.json(
-      createResponse({ success: false, data: "Error: 没有 id" }),
+      createResponse({ success: true, data: updatedData }),
       { status: 200 }
     );
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return NextResponse.json(
+      createResponse({ success: false, data: "更新失败" }),
+      { status: 500 }
+    );
   }
-
-  const data = filter(userJson.data, function (item: any) {
-    return item.id != id; // 假设我们想要删除id为2的对象
-  });
-
-  userJson.data = data;
-
-  // 将 JSON 对象转换为字符串
-  const userJsonString = JSON.stringify(userJson);
-
-  // 写入 JSON 数据到文件
-  const filepath = path.join(
-    process.cwd(),
-    "src",
-    "constants",
-    "api",
-    "user.json"
-  );
-
-  fs.writeFileSync(filepath, userJsonString);
-
-  return NextResponse.json(createResponse({ success: true, data: id }), {
-    status: 200,
-  });
 }
