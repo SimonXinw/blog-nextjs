@@ -1,6 +1,8 @@
 // 定义支持的语言类型
 export type LocaleType = "en" | "zh" | "us";
 
+export const COOKIE_LOCALE_KEY = "NEXT_LOCALE";
+
 // i18n 配置
 export const i18n = {
   defaultLocale: "zh" as LocaleType,
