@@ -55,14 +55,19 @@ export function middleware(request: NextRequest) {
 
     // 如果是默认语言（例如 'zh'），则重定向到没有语言前缀的路径
     if (locale === i18n.defaultLocale) {
-      return NextResponse.redirect(
-        new URL(`/${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url)
-      );
+      const url = new URL(
+        `/${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+        request.url
+      ).href;
+      return NextResponse.redirect(url);
     }
 
     // 否则，重定向到带有语言前缀的路径
     return NextResponse.redirect(
-      new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url)
+      new URL(
+        `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
+        request.url
+      )
     );
   }
 
