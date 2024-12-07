@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GlobalOutlined } from "@ant-design/icons";
 import { Dropdown, Menu } from "antd";
 
@@ -9,23 +9,28 @@ const countries = [
   { name: "中国", code: "zh" },
 ];
 
-export default () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>("zh"); // 默认选中国
+export default function LanguageSwitcher() {
+  const [selectedCountry, setSelectedCountry] = useState<string>("zh");
 
-  // 设置 cookie 和更改 URL
+  useEffect(() => {
+    const locale =
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("NEXT_LOCALE="))
+        ?.split("=")[1] || "zh";
+    setSelectedCountry(locale);
+  }, []);
+
   const setLocaleAndRedirect = (locale: string) => {
-    // 设置 cookie
     document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=${
       60 * 60 * 24 * 30
-    }`; // 设置 30天有效期
-
-    // 更新 URL，刷新页面以使语言生效
-    const newUrl = `/${locale}${window.location.pathname.substring(3)}`; // 假设路径前缀是语言代码
-
-    window.location.href = newUrl; // 更改页面语言并刷新
+    }`;
+    setTimeout(() => {
+      const newUrl = `/${locale}${window.location.pathname.substring(3)}`;
+      window.location.href = newUrl;
+    }, 0);
   };
 
-  // 国家选择菜单
   const countryMenu = (
     <Menu
       items={countries.map((item) => ({
@@ -34,7 +39,7 @@ export default () => {
           <div
             onClick={() => {
               setSelectedCountry(item.code);
-              setLocaleAndRedirect(item.code); // 设置语言并更新 URL
+              setLocaleAndRedirect(item.code);
             }}
           >
             {item.name} ({item.code})
@@ -60,4 +65,4 @@ export default () => {
       </div>
     </Dropdown>
   );
-};
+}
