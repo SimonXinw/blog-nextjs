@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
 export const i18n = {
-  defaultLocale: "en",
+  defaultLocale: "zh",
   locales: ["en", "zh"],
 };
 
@@ -19,14 +18,11 @@ export const i18n = {
  * @returns 返回匹配的语言环境字符串，如果没有匹配则返回 undefined。
  */
 function getLocale(request: NextRequest): string | undefined {
-  // Negotiator expects plain object so we need to transform headersz
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  // @ts-ignore locales are readonly
   const locales: string[] = i18n.locales;
 
-  // Use negotiator and intl-localematcher to get best locale
   let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
     locales
   );
@@ -39,7 +35,7 @@ function getLocale(request: NextRequest): string | undefined {
 /**
  * 中间件函数，用于处理请求的路径以确保包含正确的语言环境。
  *
- * 如果请求的路径没有包含语言环境，则尝试从请求头中获取语言环境，并重定向到带有正确语言环境的路径。
+ * 如果请求的路径没有包含语言环境，则尝试从请求头获取语言环境，并重定向到带有正确语言环境的路径。
  * 这确保了所有请求都以明确的语言环境进行处理，提高了国际化处理的一致性。
  *
  * @param request Next.js 的请求对象，包含请求的 URL 和头信息。
@@ -48,37 +44,30 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
-  // // If you have one
-  // if (
-  //   [
-  //     '/manifest.json',
-  //     '/favicon.ico',
-  //     // Your other files in `public`
-  //   ].includes(pathname)
-  // )
-  //   return
-
-  // Check if there is any supported locale in the pathname
   // 检查路径名是否缺少语言环境
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
-  // Redirect if there is no locale
+  // 如果路径名缺少语言环境，尝试从请求头获取语言环境
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
 
-    // e.g. incoming request is /products
-    // The new URL is now /en-US/products
-    // 如果请求的路径没有语言环境，重定向到带有正确语言环境的路径
+    // 如果是默认语言（例如 'zh'），则重定向到没有语言前缀的路径
+    if (locale === i18n.defaultLocale) {
+      return NextResponse.redirect(
+        new URL(`/${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url)
+      );
+    }
+
+    // 否则，重定向到带有语言前缀的路径
     return NextResponse.redirect(
-      new URL(
-        `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-        request.url
-      )
+      new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url)
     );
   }
+
+  // 如果路径名已经包含语言环境，继续正常处理
+  return NextResponse.next();
 }
 
 /**
@@ -88,7 +77,6 @@ export function middleware(request: NextRequest) {
  * 如 API 路径、静态文件路径等。
  */
 export const config = {
-  // Matcher ignoring `/_next/` and `/api/`
   matcher: [
     "/((?!api|public|_next/static|_next/image|favicon.ico|images|fonts).*)",
   ],
