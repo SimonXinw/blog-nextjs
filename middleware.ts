@@ -2,11 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
-
-export const i18n = {
-  defaultLocale: "zh",
-  locales: ["en", "zh"],
-};
+import { i18n } from "./i18n";
 
 /**
  * 从请求中获取最合适的语言环境。
@@ -44,6 +40,19 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // 检查路径名是否以默认语言的前缀开始 (例如 '/zh/')
+  const isDefaultLocalePath =
+    pathname.startsWith(`/${i18n.defaultLocale}/`) || pathname === "/";
+
+  // 如果是默认语言路径，重写路径为无语言前缀的路径
+  if (isDefaultLocalePath) {
+    // 去除语言前缀 '/zh'
+    const newPath = pathname.replace(`/${i18n.defaultLocale}`, "");
+
+    // 使用 rewrite 将请求内部重写为没有语言前缀的路径，但返回该路径的内容
+    return NextResponse.rewrite(new URL(newPath, request.url));
+  }
+
   // 检查路径名是否缺少语言环境
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
@@ -53,13 +62,10 @@ export function middleware(request: NextRequest) {
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
 
-    // 如果是默认语言（例如 'zh'），则重定向到没有语言前缀的路径
+    // 如果是默认语言（例如 'zh'），则保持路径并返回带语言前缀的内容
     if (locale === i18n.defaultLocale) {
-      const url = new URL(
-        `/${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-        request.url
-      ).href;
-      return NextResponse.redirect(url);
+      // 保留原路径但带上默认语言前缀
+      return NextResponse.rewrite(new URL(`/zh${pathname}`, request.url));
     }
 
     // 否则，重定向到带有语言前缀的路径
