@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Dropdown, Space, Table } from "antd";
+import { Button, Input, Space, Table, Row, Col } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRequest } from "ahooks";
 import * as services from "@/services";
@@ -67,6 +67,8 @@ const ListPage = () => {
   const users = userData.data;
 
   const [tableDataSource, setTableDataSource]: any = useState(users); // 初始化为 users 数据
+  const [filterUsername, setFilterUsername] = useState<string>(""); // 筛选字段
+  const [filteredData, setFilteredData] = useState(users); // 筛选后的数据
 
   const {
     loading: removeLoading,
@@ -84,16 +86,62 @@ const ListPage = () => {
     );
   }, [data]);
 
+  useEffect(() => {
+    if (!filterUsername) {
+      setFilteredData(tableDataSource);
+    } else {
+      const filtered = tableDataSource.filter((item: any) =>
+        item.username.toLowerCase().includes(filterUsername.toLowerCase())
+      );
+      setFilteredData(filtered);
+    }
+  }, [filterUsername, tableDataSource]);
+
   const handleRemove = (id: number) => {
     remove(id); // 调用 remove API，传入 id
   };
 
+  const handleSearch = () => {
+    const filtered = tableDataSource.filter((item: any) =>
+      item.username.toLowerCase().includes(filterUsername.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
+
+  const handleReset = () => {
+    setFilterUsername("");
+    setFilteredData(tableDataSource);
+  };
+
   return (
-    <Table
-      loading={removeLoading}
-      dataSource={tableDataSource}
-      columns={getColumns({ remove: handleRemove })}
-    />
+    <div>
+      {/* 筛选区域 */}
+      <Row gutter={16} style={{ marginBottom: 16 }}>
+        <Col span={8}>
+          <Input
+            placeholder="请输入用户名进行筛选"
+            value={filterUsername}
+            onChange={(e) => setFilterUsername(e.target.value)}
+          />
+        </Col>
+        <Col>
+          <Button type="primary" onClick={handleSearch}>
+            查询
+          </Button>
+        </Col>
+        <Col>
+          <Button onClick={handleReset}>重置</Button>
+        </Col>
+      </Row>
+
+      {/* 表格展示 */}
+      <Table
+        loading={removeLoading}
+        dataSource={filteredData}
+        columns={getColumns({ remove: handleRemove })}
+        rowKey="id" // 防止表格警告
+      />
+    </div>
   );
 };
 
