@@ -12,6 +12,8 @@
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.6.43",
+    "@formatjs/intl-localematcher": "^0.5.8",
+    "@types/negotiator": "^0.6.3",
     "@types/node": "18.15.11",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
@@ -26,6 +28,7 @@
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "maxmind": "^4.3.23",
+    "negotiator": "^1.0.0",
     "next": "15.0.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",

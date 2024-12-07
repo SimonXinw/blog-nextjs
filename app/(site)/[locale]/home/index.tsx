@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { FireFilled } from "@ant-design/icons";
 import { randomColor } from "@/utils";
 import { RecordNumber, PageHeader, EWM, VideoBG } from "@/components";

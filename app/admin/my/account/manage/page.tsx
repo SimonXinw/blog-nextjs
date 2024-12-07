@@ -105,6 +105,8 @@ const ListPage = () => {
       const response = await fetch("/api/user/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+
+        
         body: JSON.stringify(updatedRecord),
       });
       const result = await response.json();

@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "./(site)/[locale]/home";
+import Home from "./index";
 
 export default function Page() {
   return <Home />;
