@@ -21,6 +21,7 @@ export const i18n = {
  * @country iso code translate to current project locale
  */
 export const countryToLocaleMapping: Record<string, string> = {
+  global: "global", // 全球
   cn: "cn", // 中国
   us: "us", // 美国
   uk: "uk", // 英国
