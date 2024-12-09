@@ -14,9 +14,6 @@ importers:
       '@ant-design/pro-components':
         specifier: ^2.6.43
         version: 2.6.43(antd@5.22.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(rc-field-form@2.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@formatjs/intl-localematcher':
-        specifier: ^0.5.8
-        version: 0.5.8
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -314,9 +311,6 @@ packages:
   '@eslint/js@8.37.0':
     resolution: {integrity: sha512-x5vzdtOOGgFVDCUs81QRB2+liax8rFg3+7hqM+QhBG0/G3F1ZsoYl97UrqgHgQ9KKT7G6c4V+aTUCgu/n22v1A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-
-  '@formatjs/intl-localematcher@0.5.8':
-    resolution: {integrity: sha512-I+WDNWWJFZie+jkfkiK5Mp4hEDyRSEvmyfYadflOno/mmKJKcB17fEpEH0oJu/OWhhCJ8kJBDz2YMd/6cDl7Mg==}
 
   '@humanwhocodes/config-array@0.11.8':
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -2948,10 +2942,6 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.37.0': {}
-
-  '@formatjs/intl-localematcher@0.5.8':
-    dependencies:
-      tslib: 2.8.1
 
   '@humanwhocodes/config-array@0.11.8':
     dependencies:

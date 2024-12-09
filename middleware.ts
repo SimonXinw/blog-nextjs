@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { i18n, LocaleType, COOKIE_LOCALE_KEY } from "./i18n";
 import { getDbGeoIpLocale } from "lib/geoip";
