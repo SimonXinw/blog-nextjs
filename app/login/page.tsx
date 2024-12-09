@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from "react";
 import { useRequest } from "ahooks";
-import { PageHeader } from "@/components";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Radio, Checkbox, message } from "antd";
 import Router from "next/router";
@@ -78,7 +77,7 @@ const Login: React.FC = () => {
         <Form
           {...layout}
           layout="vertical"
-          initialValues={{ loginType: "account", remember: true }}
+          initialValues={{ loginType: loginType, remember: true }}
           form={form}
           name="normal_login"
           className="login-form"
@@ -98,7 +97,6 @@ const Login: React.FC = () => {
             rules={[{ required: true, message: "Please input your Username!" }]}
           >
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
               placeholder="Username"
             />
           </Form.Item>
@@ -109,7 +107,6 @@ const Login: React.FC = () => {
             rules={[{ required: true, message: "Please input your Password!" }]}
           >
             <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
               placeholder="Password"
 

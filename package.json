@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
+    "@ant-design/icons": "^5.5.2",
     "@ant-design/pro-components": "^2.6.43",
     "@formatjs/intl-localematcher": "^0.5.8",
     "@types/js-cookie": "^3.0.6",
