@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { useRequest } from "ahooks";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Radio, Checkbox, message } from "antd";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ImageBg } from "@/components";
 import * as services from "@/services";
@@ -13,6 +13,8 @@ const Login: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [loginType, setLoginType] = useState("account");
+
+  const router = useRouter();
 
   /**
    * @验证信息
@@ -53,7 +55,7 @@ const Login: React.FC = () => {
         });
       }
 
-      Router.push("/admin/my/account/manage");
+      router.push("/admin/my/account/manage");
 
       messageApi.open({
         type: "success",
@@ -96,23 +98,16 @@ const Login: React.FC = () => {
             label="用户名"
             rules={[{ required: true, message: "Please input your Username!" }]}
           >
-            <Input
-              placeholder="Username"
-            />
+            <Input placeholder="Username" />
           </Form.Item>
           <Form.Item
-
             label="密码"
             name="password"
             rules={[{ required: true, message: "Please input your Password!" }]}
           >
-            <Input
-              type="password"
-              placeholder="Password"
-
-            />
+            <Input type="password" placeholder="Password" />
           </Form.Item>
-          <Form.Item >
+          <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
@@ -122,7 +117,7 @@ const Login: React.FC = () => {
             </a>
           </Form.Item>
 
-          <Form.Item >
+          <Form.Item>
             <Button
               loading={loading}
               type="primary"
@@ -133,15 +128,17 @@ const Login: React.FC = () => {
             </Button>
             <div>
               Or
-              <Link style={{ marginLeft: 4, color: "#1677ff" }} href="/register">
+              <Link
+                style={{ marginLeft: 4, color: "#1677ff" }}
+                href="/register"
+              >
                 register now!
               </Link>
             </div>
-
           </Form.Item>
         </Form>
       </div>
-    </div >
+    </div>
   );
 };
 

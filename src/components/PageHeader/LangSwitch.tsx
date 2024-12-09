@@ -74,7 +74,6 @@ const LanguageSwitcher: React.FC = () => {
     <div>
       <Button
         type="text"
-        icon={<GlobalOutlined />}
         onClick={showLanguageModal}
         className="flex justify-center items-center text-base pl-0 pr-0 pt-0 pb-0 h-fit"
       >

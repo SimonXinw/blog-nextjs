@@ -92,21 +92,14 @@ const Register: React.FC = () => {
             label="用户名"
             rules={[{ required: true, message: "Please input your Username!" }]}
           >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
-            />
+            <Input placeholder="Username" />
           </Form.Item>
           <Form.Item
             label="密码"
             name="password"
             rules={[{ required: true, message: "Please input your Password!" }]}
           >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
-            />
+            <Input type="password" placeholder="Password" />
           </Form.Item>
 
           <Form.Item>
