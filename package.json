@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
     "@ant-design/pro-components": "^2.6.43",
+    "@supabase/supabase-js": "^2.47.2",
     "@types/js-cookie": "^3.0.6",
     "@types/negotiator": "^0.6.3",
     "@types/node": "18.15.11",
