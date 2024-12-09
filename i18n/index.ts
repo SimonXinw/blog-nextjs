@@ -16,7 +16,7 @@ export const i18n = {
   },
 };
 
-// countryToLocaleMapping 在 i18n 之后定义
+// 原始国家映射关系在这里，必须和  i18n 匹配，都增加才有这个国家
 /**
  * @country iso code translate to current project locale
  */
