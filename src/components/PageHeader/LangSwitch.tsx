@@ -41,7 +41,7 @@ const LanguageSwitcher: React.FC = () => {
     const currentPath = window.location.pathname;
 
     // 判断路径是否有语言前缀（动态获取前缀）
-    const regex = /^\/([a-zA-Z]{2})(\/.*)?$/; // 前缀为 2 字母的语言代码
+    const regex = /^\/([^\/]+)(\/.*)?$/; // 前缀为 2 字母的语言代码
 
     const match = currentPath.match(regex);
 
