@@ -88,7 +88,10 @@ export const getDbGeoIpLocale = async (ip: string, requestUlr: string) => {
   }
 };
 
-// 匹配逻辑函数
+/**
+ * @MaxMind DB
+ *
+ */
 export function maxmindConvertIsoToLocale(
   geoData: GeoDataPropsType
 ): string | null {
