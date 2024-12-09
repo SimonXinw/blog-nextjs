@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import type { Metadata } from "next";
-import { FireFilled } from "@ant-design/icons";
 import { randomColor } from "@/utils";
 import { RecordNumber, EWM, VideoBG } from "@/components";
 import styles from "./Home.module.css";
@@ -78,7 +77,6 @@ const BlogUrlList = [
   {
     url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/排序算法.html",
     name: "排序算法",
-    icon: <FireFilled style={{ color: "#FF4500" }} />,
   },
   {
     url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/双飞翼布局.html",
@@ -87,7 +85,6 @@ const BlogUrlList = [
   {
     url: "https://cdn.xinwangblog.cn/html/web-js-demo/js/复利计算.html",
     name: "复利计算",
-    icon: <FireFilled style={{ color: "#FF4500" }} />,
   },
 
   {
