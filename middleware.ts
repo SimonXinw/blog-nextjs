@@ -53,7 +53,7 @@ function handleLocalePathRedirect(
  */
 export async function middleware(request: NextRequest & { ip: string }) {
   const pathname = request.nextUrl.pathname;
-  const localeRegex = /^\/([a-zA-Z]{2})(\/.*)?$/;
+  const localeRegex = /^\/([^\/]+)(\/.*)?$/;
   const localeMatched = pathname.match(localeRegex);
   const matchedLocale = localeMatched?.[1] || "";
 
