@@ -165,7 +165,6 @@ export default function Home() {
                       <a target="_blank" href={item.url} rel="noreferrer">
                         {item.name}
                       </a>
-                      {item.icon}
                     </span>
                   </p>
                 );
