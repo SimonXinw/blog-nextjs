@@ -23,13 +23,14 @@ const countriesWithLanguages = [
 ];
 
 const LanguageSwitcher: React.FC = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>("zh");
+  const [selectedLocale, setSelectedLocale] = useState<string>("zh");
+  const [currentCountry, setCurrentCountry] = useState<string>("cn");
   const [visible, setVisible] = useState(false); // 控制 Modal 显示
 
   useEffect(() => {
     // 从 Cookie 中获取当前语言，或者使用默认语言 "zh"
     const locale = Cookies.get("NEXT_LOCALE") || "zh"; // 使用 js-cookie 获取 Cookie
-    setSelectedCountry(locale);
+    setSelectedLocale(locale);
   }, []);
 
   const setLocaleAndRedirect = (locale: string) => {
@@ -80,14 +81,14 @@ const LanguageSwitcher: React.FC = () => {
         <span className="mr-1">
           {
             countriesWithLanguages.find((c) =>
-              c.languages.some((lang) => lang.code === selectedCountry)
+              c.languages.some((lang) => lang.code === selectedLocale)
             )?.name
           }
         </span>
         <span>
           {
             countriesWithLanguages.find((c) =>
-              c.languages.some((lang) => lang.code === selectedCountry)
+              c.languages.some((lang) => lang.code === selectedLocale)
             )?.code
           }
         </span>
@@ -95,7 +96,7 @@ const LanguageSwitcher: React.FC = () => {
 
       <Modal
         title="选择语言"
-        visible={visible}
+        open={visible}
         onCancel={closeLanguageModal}
         footer={null}
         width={400}
@@ -112,19 +113,28 @@ const LanguageSwitcher: React.FC = () => {
                     style={{
                       marginRight: "8px",
                       color:
-                        selectedCountry === language.code
+                        selectedLocale === language.code &&
+                        currentCountry === country.code
                           ? "#1677FF"
                           : "initial",
                       cursor:
-                        selectedCountry === language.code
+                        selectedLocale === language.code &&
+                        currentCountry === country.code
                           ? "not-allowed"
                           : "pointer",
                     }}
                     onClick={(e) => {
                       e.preventDefault();
-                      if (selectedCountry === language.code) return;
 
-                      setSelectedCountry(language.code);
+                      if (
+                        selectedLocale === language.code &&
+                        currentCountry === country.code
+                      ) {
+                        return;
+                      }
+
+                      setSelectedLocale(language.code);
+                      setCurrentCountry(country.code);
                       setLocaleAndRedirect(language.code);
                       closeLanguageModal();
                     }}

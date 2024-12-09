@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
 import userJson from "@/constants/api/user.json";
-import cookie from "cookie";
+import { parse as cookieParse } from "cookie";
 
 type CreateResponseType = {
   code?: number;
@@ -41,7 +41,7 @@ const generateToken = (data: any) => {
  * 鉴权中间件
  */
 const authMiddleware = (cookieStr: string) => {
-  const cookies = cookie.parse(cookieStr || "");
+  const cookies = cookieParse(cookieStr || "");
   const oldToken = cookies[TOKEN_KEY_NAME] || "";
 
   try {

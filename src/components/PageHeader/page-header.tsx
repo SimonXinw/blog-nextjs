@@ -21,6 +21,17 @@ const PageHeader: React.FC = () => {
         />
       </Space>
       <Space size={[24, 0]} wrap align="center">
+        <a
+          onClick={(e) => {
+            e.stopPropagation();
+
+            router.push("/product");
+          }}
+        >
+          Product
+        </a>
+      </Space>
+      <Space size={[24, 0]} wrap align="center">
         <Link href="/admin/craw">
           <BugOutlined style={{ fontSize: "24px" }} />
         </Link>
@@ -28,7 +39,6 @@ const PageHeader: React.FC = () => {
           <UserOutlined style={{ fontSize: "24px", marginRight: 8 }} />
           登陆
         </Link>
-
         <LangSwitch />
       </Space>
     </nav>

@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.6.43",
     "@formatjs/intl-localematcher": "^0.5.8",
+    "@types/js-cookie": "^3.0.6",
     "@types/negotiator": "^0.6.3",
     "@types/node": "18.15.11",
     "@types/react": "19.0.0",

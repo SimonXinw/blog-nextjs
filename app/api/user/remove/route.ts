@@ -5,7 +5,8 @@ import fs from "fs";
 import path from "path";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
 import userJson from "@/constants/api/user.json";
-import cookie from "cookie";
+import { parse as cookieParse } from "cookie";
+
 import { filter } from "lodash";
 
 type CreateResponseType = {
@@ -39,7 +40,7 @@ const generateToken = (data: any) => {
 
 const authMiddleware = (cookieStr: string) => {
   // 解析cookie字符串到一个对象
-  const cookies = cookie.parse(cookieStr || "");
+  const cookies = cookieParse(cookieStr || "");
 
   const oldToken = cookies[TOKEN_KEY_NAME] || "";
 

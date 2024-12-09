@@ -69,7 +69,6 @@ const Register: React.FC = () => {
     <div className={styles["login-page"]}>
       <ImageBg />
       {contextHolder}
-      <PageHeader></PageHeader>
       <div className={styles["form-wrap"]}>
         <Form
           {...layout}

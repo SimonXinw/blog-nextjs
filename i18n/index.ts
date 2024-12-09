@@ -1,18 +1,41 @@
 // 定义支持的语言类型
-export type LocaleType = "en" | "zh" | "us";
+export type LocaleType = "en" | "zh" | "us" | "cn" | "global";
 
 export const COOKIE_LOCALE_KEY = "NEXT_LOCALE";
 
+export const DEFAULT_LOCALE = "cn";
+
 // i18n 配置
 export const i18n = {
-  defaultLocale: "zh" as LocaleType,
-  locales: ["en", "zh", "us"] as LocaleType[],
+  defaultLocale: DEFAULT_LOCALE,
+  locales: ["en", "zh", "us", "cn", "global"] as LocaleType[],
 
   // 初始化语言环境
   init(locale: LocaleType) {
     return getDictionary(locale);
   },
 };
+
+// countryToLocaleMapping 在 i18n 之后定义
+/**
+ * @country iso code translate to current project locale
+ */
+export const countryToLocaleMapping: Record<string, string> = {
+  cn: "cn", // 中国
+  us: "us", // 美国
+  uk: "uk", // 英国
+  gb: "uk", // 英国
+  de: "de", // 德国
+  ca: "ca", // 加拿大
+  au: "au", // 澳大利亚
+};
+
+// 过滤掉 i18n.locales 中未包含的国家
+export const filteredCountryToLocaleMapping = Object.fromEntries(
+  Object.entries(countryToLocaleMapping).filter(([key, value]) =>
+    i18n.locales.includes(value as LocaleType)
+  )
+);
 
 // 缓存已加载的字典
 const cachedDictionaries: Record<LocaleType, any> = {} as Record<
@@ -28,6 +51,8 @@ const dictionaries = {
   en: () => import("./localeJsons/en.json").then((data) => data),
   zh: () => import("./localeJsons/zh.json").then((data) => data),
   us: () => import("./localeJsons/us.json").then((data) => data),
+  cn: () => import("./localeJsons/cn.json").then((data) => data),
+  global: () => import("./localeJsons/global.json").then((data) => data),
 };
 
 // 获取字典，使用缓存来避免重复加载，并处理 locale 更改

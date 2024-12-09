@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
 import userJson from "@/constants/api/user.json";
-import cookie from "cookie";
 
 type CreateResponseType = {
   code?: number;
