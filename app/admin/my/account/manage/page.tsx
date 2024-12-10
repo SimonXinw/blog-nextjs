@@ -11,79 +11,14 @@ import {
   Form,
   message,
 } from "antd";
-import type { ColumnsType } from "antd/es/table";
 import { useRequest } from "ahooks";
 import * as services from "@/services";
-import userData from "@/constants/api/user.json";
-
-// 定义getColumns函数的参数类型
-interface GetColumnsParamsType {
-  remove: (id: number) => void;
-  edit: (record: any) => void;
-}
-
-// 定义列配置的类型
-interface ColumnType {
-  title: string;
-  key: string;
-  dataIndex?: string;
-  render?: (
-    value: any,
-    record: { id: number; [key: string]: any }
-  ) => React.ReactNode | string | undefined | null;
-}
-
-const getColumns = ({ remove, edit }: GetColumnsParamsType): ColumnType[] => {
-  return [
-    {
-      title: "No.",
-      key: "id",
-      dataIndex: "id",
-    },
-    {
-      title: "账号",
-      key: "username",
-      dataIndex: "username",
-    },
-    {
-      title: "密码",
-      key: "password",
-      dataIndex: "password",
-    },
-    {
-      title: "操作",
-      key: "option",
-      render: (v, record) => {
-        return (
-          <Space size="middle">
-            <Button
-              type="link"
-              key="editable"
-              onClick={() => edit(record)} // 打开编辑弹窗
-            >
-              编辑
-            </Button>
-            <Button
-              type="link"
-              danger
-              key="delete"
-              onClick={() => remove(record?.id)} // 删除
-            >
-              删除
-            </Button>
-          </Space>
-        );
-      },
-    },
-  ];
-};
+import { getColumns } from "./column";
 
 const ListPage = () => {
-  const users = userData.data;
-
-  const [tableDataSource, setTableDataSource]: any = useState(users); // 初始化为 users 数据
+  const [tableDataSource, setTableDataSource]: any = useState([]); // 初始化为 users 数据
   const [filterUsername, setFilterUsername] = useState<string>(""); // 筛选字段
-  const [filteredData, setFilteredData] = useState(users); // 筛选后的数据
+  const [filteredData, setFilteredData] = useState([]); // 筛选后的数据
 
   // 编辑弹窗状态
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -93,20 +28,27 @@ const ListPage = () => {
 
   const {
     loading: removeLoading,
-    data,
+    data: removeRes,
     run: remove,
   } = useRequest(services.remove, {
     manual: true,
   });
 
+  const {
+    loading,
+    data,
+    run: triggerTable,
+  } = useRequest(services.getList, {
+    manual: false,
+  });
+
   const { loading: updateLoading, run: updateUser } = useRequest(
     async (updatedRecord) => {
       // 调用更新接口
-      const response = await fetch("/api/user/update", {
+      const response = await fetch("/user/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
 
-        
         body: JSON.stringify(updatedRecord),
       });
       const result = await response.json();
@@ -117,12 +59,10 @@ const ListPage = () => {
   );
 
   useEffect(() => {
-    if (!data) return;
+    if (!removeRes) return;
 
-    setTableDataSource((prev: any) =>
-      prev.filter((item: { id: number }) => item.id !== Number(data.data))
-    );
-  }, [data]);
+    triggerTable();
+  }, [removeRes]);
 
   useEffect(() => {
     if (!filterUsername) {
@@ -200,8 +140,8 @@ const ListPage = () => {
 
       {/* 表格展示 */}
       <Table
-        loading={removeLoading}
-        dataSource={filteredData}
+        loading={loading}
+        dataSource={data}
         columns={getColumns({ remove: handleRemove, edit: handleEdit })}
         rowKey="id" // 防止表格警告
       />

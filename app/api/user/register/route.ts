@@ -1,12 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest } from "next";
 import { NextResponse, NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
-import fs from "fs";
-import path from "path";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
-import userJson from "@/constants/api/user.json";
 import { parse as cookieParse } from "cookie";
+import { findUserByName, createUser } from "lib/supabase/queries/user";
 
 type CreateResponseType = {
   code?: number;
@@ -68,34 +65,30 @@ export async function POST(req: Request) {
     );
   }
 
-  const existingUser = userJson.data.find(
-    (item: any) => item.username === username
-  );
-  if (existingUser) {
+  const userData = await findUserByName(username);
+
+  if (userData) {
     return NextResponse.json(
       createResponse({ success: false, message: "Error: 账号已存在" }),
-      { status: 409 }
+      { status: 400 }
     );
   }
 
   // 添加用户到 JSON 数据
   const newUser = {
-    id: userJson.data.length + 1,
-    loginType: "account", // 默认值为 "normal"，可以根据需要调整
+    loginType: "account",
     username,
     password,
   };
 
-  userJson.data.push(newUser);
+  const createUserRes = await createUser(newUser);
 
-  const filePath = path.join(
-    process.cwd(),
-    "src",
-    "constants",
-    "api",
-    "user.json"
-  );
-  fs.writeFileSync(filePath, JSON.stringify(userJson, null, 2));
+  if (!createUserRes) {
+    return NextResponse.json(
+      createResponse({ success: false, message: "Error: 创建用户失败" }),
+      { status: 500 }
+    );
+  }
 
   // 生成 Token 并设置到 Cookie
   const token = generateToken({ username, loginType: newUser.loginType });

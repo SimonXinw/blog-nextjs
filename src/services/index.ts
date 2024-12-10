@@ -11,9 +11,13 @@ export const login = (params: any) => {
 };
 
 export const remove = (id: number) => {
-  return request("/user/remove", { params: { id } });
+  return request(`/user/${id}`, { method: "DELETE" });
 };
 
-export const findList = (id?: number) => {
-  return request("/test/list", { params: { id } });
+export const getList = (id?: number) => {
+  return request("/user", { params: { id } }).then((res: any) => {
+    if (!res?.success) return null;
+
+    return res.data;
+  });
 };

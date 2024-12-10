@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
-import userJson from "@/constants/api/user.json";
+import { findUserByName } from "lib/supabase/queries/user";
 
 type CreateResponseType = {
   code?: number;
@@ -76,11 +76,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const hasUser = !!userJson.data.find(
-    (item: any) => item.password === password && item.username === username
-  );
+  const userData = await findUserByName(username);
 
-  if (!hasUser) {
+  if (!userData) {
     return NextResponse.json(
       createResponse({ success: false, msg: "账号或密码错误。" }),
       { status: 401 }

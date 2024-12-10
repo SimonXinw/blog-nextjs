@@ -71,3 +71,6 @@ git config --global --unset user.email
 
 # 配置代理
 ngrok http http://localhost:7777
+
+# 数据库
+supabase 免费 1g 随便用，nb
