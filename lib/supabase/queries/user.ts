@@ -3,9 +3,12 @@ import type { User } from "../types";
 
 export async function findUserAll() {
   try {
+    console.time("查询所有用户时间"); // 开始计时
+
     const { data, error } = await supabase
       .from("user") // 表名
       .select("*"); // 查询所有字段
+    console.time("查询所有用户时间"); // 开始计时
 
     if (error) {
       console.error("Error querying user findUserAll:", error);
@@ -113,13 +116,11 @@ export async function updateUser(params: User) {
 export const deleteUserById = async (id: number): Promise<boolean | null> => {
   try {
     // 删除记录
-    console.time("计算时间"); // 开始计时
     const { error } = await supabase
       .from("user") // 替换为你的表名
       .delete()
       .eq("id", id);
 
-    console.timeEnd("计算时间"); // 结束计时并输出耗时
     if (error) {
       console.error("删除用户失败 error:", error);
 
