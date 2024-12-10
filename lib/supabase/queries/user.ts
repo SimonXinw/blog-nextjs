@@ -8,7 +8,7 @@ export async function findUserAll() {
     const { data, error } = await supabase
       .from("user") // 表名
       .select("*"); // 查询所有字段
-    console.time("查询所有用户时间"); // 开始计时
+    console.timeEnd("查询所有用户时间"); // 开始计时
 
     if (error) {
       console.error("Error querying user findUserAll:", error);
@@ -83,7 +83,6 @@ export async function createUser(params: User) {
       return null;
     }
 
-    console.log("User added:", data);
     return data;
   } catch (err) {
     console.error("Unexpected error:", err);
