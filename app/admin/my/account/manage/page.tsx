@@ -80,10 +80,7 @@ const ListPage = () => {
   };
 
   const handleSearch = () => {
-    const filtered = tableDataSource.filter((item: any) =>
-      item.username.toLowerCase().includes(filterUsername.toLowerCase())
-    );
-    setFilteredData(filtered);
+    triggerTable();
   };
 
   const handleReset = () => {
