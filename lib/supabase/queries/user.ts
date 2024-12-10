@@ -44,17 +44,16 @@ export async function findUserByName(username: string) {
     const { data, error } = await supabase
       .from("user") // 表名
       .select("*") // 查询所有字段
-      .eq("username", username) // 条件：username 等于给定值
-      .single(); // 返回单条数据（如果匹配多条，抛出错误）
+      .eq("username", username); // 条件：username 等于给定值
 
     if (error) {
-      console.error("Error querying user:", error);
+      console.error("Error querying user findUserByName:", error);
       return null; // 或者根据需求返回错误信息
     }
 
-    return data; // 成功时返回用户数据
+    return data?.length > 0 ? data[0] : null; // 成功时返回用户数据
   } catch (err) {
-    console.error("Unexpected error:", err);
+    console.error("Unexpected error findUserByName:", err);
     return null; // 捕获意外的异常
   }
 }
