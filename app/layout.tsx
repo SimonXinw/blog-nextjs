@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "src/components/PageHeader";
+import { Analytics } from "@vercel/analytics/next";
 
 import "@/styles/globals.css";
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body>
         <PageHeader />
         {children}
+        <Analytics />
       </body>
     </html>
   );
