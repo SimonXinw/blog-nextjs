@@ -34,24 +34,6 @@ const generateToken = (data: any) => {
   return jwt.sign(data, SECRET_KEY, { algorithm: "HS256", expiresIn: "1h" });
 };
 
-/**
- * 鉴权中间件
- */
-const authMiddleware = (cookieStr: string) => {
-  const cookies = cookieParse(cookieStr || "");
-  const oldToken = cookies[TOKEN_KEY_NAME] || "";
-
-  try {
-    const tokenData = jwt.verify(oldToken, SECRET_KEY, {
-      algorithms: ["HS256"],
-    });
-    const newToken = generateToken(tokenData);
-    return { token: newToken, isAccess: true };
-  } catch (e) {
-    return { token: null, isAccess: false };
-  }
-};
-
 export async function POST(req: Request) {
   const body = await req.json();
 

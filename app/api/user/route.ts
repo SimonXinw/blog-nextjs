@@ -25,39 +25,6 @@ const createResponse = (params?: CreateResponseType) => {
   };
 };
 
-const generateToken = (data: any) => {
-  const token = jwt.sign(data, SECRET_KEY, {
-    algorithm: "HS256",
-    expiresIn: "1h",
-  });
-
-  return token;
-};
-
-const authMiddleware = (cookieStr: string) => {
-  const cookies = cookieParse(cookieStr || "");
-
-  const oldToken = cookies[TOKEN_KEY_NAME] || "";
-
-  try {
-    const tokenData = jwt.verify(oldToken, SECRET_KEY, {
-      algorithms: ["HS256"],
-    });
-
-    const newToken = generateToken(tokenData);
-
-    return {
-      token: newToken,
-      isAccess: true,
-    };
-  } catch (e) {
-    return {
-      token: null,
-      isAccess: false,
-    };
-  }
-};
-
 export async function GET(req: NextRequest) {
   try {
     // 查找目标用户

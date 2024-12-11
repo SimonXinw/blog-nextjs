@@ -1,11 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
-import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
 import userJson from "@/constants/api/user.json";
-import { parse as cookieParse } from "cookie";
 import { find, map } from "lodash";
 
 type CreateResponseType = {
@@ -25,39 +22,6 @@ const createResponse = (params?: CreateResponseType) => {
     success,
     data: data,
   };
-};
-
-const generateToken = (data: any) => {
-  const token = jwt.sign(data, SECRET_KEY, {
-    algorithm: "HS256",
-    expiresIn: "1h",
-  });
-
-  return token;
-};
-
-const authMiddleware = (cookieStr: string) => {
-  const cookies = cookieParse(cookieStr || "");
-
-  const oldToken = cookies[TOKEN_KEY_NAME] || "";
-
-  try {
-    const tokenData = jwt.verify(oldToken, SECRET_KEY, {
-      algorithms: ["HS256"],
-    });
-
-    const newToken = generateToken(tokenData);
-
-    return {
-      token: newToken,
-      isAccess: true,
-    };
-  } catch (e) {
-    return {
-      token: null,
-      isAccess: false,
-    };
-  }
 };
 
 export async function POST(req: NextRequest) {
