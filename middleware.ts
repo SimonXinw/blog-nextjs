@@ -53,7 +53,9 @@ function handleLocalePathRedirect(
  * 中间件函数，用于处理请求的路径。
  */
 export async function middleware(request: NextRequest & { ip: string }) {
-  if (!auth(request.cookies)) {
+  const authAccess = await auth(request.cookies);
+
+  if (!authAccess) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 

@@ -7,12 +7,12 @@ type CreateResponseType = {
   code?: number;
   success?: boolean;
   data?: any;
-  msg?: string;
+  message?: string;
 };
 
 const createResponse = (params?: CreateResponseType) => {
-  const { code = 200, data = null, success = true, msg } = params || {};
-  return { code, success, data, msg };
+  const { code = 200, data = null, success = true, message } = params || {};
+  return { code, success, data, message };
 };
 
 const generateToken = (data: any) => {
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
 
   if (!url) {
     return NextResponse.json(
-      createResponse({ success: false, msg: "Invalid URL" }),
+      createResponse({ success: false, message: "Invalid URL" }),
       { status: 400 }
     );
   }
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
   if (authData.isAccess) {
     const response = NextResponse.json(
-      createResponse({ msg: "Token 已经更新" }),
+      createResponse({ message: "Token 已经更新" }),
       { status: 200 }
     );
 
@@ -71,8 +71,8 @@ export async function POST(req: NextRequest) {
 
   if (!(username && password)) {
     return NextResponse.json(
-      createResponse({ success: false, msg: "用户名和密码是必填项。" }),
-      { status: 400 }
+      createResponse({ success: false, message: "用户名和密码是必填项" }),
+      { status: 200 }
     );
   }
 
@@ -80,15 +80,15 @@ export async function POST(req: NextRequest) {
 
   if (!userData) {
     return NextResponse.json(
-      createResponse({ success: false, msg: "账号或密码错误。" }),
-      { status: 401 }
+      createResponse({ success: false, message: "账号或密码错误" }),
+      { status: 200 }
     );
   }
 
   const token = generateToken({ username });
 
   const response = NextResponse.json(
-    createResponse({ data: "登录成功，token 已设置在 Cookies 中。" }),
+    createResponse({ data: "登录成功，token 已设置在 Cookies 中" }),
     { status: 200 }
   );
 

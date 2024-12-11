@@ -5,7 +5,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 export const HeadNavConfig: MenuProps["items"] = [
   {
-    key: "/c",
+    key: "/",
     label: `Home`,
   },
 ];

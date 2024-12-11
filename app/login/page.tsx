@@ -51,7 +51,7 @@ const Login: React.FC = () => {
       if (!res?.success) {
         return messageApi.open({
           type: "error",
-          content: res?.msg,
+          content: res?.message || "登录失败!",
         });
       }
 

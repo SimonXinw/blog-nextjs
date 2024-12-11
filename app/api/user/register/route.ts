@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
   }
 
   // 生成 Token 并设置到 Cookie
-  const token = generateToken({ username, loginType: newUser.loginType });
+  const token = await generateToken({ username, loginType: newUser.loginType });
 
   const result = createResponse({
     data: newUser,

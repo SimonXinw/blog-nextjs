@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import styles from './index.module.css';
+import React from "react";
+import Image from "next/image";
+import styles from "./index.module.css";
 
 interface PropsType {
   className?: string;
@@ -8,10 +8,10 @@ interface PropsType {
 }
 
 function Logo(props: PropsType) {
-  const { className, ...arg } = props
+  const { className, ...arg } = props;
   return (
     <Image
-      className={`${styles[className || 'logo-img']}`}
+      className={`${styles[className || "logo-img"]} cursor-pointer`}
       width={32}
       height={32}
       alt="logo"
