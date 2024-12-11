@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 // Handle GET request to fetch todos by user_id
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const user_id = searchParams.get("user_id");
+  const user_id = Number(searchParams.get("user_id"));
 
   if (!user_id) {
     return NextResponse.json(
@@ -64,7 +64,7 @@ export async function PATCH(request: Request) {
   }
 
   try {
-    const softDeletedTodo = await softDeleteTodo(id);
+    const softDeletedTodo = await softDeleteTodo(Number(id));
     return NextResponse.json(softDeletedTodo, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -81,7 +81,7 @@ export async function DELETE(request: Request) {
   }
 
   try {
-    const deletedTodo = await deleteTodoPermanently(id);
+    const deletedTodo = await deleteTodoPermanently(Number(id));
     return NextResponse.json(deletedTodo, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

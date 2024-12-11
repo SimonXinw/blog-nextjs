@@ -21,15 +21,23 @@ export interface User {
 }
 
 // 增加待办事项
-export async function addTodo(
-  user_id: number,
-  title: string,
-  priority: "low" | "medium" | "high",
-  description?: string,
-  due_date?: string,
-  tags?: string[]
-): Promise<Todo | null> {
+export async function addTodo(params: {
+  user_id: number;
+  title: string;
+  priority: "low" | "medium" | "high";
+  description?: string;
+  due_date?: string;
+  tags?: string[];
+}): Promise<Todo | null> {
   try {
+    const {
+      user_id,
+      title,
+      description,
+      priority,
+      due_date = null,
+      tags,
+    } = params;
     const { data, error } = await supabase
       .from("todolist")
       .insert([
@@ -38,7 +46,7 @@ export async function addTodo(
           title,
           description,
           priority,
-          due_date: due_date || null,
+          due_date: due_date,
           tags,
         },
       ])
