@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import userJson from "@/constants/api/user.json";
+import { updateUserById } from "lib/supabase/queries/user";
 import { find, map } from "lodash";
 
 type CreateResponseType = {
@@ -37,42 +37,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 查找目标用户
-    const user = find(userJson.data, { id: Number(id) });
+    const updateRes = await updateUserById(body);
 
-    if (!user) {
+    if (!updateRes) {
       return NextResponse.json(
-        createResponse({ success: false, data: "Error: 用户未找到" }),
-        { status: 404 }
+        createResponse({ success: false, data: "更新失败" }),
+        { status: 200 }
       );
     }
 
-    // 更新用户数据
-    const updatedData = map(userJson.data, (item) => {
-      if (item.id === Number(id)) {
-        return { ...item, ...updateFields }; // 更新目标用户的字段
-      }
-      return item;
-    });
-
-    userJson.data = updatedData;
-
-    // 将 JSON 对象转换为字符串
-    const userJsonString = JSON.stringify(userJson, null, 2);
-
-    // 写入 JSON 数据到文件
-    const filepath = path.join(
-      process.cwd(),
-      "src",
-      "constants",
-      "api",
-      "user.json"
-    );
-
-    fs.writeFileSync(filepath, userJsonString);
-
     return NextResponse.json(
-      createResponse({ success: true, data: updatedData }),
+      createResponse({ success: true, data: updateRes }),
       { status: 200 }
     );
   } catch (error) {

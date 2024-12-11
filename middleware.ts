@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import Negotiator from "negotiator";
 import { i18n, LocaleType, COOKIE_LOCALE_KEY } from "./i18n";
 import { getDbGeoIpLocale } from "lib/geoip";
+import { auth } from "src/utils/auth";
 
 /**
  * 从请求中获取最合适的语言环境。
@@ -52,9 +53,16 @@ function handleLocalePathRedirect(
  * 中间件函数，用于处理请求的路径。
  */
 export async function middleware(request: NextRequest & { ip: string }) {
+  if (!auth(request.cookies)) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
   const pathname = request.nextUrl.pathname;
+
   const localeRegex = /^\/([^\/]+)(\/.*)?$/;
+
   const localeMatched = pathname.match(localeRegex);
+
   const matchedLocale = localeMatched?.[1] || "";
 
   const urlObj = request.nextUrl;

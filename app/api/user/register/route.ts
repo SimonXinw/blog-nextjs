@@ -1,8 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextResponse, NextRequest } from "next/server";
-import jwt from "jsonwebtoken";
-import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
-import { parse as cookieParse } from "cookie";
+import { TOKEN_KEY_NAME } from "@/constants/api/user";
+import { generateToken } from "src/utils/auth";
 import { findUserByName, createUser } from "lib/supabase/queries/user";
 
 type CreateResponseType = {
@@ -27,14 +26,7 @@ const createResponse = ({
   message,
 });
 
-/**
- * 生成 Token
- */
-const generateToken = (data: any) => {
-  return jwt.sign(data, SECRET_KEY, { algorithm: "HS256", expiresIn: "1h" });
-};
-
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
 
   const { username, password } = body;
@@ -77,10 +69,11 @@ export async function POST(req: Request) {
 
   const result = createResponse({
     data: newUser,
-    message: "注册成功，Token 已设置到 Cookies 中",
+    message: "注册成功, Token 已设置到 Cookies 中",
   });
 
   const response = NextResponse.json(result, { status: 201 });
+
   response.headers.set(
     "Set-Cookie",
     `${TOKEN_KEY_NAME}=${token}; Path=/; HttpOnly`

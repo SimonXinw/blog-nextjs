@@ -21,3 +21,11 @@ export const getList = (id?: number) => {
     return res.data;
   });
 };
+
+export const update = (data: any) => {
+  return request("/user/update", { method: "POST", data }).then((res: any) => {
+    if (!res?.success) return null;
+
+    return res.data;
+  });
+};

@@ -42,6 +42,26 @@ export async function findUserById(id: number) {
   }
 }
 
+export async function updateUserById({ id, ...args }: User) {
+  try {
+    // 使用 Supabase 更新数据
+    const { data, error } = await supabase
+      .from("user") // 替换为你的表名
+      .update(args) // 替换为列名和值
+      .eq("id", id); // 根据 ID 查找
+
+    if (error) {
+      throw new Error(`更新失败 updateUserById: ${error.message}`);
+    }
+
+    return data; // 返回更新后的数据
+  } catch (err) {
+    console.error("发生错误 updateUserById:", err);
+
+    return null; // 返回 null 表示失败
+  }
+}
+
 export async function findUserByName(username: string) {
   try {
     const { data, error } = await supabase

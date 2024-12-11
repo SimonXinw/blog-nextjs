@@ -43,18 +43,7 @@ const ListPage = () => {
   });
 
   const { loading: updateLoading, run: updateUser } = useRequest(
-    async (updatedRecord) => {
-      // 调用更新接口
-      const response = await fetch("/user/update", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-
-        body: JSON.stringify(updatedRecord),
-      });
-      const result = await response.json();
-      if (!result.success) throw new Error(result.data || "更新失败");
-      return result.data;
-    },
+    services.remove,
     { manual: true }
   );
 
@@ -99,12 +88,7 @@ const ListPage = () => {
       const updatedRecord = { ...editingRecord, ...values }; // 合并原有记录和新值
       await updateUser(updatedRecord); // 调用更新 API
 
-      // 更新表格数据
-      setTableDataSource((prev: any) =>
-        prev.map((item: any) =>
-          item.id === updatedRecord.id ? updatedRecord : item
-        )
-      );
+      triggerTable();
 
       messageApi.success("更新成功");
       setIsModalOpen(false); // 关闭弹窗

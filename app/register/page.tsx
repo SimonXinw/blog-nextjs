@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRequest } from "ahooks";
-import { PageHeader } from "@/components";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Radio, message } from "antd";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -61,10 +59,6 @@ const Register: React.FC = () => {
     setLoginType(loginType);
   };
 
-  useEffect(() => {
-    console.log("loading >>>>>>>>>>>>>>>>", loading);
-  }, [loading]);
-
   return (
     <div className={styles["login-page"]}>
       <ImageBg />
@@ -72,7 +66,7 @@ const Register: React.FC = () => {
       <div className={styles["form-wrap"]}>
         <Form
           {...layout}
-          initialValues={{ loginType: "account", remember: true }}
+          initialValues={{ loginType, remember: true }}
           form={form}
           layout="vertical"
           name="normal_login"
