@@ -74,6 +74,9 @@ export async function middleware(request: NextRequest & { ip: string }) {
     request?.ip ||
     "127.0.0.1";
 
+  // 如果是 `/admin` 路径，则只校验 auth，不进行语言处理，以后会增加很多
+  if (pathname.startsWith("/admin")) return NextResponse.next();
+
   // 主域名
   if (pathname === "/") {
     /**
@@ -127,6 +130,6 @@ export async function middleware(request: NextRequest & { ip: string }) {
  */
 export const config = {
   matcher: [
-    "/((?!api|public|_next/static|_next/image|favicon.ico|images|admin|login|register|fonts).*)",
+    "/((?!api|public|_next/static|_next/image|favicon.ico|images|login|register|fonts).*)",
   ],
 };
