@@ -63,7 +63,7 @@ export const softDeleteTodo = async (id: string) => {
   return response.json();
 };
 
-export const deleteTodoPermanently = async (id: string) => {
+export const deleteTodoPermanently = async (id: string | number) => {
   const response = await fetch(`${API_BASE_URL}/${id}`, {
     method: "DELETE",
   });
