@@ -121,7 +121,7 @@ const ListPage = () => {
 
       {/* 表格展示 */}
       <Table
-        loading={loading}
+        loading={loading || removeLoading}
         dataSource={data}
         columns={getColumns({ remove: handleRemove, edit: handleEdit })}
         rowKey="id" // 防止表格警告
