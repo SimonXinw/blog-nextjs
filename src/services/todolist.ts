@@ -23,7 +23,7 @@ export const addTodo = async (todo: {
   return response.json();
 };
 
-export const getTodosByUser = async (user_id: string) => {
+export const getTodosByUser = async (user_id: number | string) => {
   const response = await fetch(`${API_BASE_URL}?user_id=${user_id}`, {
     method: "GET",
   });
