@@ -112,13 +112,14 @@ const TodoListPage = () => {
     if (editingRecord) {
       updateTodoRequest(editingRecord.id, values);
     } else {
-      addTodoRequest(
-        1,
-        values.title,
-        values.description,
-        values.priority,
-        values.due_date
-      );
+      addTodoRequest({
+        user_id: 1,
+        title: values.title,
+        description: values.description,
+        priority: values.priority,
+        due_date: values.due_date,
+        tags: [],
+      });
     }
   };
 

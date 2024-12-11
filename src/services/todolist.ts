@@ -1,7 +1,7 @@
 const API_BASE_URL = "/todolist";
 
 export const addTodo = async (todo: {
-  user_id: string;
+  user_id: string | number;
   title: string;
   description?: string;
   priority?: number;
