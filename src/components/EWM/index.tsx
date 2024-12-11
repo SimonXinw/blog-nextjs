@@ -34,7 +34,7 @@ const Ewm: React.FC<PropsTs> = (props) => {
         width={100}
         height={100}
         alt="二维码"
-        src="/ewm.png"
+        src="/ewm.webp"
       />
     </div>
   );

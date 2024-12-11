@@ -15,7 +15,7 @@ function Logo(props: PropsType) {
       width={32}
       height={32}
       alt="logo"
-      src="/logo/logo.png"
+      src="/logo/logo.webp"
       {...arg}
     />
   );

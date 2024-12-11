@@ -10,7 +10,7 @@ interface PropsType {
 
 function ImageBg(props: PropsType) {
   const {
-    src = "/leimu-100kb.jpeg",
+    src = "/leimu-100kb.webp",
     alt = "",
     className = styles["img-bg"],
     ...args
