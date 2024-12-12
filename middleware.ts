@@ -130,6 +130,6 @@ export async function middleware(request: NextRequest & { ip: string }) {
  */
 export const config = {
   matcher: [
-    "/((?!api|public|_next/static|_next/image|favicon.ico|images|login|register|fonts).*)",
+    "/((?!api|public|_next/static|_next/image|favicon.ico|images|login|register|fonts|logo|videos).*)",
   ],
 };
