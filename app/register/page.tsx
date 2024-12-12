@@ -61,7 +61,7 @@ const Register: React.FC = () => {
 
   return (
     <div className={styles["login-page"]}>
-      <ImageBg />
+      <ImageBg src="/images/tiankong-200kb.webp" />
       {contextHolder}
       <div className={styles["form-wrap"]}>
         <Form
