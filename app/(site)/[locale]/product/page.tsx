@@ -26,7 +26,6 @@ export default async function Page({
   return (
     <div className="flex justify-center items-center h-screen bg-black text-white">
       {langDict.product}
-      {JSON.stringify(data, null, 2)}
     </div>
   );
 }

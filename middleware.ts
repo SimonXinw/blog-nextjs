@@ -129,7 +129,5 @@ export async function middleware(request: NextRequest & { ip: string }) {
  * 中间件的配置对象。
  */
 export const config = {
-  matcher: [
-    "/((?!api|public|_next/static|_next/image|favicon.ico|images|videos|login|register|fonts|logo).*)",
-  ],
+  matcher: "/((?!api|static|.*\\..*|_next|login|register).*)",
 };
