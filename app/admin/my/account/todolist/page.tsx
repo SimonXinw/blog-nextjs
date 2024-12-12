@@ -34,7 +34,7 @@ const TodoListPage = () => {
   const [editingRecord, setEditingRecord] = useState<any>(null);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const { loading, run: fetchTodos } = useRequest(() => getTodosByUser(1), {
+  const { loading, run: fetchTodos } = useRequest(() => getTodosByUser(), {
     manual: true,
     onSuccess: (data) => {
       setTableDataSource(data || []);
@@ -95,12 +95,15 @@ const TodoListPage = () => {
   };
 
   const handleSearch = () => {
-    // Triggered when the search button is clicked
+    fetchTodos();
   };
 
   const handleReset = () => {
     setFilterKeyword("");
     setFilteredData(tableDataSource);
+  };
+  const onAdd = () => {
+    setIsModalOpen(true);
   };
 
   const handleEdit = (record: any) => {
@@ -110,10 +113,9 @@ const TodoListPage = () => {
 
   const onFinish = (values: any) => {
     if (editingRecord) {
-      updateTodoRequest(editingRecord.id, values);
+      updateTodoRequest({ ...values, id: editingRecord.id });
     } else {
       addTodoRequest({
-        user_id: 1,
         title: values.title,
         description: values.description,
         priority: values.priority,
@@ -186,6 +188,9 @@ const TodoListPage = () => {
         </Col>
         <Col>
           <Button onClick={handleReset}>重置</Button>
+        </Col>
+        <Col>
+          <Button onClick={onAdd}>新增</Button>
         </Col>
       </Row>
 

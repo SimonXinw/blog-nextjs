@@ -22,12 +22,12 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     {
       title: "Account",
       key: "Account",
-      href: "/my/account",
+      href: "/admin/my/account",
     },
     {
       title: "Manage",
       key: "Manage",
-      href: "/my/account/manage",
+      href: "/admin/my/account/manage",
     },
   ];
 

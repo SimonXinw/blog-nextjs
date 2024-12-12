@@ -1,76 +1,38 @@
+import request from "./axios";
 const API_BASE_URL = "/todolist";
 
-export const addTodo = async (todo: {
-  user_id: string | number;
+export const addTodo = (todo: {
   title: string;
   description?: string;
   priority?: number;
   due_date?: string;
   tags?: string[];
 }) => {
-  const response = await fetch(API_BASE_URL, {
+  return request(API_BASE_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(todo),
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to add todo");
-  }
-
-  return response.json();
+    data: todo,
+  }).then((res: any) => res?.success);
 };
 
-export const getTodosByUser = async (user_id: number | string) => {
-  const response = await fetch(`${API_BASE_URL}?user_id=${user_id}`, {
-    method: "GET",
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch todos");
-  }
-
-  return response.json();
+export const getTodosByUser = async () => {
+  return request(`${API_BASE_URL}`).then((res: any) => res.data);
 };
 
-export const updateTodo = async (id: string, updates: Record<string, any>) => {
-  const response = await fetch(`${API_BASE_URL}/${id}`, {
+export const updateTodo = async (updates: Record<string, any>) => {
+  return request(`${API_BASE_URL}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updates),
+    data: updates,
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to update todo");
-  }
-
-  return response.json();
 };
 
 export const softDeleteTodo = async (id: string) => {
-  const response = await fetch(`${API_BASE_URL}/soft-delete/${id}`, {
+  return request(`${API_BASE_URL}/soft-delete/${id}`, {
     method: "PATCH",
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to soft delete todo");
-  }
-
-  return response.json();
 };
 
 export const deleteTodoPermanently = async (id: string | number) => {
-  const response = await fetch(`${API_BASE_URL}/${id}`, {
+  return request(`${API_BASE_URL}?id=${id}`, {
     method: "DELETE",
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete todo permanently");
-  }
-
-  return response.json();
 };

@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
+import { USER_INFO } from "@/constants/user";
 import { findUserByName } from "lib/supabase/queries/user";
 
 type CreateResponseType = {
@@ -87,6 +88,8 @@ export async function POST(req: NextRequest) {
 
   const token = generateToken({ username });
 
+  const userInfo = JSON.stringify(userData);
+
   const response = NextResponse.json(
     createResponse({ data: "登录成功，token 已设置在 Cookies 中" }),
     { status: 200 }
@@ -94,7 +97,7 @@ export async function POST(req: NextRequest) {
 
   response.headers.set(
     "Set-Cookie",
-    `${TOKEN_KEY_NAME}=${token}; Path=/; HttpOnly; SameSite=Strict`
+    `${TOKEN_KEY_NAME}=${token}; Path=/; HttpOnly; SameSite=Strict;${USER_INFO}=${userInfo}; Path=/; HttpOnly; SameSite=Strict`
   );
 
   return response;

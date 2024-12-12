@@ -53,6 +53,7 @@ export async function addTodo(params: {
       .single();
 
     if (error) throw error;
+
     console.log("Todo added:", data);
     return data;
   } catch (error) {
@@ -71,7 +72,9 @@ export async function getTodosByUser(user_id: number): Promise<Todo[] | null> {
       .order("due_date", { ascending: true });
 
     if (error) throw error;
+
     console.log("Todos fetched:", data);
+
     return data;
   } catch (error) {
     console.error("Error fetching todos:", error);
@@ -142,7 +145,9 @@ export async function deleteTodoPermanently(id: number): Promise<boolean> {
     const { error } = await supabase.from("todolist").delete().eq("id", id);
 
     if (error) throw error;
+
     console.log("Todo permanently deleted");
+
     return true;
   } catch (error) {
     console.error("Error deleting todo permanently:", error);
