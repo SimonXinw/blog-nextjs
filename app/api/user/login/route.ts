@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
 
   if (!userData) {
     return NextResponse.json(
-      createResponse({ success: false, message: "账号或密码错误" }),
+      createResponse({ success: false, message: "找不到该用户数据" }),
       { status: 200 }
     );
   }
