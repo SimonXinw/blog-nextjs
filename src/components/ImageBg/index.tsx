@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./index.module.css";
-import Image from 'next/image';
+import Image from "next/image";
 
 interface PropsType {
   src?: string;
@@ -10,7 +10,7 @@ interface PropsType {
 
 function ImageBg(props: PropsType) {
   const {
-    src = "/leimu-100kb.webp",
+    src = "/images/leimu-100kb.webp",
     alt = "",
     className = styles["img-bg"],
     ...args
@@ -18,8 +18,7 @@ function ImageBg(props: PropsType) {
 
   return (
     <div className={className}>
-      <Image src={src} alt={alt} {...args} width={1920}
-        height={1080} />
+      <Image src={src} alt={alt} {...args} width={1920} height={1080} />
     </div>
   );
 }
