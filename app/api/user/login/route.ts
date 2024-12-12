@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY, TOKEN_KEY_NAME } from "@/constants/api/user";
 import { USER_INFO } from "@/constants/user";
+import type { User } from "lib/supabase/types";
 import { findUserByName } from "lib/supabase/queries/user";
 
 type CreateResponseType = {
@@ -77,7 +78,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const userData = await findUserByName(username);
+  const userData: User = await findUserByName(username);
 
   if (!userData) {
     return NextResponse.json(
@@ -88,7 +89,9 @@ export async function POST(req: NextRequest) {
 
   const token = generateToken({ username });
 
-  const userInfo = JSON.stringify(userData);
+  const { password: _, ...removePasswordData } = userData;
+
+  const userInfo = JSON.stringify(removePasswordData);
 
   const response = NextResponse.json(
     createResponse({ data: "登录成功，token 已设置在 Cookies 中" }),
