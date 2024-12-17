@@ -1,6 +1,5 @@
 import React from "react";
-// import Home from "./index";
-import Home from "./newHome";
+import Home from "./index";
 
 export default function Page() {
   return <Home />;

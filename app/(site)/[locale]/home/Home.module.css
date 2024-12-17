@@ -1,4 +1,5 @@
-.container {
+.container,
+.pageContainer {
   height: 100%;
 
   overflow: hidden;
@@ -18,13 +19,11 @@
   opacity: 0;
   overflow-y: auto;
 
-  height: calc(100% - 52px - 32px) ;
+  height: calc(100% - 52px - 32px);
   padding-top: 20px;
 
   transition: opacity 1s;
   -webkit-transition: opacity 1s;
-
-
 }
 
 .title {
@@ -42,7 +41,6 @@
   align-items: center;
 
   padding-bottom: 20px;
-
 }
 
 .demo-list {
