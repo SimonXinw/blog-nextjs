@@ -3,7 +3,6 @@ import type { User } from "../types";
 
 export async function findUserAll() {
   try {
-    console.time("查询所有用户时间"); // 开始计时
 
     const { data, error } = await supabase
       .from("user") // 表名

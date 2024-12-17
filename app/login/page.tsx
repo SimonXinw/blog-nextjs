@@ -121,8 +121,8 @@ const Login: React.FC = () => {
             <Button
               loading={loading}
               type="primary"
+              className="w-full bg-[#1677ff]"
               htmlType="submit"
-              style={{ width: "100%" }}
             >
               Log in
             </Button>
