@@ -53,13 +53,17 @@ function handleLocalePathRedirect(
  * 中间件函数，用于处理请求的路径。
  */
 export async function middleware(request: NextRequest & { ip: string }) {
+  const pathname = request.nextUrl.pathname;
+
+  if (pathname === "/") {
+    return NextResponse.next();
+  }
+
   const authAccess = await auth(request.cookies);
 
   if (!authAccess) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-
-  const pathname = request.nextUrl.pathname;
 
   const localeRegex = /^\/([^\/]+)(\/.*)?$/;
 
