@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
       const rows = Array.from(
         document.querySelectorAll(".bank_rate_table tbody tr")
       );
-      return rows.map((row: HTMLElement) => {
+      return rows.map((row: any) => {
         const name =
           row.querySelector("td:first-child")?.textContent?.trim() || "";
         const buyPrice = parseFloat(
